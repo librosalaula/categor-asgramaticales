@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="riso">
+  <title>Morfología y Sintaxis en Acción · Guía interactiva para 2.º ESO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Riso palette & surfaces */
+      --background: #f7f3ea;
+      --surface-container-low: #ffffff;
+      --surface-container: #efe8d8;
+      --surface-container-high: #fff8b3;
+
+      /* Ink */
+      --on-surface: #1d2a5a;
+      --on-surface-variant: #3d4775;
+
+      /* Rules */
+      --outline: #1d2a5a;
+      --outline-variant: #c3c6d9;
+
+      /* Accents */
+      --primary: #006aa8;
+      --on-primary: #ffffff;
+      --primary-container: #ffe800;
+      --on-primary-container: #1d2a5a;
+      --secondary: #ff52b4;
+      --tertiary: #d00074;
+      --error: #c0262d;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #0078bf;
+      --data-2: #d00074;
+      --data-3: #1d2a5a;
+      --data-4: #d9531e;
+      --data-context: #b4b8cc;
+
+      /* Fonts */
+      --font-headline: 'Archivo', sans-serif;
+      --font-body: 'Work Sans', sans-serif;
+      --font-label: 'Space Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.5rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --misregister: 3px 2px 0 rgb(255 82 180 / 0.85);
+      --ink-border: 2px solid var(--outline);
+      --ink-border-light: 1px solid var(--outline-variant);
+      --offset-pink: 5px 5px 0 var(--secondary);
+      --offset-blue: 5px 5px 0 var(--primary);
+      --offset-sm: 3px 3px 0 var(--primary);
+      --offset-sm-pink: 3px 3px 0 var(--secondary);
+      --halftone: radial-gradient(rgb(29 42 90 / 0.07) 1px, transparent 1.2px);
+      --halftone-size: 6px 6px;
+
+      /* 3. Shared tokens */
+      --positive: #156f42;
+      --positive-bg: #dff5e8;
+      --warning: #9a5200;
+      --warning-bg: #ffeed9;
+      --error-bg: #fde4e5;
+      --focus: var(--primary);
+
+      /* Narrative type scale */
+      --display-size: clamp(2.5rem, 1.5rem + 4.2vw, 4.75rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 2vw, 2.6rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    body {
+      background-color: var(--background);
+      background-image: var(--halftone);
+      background-size: var(--halftone-size);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography helpers */
+    .misregister {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      color: var(--primary);
+      text-shadow: var(--misregister);
+      margin: 0;
+    }
+
+    h1.misregister {
+      font-size: var(--display-size);
+    }
+
+    h2.misregister {
+      font-size: var(--headline-size);
+    }
+
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--subhead-size);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm) 0;
+    }
+
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    strong { font-weight: 600; color: var(--on-surface); }
+
+    .prose-highlight {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      padding: 0 var(--space-xs);
+      font-weight: 600;
+    }
+
+    .kicker-note {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--primary);
+      color: var(--on-primary);
+      border-radius: var(--rounded-full);
+      padding: var(--space-xs) var(--space-sm);
+      line-height: 1.2;
+    }
+
+    .stamp--yellow {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border: var(--ink-border);
+    }
+
+    .stamp--pink {
+      background: var(--secondary);
+      color: var(--on-surface);
+      border: var(--ink-border);
+    }
+
+    .stamp--outline {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: var(--ink-border);
+    }
+
+    /* Riso Ink Blocks */
+    .ink-block {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--offset-pink);
+      padding: var(--space-lg);
+    }
+
+    .ink-block--alt {
+      background: var(--surface-container-high);
+      box-shadow: var(--offset-blue);
+    }
+
+    .ink-block--recessed {
+      background: var(--surface-container);
+      box-shadow: var(--offset-sm);
+    }
+
+    /* Buttons */
+    button, .btn {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: transform var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: var(--on-surface);
+      box-shadow: var(--offset-sm);
+    }
+    .btn-primary:hover:not(:disabled) {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+    .btn-primary:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      box-shadow: var(--offset-sm);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+
+    .btn-ghost {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      box-shadow: var(--offset-sm-pink);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--surface-container-high);
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--secondary);
+    }
+
+    .btn-blue {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--offset-sm-pink);
+    }
+    .btn-blue:hover:not(:disabled) {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--secondary);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .btn-active {
+      background: var(--primary) !important;
+      color: var(--on-primary) !important;
+      box-shadow: var(--offset-sm-pink) !important;
+    }
+
+    /* Section Header */
+    .section-wrap {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-xl);
+      border-top: var(--ink-border);
+    }
+
+    .section-head {
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: start;
+    }
+
+    .section-lede {
+      font-size: var(--subhead-size);
+      color: var(--on-surface-variant);
+      max-width: 60ch;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    /* Header / Hero */
+    .hero {
+      display: grid;
+      gap: var(--space-lg);
+      justify-items: start;
+    }
+
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      width: 100%;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: var(--space-md);
+      justify-items: start;
+    }
+
+    .hero-thesis {
+      font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3rem);
+      line-height: 1.5;
+      color: var(--on-surface);
+      max-width: 56ch;
+    }
+
+    .hero-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-xs);
+    }
+
+    .nav-pill {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--on-surface);
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      box-shadow: var(--offset-sm);
+      transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-pill:hover {
+      background: var(--primary-container);
+      transform: translate(1px, 1px);
+    }
+
+    /* Key figures row */
+    .figures-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+      width: 100%;
+    }
+
+    .figure-tile {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--offset-pink);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .figure-tile:nth-child(even) {
+      background: var(--surface-container-high);
+      box-shadow: var(--offset-blue);
+    }
+
+    .figure-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    .figure-val {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 2rem + 1.5vw, 3.5rem);
+      line-height: 1;
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .figure-note {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      font-weight: 700;
+    }
+
+    /* Overprint Chart Container */
+    .chart-panel {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .chart-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .chart .mark {
+      fill: var(--data-1);
+      mix-blend-mode: multiply;
+    }
+    .chart .mark-pink {
+      fill: var(--secondary);
+      mix-blend-mode: multiply;
+    }
+    .chart .mark-magenta {
+      fill: var(--data-2);
+      mix-blend-mode: multiply;
+    }
+
+    /* Section 1: 9 Categories Explorer */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    .categories-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .cat-card {
+      text-align: left;
+      text-transform: none;
+      letter-spacing: normal;
+      font-family: var(--font-body);
+      font-weight: 400;
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      box-shadow: var(--offset-sm-pink);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+      justify-items: start;
+      min-height: 44px;
+    }
+    .cat-card[data-kind="invariable"] {
+      background: var(--surface-container-high);
+      box-shadow: var(--offset-sm);
+    }
+    .cat-card.is-selected {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--offset-pink);
+    }
+    .cat-card.is-selected .cat-meta,
+    .cat-card.is-selected .cat-example {
+      color: var(--on-primary);
+    }
+    .cat-card.is-hidden {
+      display: none;
+    }
+
+    .cat-title {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+    .cat-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+      font-weight: 700;
+    }
+    .cat-example {
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+
+    .cat-detail-panel {
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+
+    .detail-list {
+      margin: 0;
+      padding-left: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .detail-list li {
+      line-height: 1.5;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      background: var(--surface-container-low);
+      box-shadow: var(--offset-blue);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.96rem;
+    }
+    thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: var(--space-md);
+      border-bottom: var(--ink-border);
+      background: var(--surface-container);
+      color: var(--on-surface);
+    }
+    tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--ink-border-light);
+      vertical-align: top;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    tbody tr.row-highlight {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    /* Section 2: Super-Truco Lab */
+    .lab-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .lab-stage {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .lab-sentence-box {
+      background: var(--surface-container);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .sentence-tokens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: baseline;
+      font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.65rem);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .token-word {
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .token-word--mutated {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border: var(--ink-border);
+    }
+    .token-word--target-var {
+      background: var(--primary);
+      color: var(--on-primary);
+      border: var(--ink-border);
+    }
+    .token-word--target-invar {
+      background: var(--secondary);
+      color: var(--on-surface);
+      border: var(--ink-border);
+    }
+
+    .lab-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    .step-process {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+    }
+
+    .step-num {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+    }
+
+    /* Section 3: 5 Syntagms */
+    .syntagm-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .syntagm-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .syntagm-diagram {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: stretch;
+    }
+
+    .syn-part {
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: space-between;
+    }
+    .syn-part--nucleus {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      box-shadow: var(--offset-sm);
+    }
+    .syn-part--link {
+      background: var(--secondary);
+      color: var(--on-surface);
+    }
+    .syn-part-role {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+    .syn-part-text {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+    .syn-part--removed {
+      opacity: 0.25;
+      border-style: dashed;
+      box-shadow: none;
+    }
+
+    /* Section 4: Mod + N + C Analyzer */
+    .formula-banner {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .formula-box {
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .formula-box--mod { box-shadow: var(--offset-sm); }
+    .formula-box--nuc { background: var(--primary-container); box-shadow: var(--offset-sm-pink); }
+    .formula-box--comp { box-shadow: var(--offset-sm); }
+
+    .analyzer-panel {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .chunk-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: stretch;
+    }
+
+    .chunk-card {
+      flex: 1 1 180px;
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      background: var(--surface-container-low);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: space-between;
+    }
+    .chunk-card[data-reveal="mod"] {
+      background: var(--surface-container);
+      box-shadow: var(--offset-sm);
+    }
+    .chunk-card[data-reveal="nuc"] {
+      background: var(--primary-container);
+      box-shadow: var(--offset-sm-pink);
+    }
+    .chunk-card[data-reveal="comp"] {
+      background: var(--surface-container-low);
+      box-shadow: var(--offset-sm);
+    }
+
+    .chunk-phrase {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.3rem;
+      line-height: 1.25;
+    }
+
+    .chunk-role-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .mini-role-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: var(--label-size);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      box-shadow: none;
+    }
+    .mini-role-btn.is-correct {
+      background: var(--positive-bg);
+      color: var(--positive);
+      border-color: var(--positive);
+    }
+    .mini-role-btn.is-wrong {
+      background: var(--error-bg);
+      color: var(--error);
+      border-color: var(--error);
+    }
+
+    /* Section 5: Flashcards Challenge */
+    .flashcard-shell {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .fc-toolbar {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .fc-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .fc-stat {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .fc-progress-track {
+      width: 100%;
+      height: 14px;
+      background: var(--surface-container);
+      border: var(--ink-border);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+    }
+    .fc-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    .fc-card-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .flashcard {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--offset-pink);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+      min-height: 360px;
+      align-content: space-between;
+      transition: transform var(--dur-short) var(--ease-out);
+    }
+    .flashcard.is-back {
+      background: var(--surface-container-high);
+      box-shadow: var(--offset-blue);
+    }
+
+    .fc-card-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .fc-prompt {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.85rem);
+      line-height: 1.25;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .fc-context {
+      font-size: 1.15rem;
+      background: var(--surface-container);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      line-height: 1.5;
+    }
+    .fc-context mark {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      padding: 0 var(--space-xs);
+      font-weight: 700;
+    }
+
+    .fc-quick-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .fc-feedback {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--ink-border);
+      font-weight: 600;
+      display: none;
+    }
+    .fc-feedback.is-visible { display: block; }
+    .fc-feedback--ok {
+      background: var(--positive-bg);
+      color: var(--positive);
+    }
+    .fc-feedback--err {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+
+    .fc-answer-box {
+      display: grid;
+      gap: var(--space-md);
+      border-top: var(--ink-border);
+      padding-top: var(--space-md);
+    }
+
+    .fc-answer-title {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .fc-actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      justify-content: space-between;
+      align-items: center;
+      border-top: var(--ink-border-light);
+      padding-top: var(--space-md);
+    }
+
+    .fc-nav-group, .fc-self-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .fc-sidebar {
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+
+    .fc-deck-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: var(--space-xs);
+    }
+
+    .fc-dot {
+      min-height: 44px;
+      padding: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      box-shadow: none;
+    }
+    .fc-dot.is-current {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .fc-dot.is-mastered {
+      background: var(--positive-bg);
+      color: var(--positive);
+    }
+    .fc-dot.is-review {
+      background: var(--warning-bg);
+      color: var(--warning);
+    }
+
+    /* Collapsible details */
+    details.riso-details {
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      background: var(--surface-container-low);
+      padding: var(--space-md);
+    }
+    details.riso-details summary {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      color: var(--primary);
+    }
+    details.riso-details[open] summary {
+      margin-bottom: var(--space-md);
+      border-bottom: var(--ink-border-light);
+      padding-bottom: var(--space-sm);
+    }
+
+    /* Footer */
+    .page-footer {
+      border-top: var(--ink-border);
+      padding-top: var(--space-xl);
+      display: grid;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+    }
+
+    /* Reveal animation */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive rules */
+    @media (max-width: 900px) {
+      .hero-top,
+      .categories-layout,
+      .lab-layout,
+      .syntagm-stage,
+      .fc-card-stage {
+        grid-template-columns: 1fr;
+      }
+      .fc-stats-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .figures-row,
+      .formula-banner {
+        grid-template-columns: 1fr;
+      }
+      .flashcard {
+        padding: var(--space-lg);
+      }
+      .fc-deck-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-item {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- APERTURA -->
+    <header class="hero">
+      <div class="hero-top">
+        <div class="hero-copy">
+          <span class="stamp">Lengua Castellana · 2.º de ESO</span>
+          <h1 class="misregister">Morfología y sintaxis en acción</h1>
+          <p class="hero-thesis">
+            Para analizar cualquier sintagma sin equivocarte, domina dos ideas: primero comprueba si una palabra <span class="prose-highlight">cambia de forma o permanece inmóvil</span>; después, descubre cómo se organizan las palabras en equipo alrededor de su «jefe», el núcleo.
+          </p>
+          <nav class="hero-nav" aria-label="Secciones de la guía">
+            <a class="nav-pill" href="#bloque-categorias">1. Variables e invariables</a>
+            <a class="nav-pill" href="#bloque-truco">2. El Super-Truco</a>
+            <a class="nav-pill" href="#bloque-sintagmas">3. Los 5 sintagmas</a>
+            <a class="nav-pill" href="#bloque-formula">4. Mod + N + C</a>
+            <a class="nav-pill" href="#bloque-flashcards">5. Reto de Flashcards</a>
+          </nav>
+        </div>
+
+        <aside class="ink-block ink-block--alt chart-panel" aria-label="Mapa visual de categorías y sintagmas">
+          <p class="kicker-note">Esquema de impresión rápida</p>
+          <h3>El sistema de la lengua en números</h3>
+          <svg class="chart chart-svg" viewBox="0 0 360 195" role="img" aria-label="Gráfico de barras comparando 5 categorías variables, 4 invariables y 5 tipos de sintagmas">
+            <!-- Gridlines -->
+            <line x1="120" y1="20" x2="120" y2="155" stroke="var(--outline)" stroke-width="2" />
+            <line x1="190" y1="20" x2="190" y2="155" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+            <line x1="260" y1="20" x2="260" y2="155" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+            <line x1="330" y1="20" x2="330" y2="155" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+
+            <!-- Row 1: Variables -->
+            <text x="110" y="48" text-anchor="end" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-surface)">VARIABLES</text>
+            <rect class="mark" x="120" y="30" width="175" height="26" rx="3" />
+            <rect class="mark-pink" x="124" y="34" width="175" height="26" rx="3" />
+            <text x="307" y="49" font-family="var(--font-label)" font-size="12" font-weight="700" fill="var(--on-surface)">5 clases</text>
+
+            <!-- Row 2: Invariables -->
+            <text x="110" y="96" text-anchor="end" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-surface)">INVARIABLES</text>
+            <rect class="mark-magenta" x="120" y="78" width="140" height="26" rx="3" />
+            <text x="270" y="96" font-family="var(--font-label)" font-size="12" font-weight="700" fill="var(--tertiary)">4 clases</text>
+
+            <!-- Row 3: Sintagmas -->
+            <text x="110" y="144" text-anchor="end" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-surface)">SINTAGMAS</text>
+            <rect class="mark" x="120" y="126" width="175" height="26" rx="3" />
+            <text x="305" y="144" font-family="var(--font-label)" font-size="12" font-weight="700" fill="var(--primary)">5 tipos</text>
+
+            <!-- Axis ticks -->
+            <line x1="120" y1="162" x2="335" y2="162" stroke="var(--outline)" stroke-width="2" />
+            <text x="120" y="180" text-anchor="middle" font-family="var(--font-label)" font-size="10" fill="var(--on-surface-variant)">0</text>
+            <text x="190" y="180" text-anchor="middle" font-family="var(--font-label)" font-size="10" fill="var(--on-surface-variant)">2</text>
+            <text x="260" y="180" text-anchor="middle" font-family="var(--font-label)" font-size="10" fill="var(--on-surface-variant)">4</text>
+            <text x="330" y="180" text-anchor="middle" font-family="var(--font-label)" font-size="10" fill="var(--on-surface-variant)">6</text>
+          </svg>
+          <p class="cat-example">Las 5 variables admiten flexión; las 4 invariables no cambian jamás. Con ellas construimos los 5 sintagmas.</p>
+        </aside>
+      </div>
+
+      <div class="figures-row">
+        <div class="figure-tile reveal-item">
+          <span class="figure-label">Categorías gramaticales</span>
+          <span class="figure-val">9</span>
+          <span class="figure-note">5 variables + 4 invariables</span>
+        </div>
+        <div class="figure-tile reveal-item">
+          <span class="figure-label">Tipos de sintagmas</span>
+          <span class="figure-val">5</span>
+          <span class="figure-note">Cada uno dirigido por un núcleo</span>
+        </div>
+        <div class="figure-tile reveal-item">
+          <span class="figure-label">Fórmula del sintagma</span>
+          <span class="figure-val">3</span>
+          <span class="figure-note">Modificador + Núcleo + Complemento</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- BLOQUE 1: VARIABLES E INVARIABLES -->
+    <section id="bloque-categorias" class="section-wrap">
+      <div class="section-head">
+        <span class="stamp">Bloque 1 · Clases de palabras</span>
+        <h2 class="misregister">Cinco cambian de forma; cuatro permanecen inmóviles</h2>
+        <p class="section-lede">
+          Las palabras se clasifican por criterios morfológicos (si admiten flexión), sintácticos (qué grupos forman) y semánticos (qué significan). Pulsa sobre cualquier categoría para consultar su ficha completa.
+        </p>
+      </div>
+
+      <div class="filter-bar" role="group" aria-label="Filtrar categorías gramaticales">
+        <button type="button" class="btn-ghost btn-active" id="cat-filter-all" onclick="filterCategories('all')">Todas (9)</button>
+        <button type="button" class="btn-ghost" id="cat-filter-var" onclick="filterCategories('variable')">Variables (5)</button>
+        <button type="button" class="btn-ghost" id="cat-filter-inv" onclick="filterCategories('invariable')">Invariables (4)</button>
+      </div>
+
+      <div class="categories-layout">
+        <div class="categories-grid" id="categories-grid">
+          <button type="button" class="cat-card is-selected" data-kind="variable" data-cat="sustantivo" onclick="selectCategory('sustantivo')">
+            <span class="cat-meta">Variable · 01</span>
+            <span class="cat-title">Sustantivo</span>
+            <span class="cat-example">Admite género y número; forma grupos nominales. Ej.: niña, enjambre, mar.</span>
+          </button>
+
+          <button type="button" class="cat-card" data-kind="variable" data-cat="adjetivo" onclick="selectCategory('adjetivo')">
+            <span class="cat-meta">Variable · 02</span>
+            <span class="cat-title">Adjetivo</span>
+            <span class="cat-example">Expresa cualidades o relaciones del sustantivo y concuerda con él. Ej.: alto, eléctrico.</span>
+          </button>
+
+          <button type="button" class="cat-card" data-kind="variable" data-cat="determinante" onclick="selectCategory('determinante')">
+            <span class="cat-meta">Variable · 03</span>
+            <span class="cat-title">Determinante</span>
+            <span class="cat-example">Precede y concreta al sustantivo en género y número. Ej.: la, mis, bastantes.</span>
+          </button>
+
+          <button type="button" class="cat-card" data-kind="variable" data-cat="pronombre" onclick="selectCategory('pronombre')">
+            <span class="cat-meta">Variable · 04</span>
+            <span class="cat-title">Pronombre</span>
+            <span class="cat-example">Sustituye o equivale a un grupo nominal; varía en persona y función. Ej.: yo, me, esto.</span>
+          </button>
+
+          <button type="button" class="cat-card" data-kind="variable" data-cat="verbo" onclick="selectCategory('verbo')">
+            <span class="cat-meta">Variable · 05</span>
+            <span class="cat-title">Verbo</span>
+            <span class="cat-example">Se conjuga en tiempo, modo, persona, número, aspecto y voz. Ej.: canté, habré terminado.</span>
+          </button>
+
+          <button type="button" class="cat-card" data-kind="invariable" data-cat="adverbio" onclick="selectCategory('adverbio')">
+            <span class="cat-meta">Invariable · 06</span>
+            <span class="cat-title">Adverbio</span>
+            <span class="cat-example">Nunca cambia de género ni número; indica lugar, tiempo, modo o cantidad. Ej.: bien, cerca.</span>
+          </button>
+
+          <button type="button" class="cat-card" data-kind="invariable" data-cat="preposicion" onclick="selectCategory('preposicion')">
+            <span class="cat-meta">Invariable · 07</span>
+            <span class="cat-title">Preposición</span>
+            <span class="cat-example">Clase cerrada de 23 enlaces subordinantes. Ej.: a, ante, bajo, con, durante, vía.</span>
+          </button>
+
+          <button type="button" class="cat-card" data-kind="invariable" data-cat="conjuncion" onclick="selectCategory('conjuncion')">
+            <span class="cat-meta">Invariable · 08</span>
+            <span class="cat-title">Conjunción</span>
+            <span class="cat-example">Une palabras u oraciones por coordinación o subordinación. Ej.: y, pero, porque, que.</span>
+          </button>
+
+          <button type="button" class="cat-card" data-kind="invariable" data-cat="interjeccion" onclick="selectCategory('interjeccion')">
+            <span class="cat-meta">Invariable · 09</span>
+            <span class="cat-title">Interjección</span>
+            <span class="cat-example">Expresa sentimientos, sonidos o saludos sin valor sintáctico interno. Ej.: ¡ay!, ¡eh!, ¡hola!</span>
+          </button>
+        </div>
+
+        <article class="ink-block cat-detail-panel" id="cat-detail-panel" aria-live="polite">
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-sm); justify-content:space-between; align-items:center;">
+            <span class="stamp" id="detail-badge">Palabra Variable</span>
+            <span class="kicker-note" id="detail-code">Categoría 01 / 09</span>
+          </div>
+          <h3 id="detail-title">El sustantivo</h3>
+          <p id="detail-summary">Designa seres, objetos, materias, eventos o ideas y actúa como núcleo del Sintagma Nominal.</p>
+          <ul class="detail-list" id="detail-points"></ul>
+        </article>
+      </div>
+
+      <details class="riso-details">
+        <summary>Tabla de referencia rápida: comparativos cultos, valores del «que» y locuciones</summary>
+        <div style="display:grid; gap:var(--space-lg);">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Grado positivo</th>
+                  <th>Comparativo culto</th>
+                  <th>Superlativo culto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>bueno</td><td>mejor (más bueno que)</td><td>óptimo</td></tr>
+                <tr><td>malo</td><td>peor (más malo que)</td><td>pésimo</td></tr>
+                <tr><td>grande</td><td>mayor (más grande que)</td><td>máximo</td></tr>
+                <tr><td>pequeño</td><td>menor (más pequeño que)</td><td>mínimo</td></tr>
+                <tr><td>alto</td><td>superior (más alto que)</td><td>supremo</td></tr>
+                <tr><td>bajo</td><td>inferior (más bajo que)</td><td>ínfimo</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ink-block ink-block--recessed">
+            <h3>Locuciones: grupos estables que funcionan como una sola palabra</h3>
+            <p>A diferencia de las palabras compuestas (como <em>sacacorchos</em>), el significado de una locución no se deduce sumando sus partes. Ejemplos: <strong>nominal</strong> (<em>ojo de buey</em>), <strong>adjetiva</strong> (<em>una verdad como un templo</em>), <strong>verbal</strong> (<em>echar de menos, dar en el clavo</em>), <strong>adverbial</strong> (<em>de repente, a tontas y a locas</em>), <strong>preposicional</strong> (<em>a pesar de, junto a</em>), <strong>conjuntiva</strong> (<em>así que</em>) e <strong>interjectiva</strong> (<em>¡ni hablar!</em>).</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- BLOQUE 2: SUPER-TRUCO Y FAMILIAS DE PALABRAS -->
+    <section id="bloque-truco" class="section-wrap">
+      <div class="section-head">
+        <span class="stamp stamp--yellow">Bloque 2 · El Super-Truco</span>
+        <h2 class="misregister">Cambia la frase a plural o femenino para pillar al adverbio</h2>
+        <p class="section-lede">
+          Algunas palabras como <strong>rápido</strong>, <strong>claro</strong> o <strong>bastante</strong> pueden ser adjetivos/determinantes (variables) o adverbios (invariables) según su uso. Haz la prueba en este laboratorio interactivo.
+        </p>
+      </div>
+
+      <div class="lab-layout">
+        <div class="ink-block lab-stage">
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-sm); justify-content:space-between; align-items:center;">
+            <span class="kicker-note">Laboratorio de concordancia</span>
+            <span class="stamp stamp--outline" id="lab-state-badge">Oración original</span>
+          </div>
+
+          <div class="lab-controls" role="group" aria-label="Elegir oración de prueba">
+            <button type="button" class="btn-ghost btn-active" id="lab-ex-0" onclick="selectLabCase(0)">1. Muy rápido</button>
+            <button type="button" class="btn-ghost" id="lab-ex-1" onclick="selectLabCase(1)">2. Mesa rápida</button>
+            <button type="button" class="btn-ghost" id="lab-ex-2" onclick="selectLabCase(2)">3. Bastante lejos</button>
+            <button type="button" class="btn-ghost" id="lab-ex-3" onclick="selectLabCase(3)">4. Bastantes regalos</button>
+            <button type="button" class="btn-ghost" id="lab-ex-4" onclick="selectLabCase(4)">5. Explica claro</button>
+          </div>
+
+          <div class="lab-sentence-box">
+            <div class="sentence-tokens" id="lab-sentence-tokens" aria-live="polite"></div>
+            <div style="display:flex; flex-wrap:wrap; gap:var(--space-sm); align-items:center;">
+              <button type="button" class="btn-primary" id="lab-toggle-btn" onclick="toggleLabTransform()">
+                Aplicar prueba de plural / femenino
+              </button>
+            </div>
+          </div>
+
+          <div class="ink-block ink-block--alt" id="lab-verdict" aria-live="polite">
+            <h3 id="lab-verdict-title">Pulsa el botón para comprobar si la palabra cambia</h3>
+            <p id="lab-verdict-text">Si la palabra resaltada cambia de forma al variar el género o el número, es variable. Si es inmune al cambio, es invariable.</p>
+          </div>
+        </div>
+
+        <div class="step-process">
+          <div class="ink-block ink-block--recessed">
+            <h3>Proceso mental en 4 pasos ante cualquier duda</h3>
+            <div class="step-process">
+              <div class="process-step">
+                <span class="step-num">Paso 1</span>
+                <div><strong>Prueba de género y número:</strong> intenta pasar la palabra a plural o femenino. Si no se puede en absoluto, es <strong>invariable</strong>.</div>
+              </div>
+              <div class="process-step">
+                <span class="step-num">Paso 2</span>
+                <div><strong>Si es invariable, mira su función:</strong> si sirve de enlace es <strong>preposición</strong> o <strong>conjunción</strong>; si indica lugar, tiempo, modo o cantidad es <strong>adverbio</strong>.</div>
+              </div>
+              <div class="process-step">
+                <span class="step-num">Paso 3</span>
+                <div><strong>Si es variable, busca a quién acompaña:</strong> con «el/la» delante y nombra realidades = <strong>sustantivo</strong>; dice cómo es un sustantivo y concuerda = <strong>adjetivo</strong>.</div>
+              </div>
+              <div class="process-step">
+                <span class="step-num">Paso 4</span>
+                <div><strong>Si se conjuga:</strong> admite persona, número, tiempo y modo = <strong>verbo</strong>.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap reveal-item">
+        <table>
+          <thead>
+            <tr>
+              <th>Raíz / Concepto</th>
+              <th>Sustantivo (Nombre)</th>
+              <th>Adjetivo (Cualidad variable)</th>
+              <th>Adverbio (Modo invariable)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Bondad</strong></td>
+              <td>la bondad</td>
+              <td>bueno / buena / buenos</td>
+              <td>bien</td>
+            </tr>
+            <tr class="row-highlight">
+              <td><strong>Rapidez</strong></td>
+              <td>la rapidez</td>
+              <td>rápido / rápida / rápidos</td>
+              <td>rápidamente / rápido*</td>
+            </tr>
+            <tr>
+              <td><strong>Claridad</strong></td>
+              <td>la claridad</td>
+              <td>claro / clara / claros</td>
+              <td>claramente / claro*</td>
+            </tr>
+            <tr>
+              <td><strong>Alegría</strong></td>
+              <td>la alegría</td>
+              <td>alegre / alegres</td>
+              <td>alegremente</td>
+            </tr>
+            <tr>
+              <td><strong>Sinceridad</strong></td>
+              <td>la sinceridad</td>
+              <td>sincero / sincera</td>
+              <td>sinceramente</td>
+            </tr>
+            <tr>
+              <td><strong>Facilidad</strong></td>
+              <td>la facilidad</td>
+              <td>fácil / fáciles</td>
+              <td>fácilmente</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BLOQUE 3: LOS 5 TIPOS DE SINTAGMAS -->
+    <section id="bloque-sintagmas" class="section-wrap">
+      <div class="section-head">
+        <span class="stamp">Bloque 3 · El Núcleo del grupo</span>
+        <h2 class="misregister">Un sintagma es un equipo liderado por un único jefe: su núcleo</h2>
+        <p class="section-lede">
+          Si eliminas el núcleo (N), el sintagma se queda «cojo» y pierde el sentido principal. Elige uno de los 5 sintagmas para ver su arquitectura y probar qué ocurre si quitas al jefe.
+        </p>
+      </div>
+
+      <div class="syntagm-selector" role="group" aria-label="Seleccionar tipo de sintagma">
+        <button type="button" class="btn-ghost btn-active" id="syn-btn-sn" onclick="selectSyntagm('sn')">1. Sintagma Nominal (SN)</button>
+        <button type="button" class="btn-ghost" id="syn-btn-sadj" onclick="selectSyntagm('sadj')">2. Sintagma Adjetival (SAdj)</button>
+        <button type="button" class="btn-ghost" id="syn-btn-sadv" onclick="selectSyntagm('sadv')">3. Sintagma Adverbial (SAdv)</button>
+        <button type="button" class="btn-ghost" id="syn-btn-sv" onclick="selectSyntagm('sv')">4. Sintagma Verbal (SV)</button>
+        <button type="button" class="btn-ghost" id="syn-btn-sp" onclick="selectSyntagm('sp')">5. Sintagma Preposicional (SP)</button>
+      </div>
+
+      <div class="syntagm-stage">
+        <div class="ink-block" style="display:grid; gap:var(--space-lg);">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-sm);">
+            <h3 id="syn-title" style="margin:0;">Sintagma Nominal (SN)</h3>
+            <span class="stamp" id="syn-nucleus-cat">Núcleo: Sustantivo / Pronombre</span>
+          </div>
+
+          <div class="syntagm-diagram" id="syn-diagram" aria-live="polite"></div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-sm); align-items:center;">
+            <button type="button" class="btn-secondary" id="syn-remove-btn" onclick="toggleRemoveNucleus()">
+              Probar a quitar el núcleo
+            </button>
+          </div>
+
+          <p id="syn-test-feedback" style="margin:0; font-weight:600; color:var(--on-surface-variant);" aria-live="polite"></p>
+        </div>
+
+        <aside class="ink-block ink-block--alt" style="display:grid; gap:var(--space-sm);">
+          <p class="kicker-note">Regla de oro</p>
+          <h3 id="syn-rule-title">¿Por qué se llama Nominal?</h3>
+          <p id="syn-rule-body">Porque su palabra imprescindible es un sustantivo (o un pronombre). Todo lo demás —determinantes delante y complementos detrás— gira a su alrededor.</p>
+          <div class="ink-block ink-block--recessed" style="padding:var(--space-md);">
+            <strong>Más ejemplos clave:</strong>
+            <p id="syn-more-examples" style="margin-top:var(--space-xs); margin-bottom:0;"><em>Una película muy interesante</em> · <em>Mis tres mejores amigos</em></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- BLOQUE 4: FÓRMULA MOD + N + C -->
+    <section id="bloque-formula" class="section-wrap">
+      <div class="section-head">
+        <span class="stamp stamp--pink">Bloque 4 · La estructura interna</span>
+        <h2 class="misregister">Tres piezas en orden: Modificador + Núcleo + Complemento</h2>
+        <p class="section-lede">
+          Cualquier sintagma sencillo (nominal, adjetival o adverbial) sigue la misma fórmula. Practica paso a paso o asigna tú mismo cada función haciendo clic en las piezas.
+        </p>
+      </div>
+
+      <div class="formula-banner">
+        <div class="formula-box formula-box--mod">
+          <span class="kicker-note">Delante del núcleo</span>
+          <h3>[ Modificador (Mod) ]</h3>
+          <p>Presenta o cuantifica: determinantes en el SN (<em>las, mis</em>) o adverbios de cantidad en el SAdj/SAdv (<em>muy, bastante, demasiado</em>).</p>
+        </div>
+        <div class="formula-box formula-box--nuc">
+          <span class="kicker-note">El jefe</span>
+          <h3>[ Núcleo (N) ]</h3>
+          <p>La palabra principal e imprescindible que da nombre al tipo de sintagma (Sustantivo, Adjetivo o Adverbio).</p>
+        </div>
+        <div class="formula-box formula-box--comp">
+          <span class="kicker-note">Detrás del núcleo</span>
+          <h3>[ Complemento (C) ]</h3>
+          <p>Detalla o completa el significado del núcleo (<em>de papel reutilizables, de mente en los juegos, de la estación</em>).</p>
+        </div>
+      </div>
+
+      <div class="ink-block analyzer-panel">
+        <div style="display:flex; flex-wrap:wrap; gap:var(--space-sm); justify-content:space-between; align-items:center;">
+          <div class="filter-bar" role="group" aria-label="Elegir sintagma para analizar">
+            <button type="button" class="btn-ghost btn-active" id="ana-ex-0" onclick="selectAnalyzerCase(0)">1. Amigos de la infancia</button>
+            <button type="button" class="btn-ghost" id="ana-ex-1" onclick="selectAnalyzerCase(1)">2. Bolsas de papel</button>
+            <button type="button" class="btn-ghost" id="ana-ex-2" onclick="selectAnalyzerCase(2)">3. Rápido de mente</button>
+            <button type="button" class="btn-ghost" id="ana-ex-3" onclick="selectAnalyzerCase(3)">4. Cerca de la estación</button>
+          </div>
+          <span class="stamp" id="ana-type-badge">Sintagma Nominal (SN)</span>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="Pasos guiados de análisis">
+          <button type="button" class="btn-blue" onclick="revealAnalyzerStep(1)">Paso 1: Localizar Núcleo</button>
+          <button type="button" class="btn-secondary" onclick="revealAnalyzerStep(2)">Paso 2: Ver Modificador</button>
+          <button type="button" class="btn-primary" onclick="revealAnalyzerStep(3)">Paso 3: Ver Complemento</button>
+          <button type="button" class="btn-ghost" onclick="resetAnalyzerPractice()">Modo práctica (probar yo)</button>
+        </div>
+
+        <div class="chunk-grid" id="ana-chunk-grid" aria-live="polite"></div>
+
+        <p id="ana-status-msg" style="margin:0; font-weight:600; color:var(--on-surface-variant);" aria-live="polite">
+          Elige un paso arriba para revelar el análisis o pulsa directamente Mod, N o C en cada bloque.
+        </p>
+      </div>
+    </section>
+
+    <!-- BLOQUE 5: RETO INTERACTIVO DE FLASHCARDS -->
+    <section id="bloque-flashcards" class="section-wrap">
+      <div class="section-head">
+        <span class="stamp stamp--yellow">Bloque 5 · Reto de autoevaluación</span>
+        <h2 class="misregister">Pon a prueba tu análisis con 18 tarjetas interactivas</h2>
+        <p class="section-lede">
+          Resuelve los ejercicios reales de morfología y sintaxis. Elige primero una respuesta rápida en el anverso o gira la tarjeta para comprobar la explicación paso a paso y marcar si ya la dominas.
+        </p>
+      </div>
+
+      <div class="flashcard-shell">
+        <div class="fc-toolbar">
+          <div class="filter-bar" role="group" aria-label="Filtrar mazo de flashcards">
+            <button type="button" class="btn-ghost btn-active" id="fc-filter-all" onclick="setDeckFilter('all')">Todas (18)</button>
+            <button type="button" class="btn-ghost" id="fc-filter-var" onclick="setDeckFilter('var')">Variables / Invariables (6)</button>
+            <button type="button" class="btn-ghost" id="fc-filter-tri" onclick="setDeckFilter('tri')">Triadas de raíz (3)</button>
+            <button type="button" class="btn-ghost" id="fc-filter-syn" onclick="setDeckFilter('syn')">5 Sintagmas (5)</button>
+            <button type="button" class="btn-ghost" id="fc-filter-mod" onclick="setDeckFilter('mod')">Mod + N + C (4)</button>
+            <button type="button" class="btn-secondary" onclick="shuffleDeck()">Barajar mazo</button>
+          </div>
+
+          <div class="fc-stats-row">
+            <div class="fc-stat">
+              <span class="figure-label">Tarjeta actual</span>
+              <span class="figure-val" style="font-size:1.75rem;" id="fc-stat-pos">1 / 18</span>
+            </div>
+            <div class="fc-stat">
+              <span class="figure-label">Dominadas</span>
+              <span class="figure-val" style="font-size:1.75rem; color:var(--positive);" id="fc-stat-mastered">0 / 18</span>
+            </div>
+            <div class="fc-stat">
+              <span class="figure-label">Para repasar</span>
+              <span class="figure-val" style="font-size:1.75rem; color:var(--warning);" id="fc-stat-review">0</span>
+            </div>
+            <div class="fc-stat">
+              <span class="figure-label">Racha de aciertos</span>
+              <span class="figure-val" style="font-size:1.75rem; color:var(--tertiary);" id="fc-stat-streak">0</span>
+            </div>
+          </div>
+
+          <div class="fc-progress-track" aria-label="Progreso de tarjetas dominadas">
+            <div class="fc-progress-fill" id="fc-progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="fc-card-stage">
+          <article class="flashcard" id="flashcard-el" tabindex="0" aria-label="Tarjeta de práctica interactiva">
+            <div style="display:grid; gap:var(--space-md);">
+              <div class="fc-card-head">
+                <span class="stamp" id="fc-topic-badge">Variables vs. Invariables</span>
+                <span class="kicker-note" id="fc-side-indicator">Anverso · Pregunta</span>
+              </div>
+
+              <h3 class="fc-prompt" id="fc-prompt"></h3>
+
+              <div class="fc-context" id="fc-context"></div>
+
+              <div id="fc-front-quiz" style="display:grid; gap:var(--space-sm);">
+                <span class="kicker-note">Elige tu respuesta antes de girar la tarjeta:</span>
+                <div class="fc-quick-options" id="fc-quick-options"></div>
+                <div class="fc-feedback" id="fc-feedback" aria-live="polite"></div>
+              </div>
+
+              <div class="fc-answer-box" id="fc-answer-box" style="display:none;" aria-live="polite">
+                <h4 class="fc-answer-title" id="fc-answer-title"></h4>
+                <p id="fc-answer-detail" style="margin:0;"></p>
+              </div>
+            </div>
+
+            <div class="fc-actions-bar">
+              <div class="fc-nav-group">
+                <button type="button" class="btn-ghost" id="fc-prev-btn" onclick="prevFlashcard()">Anterior</button>
+                <button type="button" class="btn-primary" id="fc-flip-btn" onclick="flipFlashcard()">Ver solución</button>
+                <button type="button" class="btn-ghost" id="fc-next-btn" onclick="nextFlashcard()">Siguiente</button>
+              </div>
+
+              <div class="fc-self-group">
+                <button type="button" class="btn-secondary" id="fc-mark-review" onclick="markCardStatus('review')">Repasar luego</button>
+                <button type="button" class="btn-blue" id="fc-mark-mastered" onclick="markCardStatus('mastered')">La domino</button>
+              </div>
+            </div>
+          </article>
+
+          <aside class="ink-block ink-block--recessed fc-sidebar">
+            <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-sm);">
+              <h3 style="margin:0;">Mapa del mazo</h3>
+              <button type="button" class="btn-ghost" id="fc-reset-btn" onclick="resetFlashcardProgress(this)">Reiniciar</button>
+            </div>
+            <p class="cat-example" id="fc-deck-note">Selecciona cualquier número para saltar a esa tarjeta. Verde = dominada; naranja = para repasar.</p>
+            <div class="fc-deck-grid" id="fc-deck-grid"></div>
+            <div class="ink-block" style="padding:var(--space-md); box-shadow:var(--offset-sm);" id="fc-summary-banner">
+              <p class="kicker-note">Tu progreso se guarda automáticamente</p>
+              <p id="fc-summary-text" style="margin-top:var(--space-xs); margin-bottom:0;">Empieza por la tarjeta 1 y pon a prueba lo aprendido en los 4 bloques.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <p><strong>Fuentes didácticas:</strong> Contenidos elaborados a partir de los apuntes de categorías gramaticales (<em>Las letras de Rocío</em>, con infografías de morfología y verbos de <em>@lasdelengua</em>, <em>@sheilaprofedelengua</em> y <em>@lalengua_enuntic</em>) y de la <em>Guía adaptada de sintaxis y categorías gramaticales para 2.º de ESO</em> (bloques 1–4 y solucionario de autoevaluación).</p>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    const CATEGORY_DATA = {
+      sustantivo: {
+        badge: `Palabra Variable`,
+        code: `Categoría 01 / 09`,
+        title: `1. El sustantivo`,
+        summary: `Admite género y número, forma grupos nominales y designa individuos, grupos, materias o eventos.`,
+        points: [
+          `Género: puede marcarse por morfemas (jefe/jefa, actor/actriz), por el artículo (el/la artista) o por heterónimos (hombre/mujer). Hay nombres ambiguos (el/la mar) y epicenos (pantera, hormiga).`,
+          `Número: morfema singular Ø frente al plural en -s/-es (mesa/mesas, león/leones), o sintáctico en palabras acabadas en -s o -x (el lunes / los lunes, el tórax / los tórax).`,
+          `Significado: propios y comunes (abstractos frente a concretos; los concretos se dividen en incontables y contables, y estos en individuales y colectivos como enjambre).`,
+          `Sustantivación: otras palabras funcionan como sustantivos precedidas de artículo (el grande, el aquí y el ahora, tus peros).`
+        ]
+      },
+      adjetivo: {
+        badge: `Palabra Variable`,
+        code: `Categoría 02 / 09`,
+        title: `2. El adjetivo`,
+        summary: `Modifica al sustantivo aportando propiedades, cualidades o relaciones y concuerda con él en género y número.`,
+        points: [
+          `Forma: variables de dos terminaciones (alto/alta) e invariables en género de una sola terminación (alegre, fácil).`,
+          `Grado: positivo, comparativo y superlativo. Existen comparativos y superlativos cultos de origen latino (bueno/mejor/óptimo, malo/peor/pésimo).`,
+          `Significado: calificativos, relacionales (parafraseables por «un tipo de…», como coche eléctrico; incluyen gentilicios y patronímicos) y cuasideterminativos (próximo, anterior, último).`
+        ]
+      },
+      determinante: {
+        badge: `Palabra Variable`,
+        code: `Categoría 03 / 09`,
+        title: `3. El determinante`,
+        summary: `Se antepone al sustantivo para concretar su alcance y concuerda con él en género y número.`,
+        points: [
+          `Artículos: determinados (el/la/los/las y el neutro lo) e indeterminados (un/una/unos/unas).`,
+          `Demostrativos (este, ese, aquel, tal/tales) y posesivos (mi/mío, tu/tuyo, su/suyo, nuestro, vuestro, y el relativo cuyo).`,
+          `Cuantificadores: fuertes o universales (todo, cada, ambos, sendos), débiles o indefinidos (algún, varios, bastante) y numerales (cardinales, ordinales, multiplicativos, fraccionarios, distributivos).`,
+          `Interrogativos y exclamativos tónicos: qué, cuánto, cuál (¿Cuántos gigas tiene?).`
+        ]
+      },
+      pronombre: {
+        badge: `Palabra Variable`,
+        code: `Categoría 04 / 09`,
+        title: `4. El pronombre`,
+        summary: `Desempeña funciones propias del sintagma nominal y varía según persona gramatical, género, número y función sintáctica.`,
+        points: [
+          `Personales tónicos (yo, tú, él, nosotros, conmigo) y átonos (me, te, lo, la, le, se, nos, os). El pronombre «lo» puede sustituir al atributo.`,
+          `Pronombres enclíticos: átonos pospuestos al verbo unidos gráficamente (ponte, ponérmelos).`,
+          `Demostrativos neutros (esto, eso, aquello) e interrogativos/exclamativos (quién, quiénes, cuál, cuáles).`,
+          `Nota NGLE: formas como «esa bicicleta me gusta, pero aquella no» acompañan a un sustantivo tácito.`
+        ]
+      },
+      verbo: {
+        badge: `Palabra Variable`,
+        code: `Categoría 05 / 09`,
+        title: `5. El verbo`,
+        summary: `Es el núcleo del Sintagma Verbal. No tiene género, pero varía en tiempo, modo, persona, número, aspecto y voz.`,
+        points: [
+          `Modos y tiempos: indicativo (5 simples y 5 compuestos con haber + participio) y subjuntivo (presente, pretérito imperfecto y tiempos compuestos).`,
+          `Aspecto y voz: imperfectivo (acción sin acabar) frente a perfectivo (acción acabada). Voz pasiva: ser + participio en verbos transitivos.`,
+          `Formas no personales: infinitivo (puede funcionar como sustantivo), gerundio (como adverbio: se despidió sonriendo) y participio (como adjetivo: investigador conocido).`,
+          `Perífrasis verbales: unión de dos formas verbales que funcionan como un solo núcleo verbal.`
+        ]
+      },
+      adverbio: {
+        badge: `Palabra Invariable`,
+        code: `Categoría 06 / 09`,
+        title: `6. El adverbio`,
+        summary: `Es inmune al género y al número. Modifica a verbos, adjetivos o a otros adverbios.`,
+        points: [
+          `No admite morfemas flexivos, aunque algunos aceptan sufijos apreciativos (prontito, cerquita, lejotes) o gradación (cerquísima, más lejos que).`,
+          `Clasificación semántica: lugar, tiempo, modo, cantidad, afirmación, negación y duda.`,
+          `También hay adverbios interrogativos/exclamativos (¿Dónde está?) y relativos (París es donde quiero vivir).`,
+          `Adverbialización: adjetivos inmovilizados en masculino singular que funcionan como adverbios (hablar claro, pisar fuerte).`
+        ]
+      },
+      preposicion: {
+        badge: `Palabra Invariable`,
+        code: `Categoría 07 / 09`,
+        title: `7. La preposición`,
+        summary: `Forma un grupo cerrado de palabras invariables que sirven para enlazar y subordinar un término.`,
+        points: [
+          `Lista completa de 23 preposiciones: a, ante, bajo, cabe, con, contra, de, desde, en, entre, hacia, hasta, para, por, según, sin, so, sobre, tras, durante, mediante, versus y vía.`,
+          `Las cuatro últimas (durante, mediante, versus, vía) se incorporan por su comportamiento gramatical equivalente a en o por.`,
+          `Agrupaciones de preposiciones: pueden combinarse como un bloque unitario (desde por la mañana, de entre los árboles, por entre).`
+        ]
+      },
+      conjuncion: {
+        badge: `Palabra Invariable`,
+        code: `Categoría 08 / 09`,
+        title: `8. La conjunción`,
+        summary: `Clase cerrada e invariable que relaciona palabras, sintagmas u oraciones.`,
+        points: [
+          `Coordinantes: copulativas (y, e, ni), disyuntivas (o, u), adversativas (pero, sino, mas), distributivas (ya… ya…) y explicativas (es decir, o sea).`,
+          `Subordinantes: completivas (que, si), temporales (en cuanto), causales (porque, puesto que), finales (para que), condicionales (si, con tal que), concesivas (aunque, a pesar de que), consecutivas (luego, así que) y comparativas (que).`,
+          `Valores del «que»: puede ser pronombre relativo (los alumnos que aprueben) o conjunción coordinante/subordinante.`
+        ]
+      },
+      interjeccion: {
+        badge: `Palabra Invariable`,
+        code: `Categoría 09 / 09`,
+        title: `9. La interjección`,
+        summary: `Palabras invariables sin valor gramatical interno que imitan sonidos, expresan sentimientos o apelan al interlocutor.`,
+        points: [
+          `Apelativas: sirven para llamar la atención (¡eh!, ¡chist!, ¡ps!).`,
+          `Expresivas: manifiestan emociones o impresiones (¡oh!, ¡ah!, ¡ay!).`,
+          `Representativas: imitan ruidos o golpes (¡zas!, ¡paf!, ¡pum!).`,
+          `Formularias: fórmulas de cortesía, saludo o despedida (gracias, hola, adiós).`
+        ]
+      }
+    };
+
+    const LAB_CASES = [
+      {
+        targetIdx: 4,
+        baseTokens: [`El`, `coche`, `va`, `muy`, `rápido`],
+        transformedTokens: [`Los`, `coches`, `van`, `muy`, `rápido`],
+        mutatedIndices: [0, 1, 2],
+        isVariable: false,
+        verdictTitle: `INVARIABLE — «rápido» es aquí un Adverbio de modo`,
+        verdictText: `Al pasar la oración a plural («Los coches van muy rápido»), cambian el determinante, el sustantivo y el verbo, pero «rápido» permanece intacto porque expresa cómo va el coche.`
+      },
+      {
+        targetIdx: 3,
+        baseTokens: [`Compramos`, `una`, `mesa`, `rápida`, `de`, `montar`],
+        transformedTokens: [`Compramos`, `unas`, `mesas`, `rápidas`, `de`, `montar`],
+        mutatedIndices: [1, 2, 3],
+        isVariable: true,
+        verdictTitle: `VARIABLE — «rápida» es un Adjetivo`,
+        verdictText: `Al cambiar el sustantivo a plural («unas mesas rápidas»), la palabra muta de «rápida» a «rápidas» para concordar. Por eso es un adjetivo.`
+      },
+      {
+        targetIdx: 3,
+        baseTokens: [`La`, `casa`, `está`, `bastante`, `lejos`],
+        transformedTokens: [`Las`, `casas`, `están`, `bastante`, `lejos`],
+        mutatedIndices: [0, 1, 2],
+        isVariable: false,
+        verdictTitle: `INVARIABLE — «bastante» es aquí un Adverbio de cantidad`,
+        verdictText: `En plural («Las casas están bastante lejos»), «bastante» no cambia. Cuantifica al adverbio «lejos» y no acompaña a ningún sustantivo.`
+      },
+      {
+        targetIdx: 1,
+        baseTokens: [`Recibió`, `bastante`, `regalo`, `ayer`],
+        transformedTokens: [`Recibió`, `bastantes`, `regalos`, `ayer`],
+        mutatedIndices: [1, 2],
+        isVariable: true,
+        verdictTitle: `VARIABLE — «bastantes» es un Determinante cuantificador`,
+        verdictText: `Como acompaña al sustantivo «regalo/regalos», concuerda con él en número (bastante → bastantes). ¡Ojo con confundirlo con el adverbio!`
+      },
+      {
+        targetIdx: 3,
+        baseTokens: [`El`, `profesor`, `explica`, `claro`, `el`, `tema`],
+        transformedTokens: [`Las`, `profesoras`, `explican`, `claro`, `el`, `tema`],
+        mutatedIndices: [0, 1, 2],
+        isVariable: false,
+        verdictTitle: `INVARIABLE — «claro» funciona como Adverbio (adverbialización)`,
+        verdictText: `Aunque «claro» sea adjetivo en «un concepto claro / unas ideas claras», aquí modifica al verbo «explica» y no admite plural ni femenino: es adverbio.`
+      }
+    ];
+
+    const SYNTAGM_DATA = {
+      sn: {
+        title: `Sintagma Nominal (SN)`,
+        nucleusCat: `Núcleo: Sustantivo / Pronombre`,
+        parts: [
+          { text: `La nueva`, role: `Modificador`, isNucleus: false, isLink: false },
+          { text: `profesora`, role: `Núcleo (N)`, isNucleus: true, isLink: false },
+          { text: `de Lengua`, role: `Complemento (CN)`, isNucleus: false, isLink: false }
+        ],
+        removedMsg: `Sin el núcleo «profesora», queda «La nueva de Lengua»: ¡no sabemos de quién hablamos! El sustantivo es imprescindible.`,
+        ruleTitle: `¿Por qué es un Sintagma Nominal?`,
+        ruleBody: `Su núcleo es un sustantivo («profesora») o un pronombre. Los determinantes o adjetivos antepuestos lo modifican y los complementos detrás lo especifican.`,
+        examples: `«Una película muy interesante» (N: película) · «Mis tres mejores amigos de la infancia» (N: amigos)`
+      },
+      sadj: {
+        title: `Sintagma Adjetival (SAdj)`,
+        nucleusCat: `Núcleo: Adjetivo`,
+        parts: [
+          { text: `Muy`, role: `Modificador (Cuant.)`, isNucleus: false, isLink: false },
+          { text: `cariñosa`, role: `Núcleo (N)`, isNucleus: true, isLink: false },
+          { text: `con los niños`, role: `Complemento (CAdj)`, isNucleus: false, isLink: false }
+        ],
+        removedMsg: `Sin el núcleo «cariñosa», queda «Muy con los niños», una secuencia sin sentido. El adjetivo sostiene al grupo.`,
+        ruleTitle: `¿Por qué es un Sintagma Adjetival?`,
+        ruleBody: `Su palabra principal es un adjetivo («cariñosa»). Suele llevar delante un adverbio de cantidad (muy, bastante) y detrás un complemento preposicional.`,
+        examples: `«Bastante alegre por la noticia» (N: alegre) · «Muy rápido de mente en los juegos» (N: rápido)`
+      },
+      sadv: {
+        title: `Sintagma Adverbial (SAdv)`,
+        nucleusCat: `Núcleo: Adverbio`,
+        parts: [
+          { text: `Bastante`, role: `Modificador (Cuant.)`, isNucleus: false, isLink: false },
+          { text: `cerca`, role: `Núcleo (N)`, isNucleus: true, isLink: false },
+          { text: `del colegio`, role: `Complemento (CAdv)`, isNucleus: false, isLink: false }
+        ],
+        removedMsg: `Sin el núcleo «cerca», queda «Bastante del colegio», que pierde el significado espacial principal.`,
+        ruleTitle: `¿Por qué es un Sintagma Adverbial?`,
+        ruleBody: `Su jefe es un adverbio («cerca», «detrás», «lejos»). Puede ir cuantificado por otro adverbio delante y precisado por un sintagma preposicional detrás.`,
+        examples: `«Detrás de la puerta de entrada» (N: detrás) · «Demasiado cerca de la estación de tren» (N: cerca)`
+      },
+      sv: {
+        title: `Sintagma Verbal (SV)`,
+        nucleusCat: `Núcleo: Verbo`,
+        parts: [
+          { text: `Llegará`, role: `Núcleo (N)`, isNucleus: true, isLink: false },
+          { text: `mañana`, role: `Complemento`, isNucleus: false, isLink: false },
+          { text: `por la tarde`, role: `Complemento`, isNucleus: false, isLink: false }
+        ],
+        removedMsg: `Sin el verbo «Llegará», queda «mañana por la tarde»: desaparece la acción principal y deja de haber predicado.`,
+        ruleTitle: `¿Por qué es un Sintagma Verbal?`,
+        ruleBody: `El verbo («llegará», «caminaron») es el núcleo del predicado de la oración y exige o admite distintos complementos.`,
+        examples: `«Caminaron rápido hasta el parque» (N: caminaron)`
+      },
+      sp: {
+        title: `Sintagma Preposicional (SP)`,
+        nucleusCat: `Estructura especial: Enlace + Término`,
+        parts: [
+          { text: `En`, role: `Enlace (Preposición)`, isNucleus: false, isLink: true },
+          { text: `el aula de informática`, role: `Término (SN)`, isNucleus: true, isLink: false }
+        ],
+        removedMsg: `Los sintagmas preposicionales son especiales: la preposición actúa como Enlace (E) y el grupo que la sigue es el Término (T).`,
+        ruleTitle: `Un sintagma con estructura propia`,
+        ruleBody: `La preposición («en») introduce y subordina al grupo nominal siguiente («el aula de informática»), que funciona como Término (con su propio núcleo «aula»).`,
+        examples: `«En la biblioteca municipal» (Enlace: en + Término SN: la biblioteca municipal)`
+      }
+    };
+
+    const ANALYZER_CASES = [
+      {
+        type: `Sintagma Nominal (SN)`,
+        chunks: [
+          { text: `Mis tres mejores`, role: `mod`, explain: `Determinantes («mis», «tres») y adjetivo antepuesto («mejores») que concretan al núcleo.` },
+          { text: `amigos`, role: `nuc`, explain: `Sustantivo imprescindible del sintagma: es el Núcleo (N).` },
+          { text: `de la infancia`, role: `comp`, explain: `Complemento del Nombre (CN) que aclara de qué amigos hablamos.` }
+        ]
+      },
+      {
+        type: `Sintagma Nominal (SN)`,
+        chunks: [
+          { text: `Las nuevas`, role: `mod`, explain: `Determinante artículo («las») y adjetivo antepuesto («nuevas») funcionando como Modificador.` },
+          { text: `bolsas`, role: `nuc`, explain: `Sustantivo principal que da nombre al SN: Núcleo (N).` },
+          { text: `de papel reutilizables`, role: `comp`, explain: `Complemento del Nombre (CN) que detalla el material y cualidad de las bolsas.` }
+        ]
+      },
+      {
+        type: `Sintagma Adjetival (SAdj)`,
+        chunks: [
+          { text: `Muy`, role: `mod`, explain: `Adverbio cuantificador que gradúa la intensidad del adjetivo.` },
+          { text: `rápido`, role: `nuc`, explain: `Adjetivo calificativo principal: es el Núcleo (N) del SAdj.` },
+          { text: `de mente en los juegos`, role: `comp`, explain: `Complemento del Adjetivo (CAdj) que especifica en qué aspecto es rápido.` }
+        ]
+      },
+      {
+        type: `Sintagma Adverbial (SAdv)`,
+        chunks: [
+          { text: `Demasiado`, role: `mod`, explain: `Adverbio cuantificador que modifica la intensidad del adverbio núcleo.` },
+          { text: `cerca`, role: `nuc`, explain: `Adverbio de lugar imprescindible: Núcleo (N) del SAdv.` },
+          { text: `de la estación de tren`, role: `comp`, explain: `Complemento del Adverbio (CAdv) que precisa el punto de referencia.` }
+        ]
+      }
+    ];
+
+    const FLASHCARDS = [
+      {
+        id: `fc1`,
+        topic: `var`,
+        topicLabel: `Variables vs. Invariables`,
+        prompt: `En «El coche va muy rápido», ¿qué es la palabra destacada?`,
+        contextHtml: `El coche va muy <mark>rápido</mark>.`,
+        options: [`Variable (Adjetivo)`, `Invariable (Adverbio)`, `Variable (Sustantivo)`],
+        correctOption: 1,
+        answerTitle: `INVARIABLE — Adverbio de modo`,
+        answerDetail: `Si cambiamos el sujeto a plural («Los coches van muy rápido»), la palabra «rápido» no cambia en absoluto. Al ser inmune al género y al número, es un adverbio.`
+      },
+      {
+        id: `fc2`,
+        topic: `var`,
+        topicLabel: `Variables vs. Invariables`,
+        prompt: `En «Compramos una mesa rápida de montar», clasifica «rápida».`,
+        contextHtml: `Compramos una mesa <mark>rápida</mark> de montar.`,
+        options: [`Variable (Adjetivo)`, `Invariable (Adverbio)`, `Variable (Determinante)`],
+        correctOption: 0,
+        answerTitle: `VARIABLE — Adjetivo calificativo`,
+        answerDetail: `Si pasamos «mesa» a plural («unas mesas rápidas»), la palabra cambia para concordar en género y número con el sustantivo. Por tanto, es un adjetivo.`
+      },
+      {
+        id: `fc3`,
+        topic: `var`,
+        topicLabel: `Variables vs. Invariables`,
+        prompt: `¿Qué clase de palabra es «bastante» en «La casa está bastante lejos»?`,
+        contextHtml: `La casa está <mark>bastante</mark> lejos.`,
+        options: [`Variable (Determinante)`, `Invariable (Adverbio)`, `Variable (Pronombre)`],
+        correctOption: 1,
+        answerTitle: `INVARIABLE — Adverbio de cantidad`,
+        answerDetail: `Aunque pongamos la frase en plural («Las casas están bastante lejos»), «bastante» sigue igual y modifica al adverbio «lejos».`
+      },
+      {
+        id: `fc4`,
+        topic: `var`,
+        topicLabel: `Variables vs. Invariables`,
+        prompt: `Y en «Recibió bastantes regalos en su cumpleaños», ¿qué es «bastantes»?`,
+        contextHtml: `Recibió <mark>bastantes</mark> regalos en su cumpleaños.`,
+        options: [`Invariable (Adverbio)`, `Variable (Determinante cuantificador)`, `Invariable (Preposición)`],
+        correctOption: 1,
+        answerTitle: `VARIABLE — Determinante cuantificador`,
+        answerDetail: `Concuerda en plural con el sustantivo «regalos» (en singular sería «bastante regalo»). Acompaña a un nombre y admite variación de número.`
+      },
+      {
+        id: `fc5`,
+        topic: `var`,
+        topicLabel: `Variables vs. Invariables`,
+        prompt: `Clasifica «bien» en la oración «Ella habla bien en público».`,
+        contextHtml: `Ella habla <mark>bien</mark> en público.`,
+        options: [`Variable (Adjetivo)`, `Invariable (Adverbio)`, `Invariable (Conjunción)`],
+        correctOption: 1,
+        answerTitle: `INVARIABLE — Adverbio de modo`,
+        answerDetail: `Si cambiamos a plural («Ellas hablan bien»), la palabra permanece inalterable. Jamás existen «bienes» o «biena» con valor adverbial.`
+      },
+      {
+        id: `fc6`,
+        topic: `var`,
+        topicLabel: `Género en el sustantivo`,
+        prompt: `Sustantivos de animales como «pantera» u «hormiga» que no distinguen macho/hembra en su forma son…`,
+        contextHtml: `La <mark>pantera</mark> / la <mark>hormiga</mark> (macho o hembra).`,
+        options: [`Sustantivos ambiguos`, `Sustantivos epicenos`, `Heterónimos`],
+        correctOption: 1,
+        answerTitle: `Sustantivos epicenos`,
+        answerDetail: `Designan seres sexuados con un único género gramatical fijo sin diferenciar el sexo mediante morfemas o artículos (se añade «macho/hembra» si hace falta).`
+      },
+      {
+        id: `fc7`,
+        topic: `tri`,
+        topicLabel: `Triadas de la misma raíz`,
+        prompt: `Ordena esta familia de palabras: «Alegría / Alegre / Alegremente».`,
+        contextHtml: `1. <mark>Alegría</mark> · 2. <mark>Alegre</mark> · 3. <mark>Alegremente</mark>`,
+        options: [`Sust. / Adj. / Adv.`, `Adj. / Sust. / Adv.`, `Adv. / Adj. / Sust.`],
+        correctOption: 0,
+        answerTitle: `Alegría = Sustantivo · Alegre = Adjetivo · Alegremente = Adverbio`,
+        answerDetail: `«La alegría» designa un sentimiento (sustantivo), «alegre/alegres» expresa una cualidad variable (adjetivo) y «alegremente» es invariable de modo (adverbio).`
+      },
+      {
+        id: `fc8`,
+        topic: `tri`,
+        topicLabel: `Triadas de la misma raíz`,
+        prompt: `Clasifica en orden el trío: «Sincero / Sinceridad / Sinceramente».`,
+        contextHtml: `1. <mark>Sincero</mark> · 2. <mark>Sinceridad</mark> · 3. <mark>Sinceramente</mark>`,
+        options: [`Sust. / Adj. / Adv.`, `Adj. / Sust. / Adv.`, `Adj. / Adv. / Sust.`],
+        correctOption: 1,
+        answerTitle: `Sincero = Adjetivo · Sinceridad = Sustantivo · Sinceramente = Adverbio`,
+        answerDetail: `«Sincero/sincera» concuerda con un nombre (adjetivo); «la sinceridad» nombra la cualidad como concepto (sustantivo); «sinceramente» es invariable (adverbio).`
+      },
+      {
+        id: `fc9`,
+        topic: `tri`,
+        topicLabel: `Triadas de la misma raíz`,
+        prompt: `Clasifica en orden el trío: «Fácil / Fácilmente / Facilidad».`,
+        contextHtml: `1. <mark>Fácil</mark> · 2. <mark>Fácilmente</mark> · 3. <mark>Facilidad</mark>`,
+        options: [`Adj. / Adv. / Sust.`, `Sust. / Adv. / Adj.`, `Adj. / Sust. / Adv.`],
+        correctOption: 0,
+        answerTitle: `Fácil = Adjetivo · Fácilmente = Adverbio · Facilidad = Sustantivo`,
+        answerDetail: `«Fácil/fáciles» varía en número (adjetivo de una terminación); «fácilmente» es invariable (adverbio); «la facilidad» admite artículo (sustantivo).`
+      },
+      {
+        id: `fc10`,
+        topic: `syn`,
+        topicLabel: `5 Sintagmas y Núcleo`,
+        prompt: `Identifica el tipo de sintagma y su núcleo en «Una película muy interesante».`,
+        contextHtml: `Una <mark>película</mark> muy interesante`,
+        options: [`SN (Núcleo: película)`, `SAdj (Núcleo: interesante)`, `SAdv (Núcleo: muy)`],
+        correctOption: 0,
+        answerTitle: `Sintagma Nominal (SN) — Núcleo: «película»`,
+        answerDetail: `La palabra imprescindible de la que hablamos es el sustantivo «película». «Una» lo presenta y «muy interesante» complementa al sustantivo.`
+      },
+      {
+        id: `fc11`,
+        topic: `syn`,
+        topicLabel: `5 Sintagmas y Núcleo`,
+        prompt: `¿Qué tipo de sintagma es «Bastante alegre por la noticia»?`,
+        contextHtml: `Bastante <mark>alegre</mark> por la noticia`,
+        options: [`SAdv (Núcleo: bastante)`, `SAdj (Núcleo: alegre)`, `SN (Núcleo: noticia)`],
+        correctOption: 1,
+        answerTitle: `Sintagma Adjetival (SAdj) — Núcleo: «alegre»`,
+        answerDetail: `El núcleo es el adjetivo «alegre». «Bastante» actúa como modificador cuantificador delante y «por la noticia» es su complemento.`
+      },
+      {
+        id: `fc12`,
+        topic: `syn`,
+        topicLabel: `5 Sintagmas y Núcleo`,
+        prompt: `Analiza el tipo de sintagma y núcleo de «Detrás de la puerta de entrada».`,
+        contextHtml: `<mark>Detrás</mark> de la puerta de entrada`,
+        options: [`SP (Enlace: detrás)`, `SAdv (Núcleo: detrás)`, `SN (Núcleo: puerta)`],
+        correctOption: 1,
+        answerTitle: `Sintagma Adverbial (SAdv) — Núcleo: «detrás»`,
+        answerDetail: `«Detrás» es un adverbio de lugar (no una preposición) y funciona como palabra principal. «De la puerta de entrada» complementa a «detrás».`
+      },
+      {
+        id: `fc13`,
+        topic: `syn`,
+        topicLabel: `5 Sintagmas y Núcleo`,
+        prompt: `¿Qué sintagma forma «Caminaron rápido hasta el parque»?`,
+        contextHtml: `<mark>Caminaron</mark> rápido hasta el parque`,
+        options: [`SAdv (Núcleo: rápido)`, `SV (Núcleo: caminaron)`, `SP (Núcleo: hasta)`],
+        correctOption: 1,
+        answerTitle: `Sintagma Verbal (SV) — Núcleo: «caminaron»`,
+        answerDetail: `La palabra que dirige la acción del grupo es el verbo conjugado «caminaron». Sin él, desaparece el predicado.`
+      },
+      {
+        id: `fc14`,
+        topic: `syn`,
+        topicLabel: `5 Sintagmas y Núcleo`,
+        prompt: `Clasifica el grupo «En la biblioteca municipal».`,
+        contextHtml: `<mark>En</mark> la biblioteca municipal`,
+        options: [`SN (Núcleo: biblioteca)`, `SP (Enlace: en + Término SN)`, `SAdv (Núcleo: municipal)`],
+        correctOption: 1,
+        answerTitle: `Sintagma Preposicional (SP) — Enlace: «en» + Término: SN`,
+        answerDetail: `Empieza por la preposición «en» (Enlace) seguida del Término «la biblioteca municipal» (un Sintagma Nominal).`
+      },
+      {
+        id: `fc15`,
+        topic: `mod`,
+        topicLabel: `Estructura Mod + N + C`,
+        prompt: `En «Las nuevas bolsas de papel reutilizables», ¿qué función tiene «Las nuevas»?`,
+        contextHtml: `<mark>Las nuevas</mark> bolsas de papel reutilizables`,
+        options: [`Modificador (Mod)`, `Núcleo (N)`, `Complemento (C)`],
+        correctOption: 0,
+        answerTitle: `Modificador (Mod) dentro de un SN`,
+        answerDetail: `Va delante del núcleo «bolsas» (sustantivo) para presentarlo y precisarlo mediante el determinante «las» y el adjetivo antepuesto «nuevas».`
+      },
+      {
+        id: `fc16`,
+        topic: `mod`,
+        topicLabel: `Estructura Mod + N + C`,
+        prompt: `En «Muy rápido de mente en los juegos», ¿qué es «de mente en los juegos»?`,
+        contextHtml: `Muy rápido <mark>de mente en los juegos</mark>`,
+        options: [`Modificador (Mod)`, `Núcleo (N)`, `Complemento del Adjetivo (CAdj)`],
+        correctOption: 2,
+        answerTitle: `Complemento (C) — Complemento del Adjetivo`,
+        answerDetail: `Va detrás del núcleo adjetivo «rápido» (modificado por «muy») para completar y especificar su significado.`
+      },
+      {
+        id: `fc17`,
+        topic: `mod`,
+        topicLabel: `Estructura Mod + N + C`,
+        prompt: `En «Demasiado cerca de la estación de tren», ¿qué palabra es el Núcleo (N)?`,
+        contextHtml: `Demasiado <mark>cerca</mark> de la estación de tren`,
+        options: [`Demasiado`, `cerca`, `estación`],
+        correctOption: 1,
+        answerTitle: `Núcleo: «cerca» (Adverbio → SAdv)`,
+        answerDetail: `«Cerca» es la palabra imprescindible (adverbio); «Demasiado» es su modificador delante y «de la estación de tren» su complemento detrás.`
+      },
+      {
+        id: `fc18`,
+        topic: `mod`,
+        topicLabel: `Estructura Mod + N + C`,
+        prompt: `Completa la fórmula de «Mis tres mejores amigos de la infancia».`,
+        contextHtml: `[Mis tres mejores] + [<mark>amigos</mark>] + [de la infancia]`,
+        options: [`Mod + N + CN (SN)`, `N + Mod + CN (SAdj)`, `Mod + C + N (SP)`],
+        correctOption: 0,
+        answerTitle: `[Mis tres mejores] (Mod) + [amigos] (N) + [de la infancia] (CN)`,
+        answerDetail: `El sustantivo «amigos» es el Núcleo (SN); delante lleva sus modificadores y detrás el Complemento del Nombre «de la infancia».`
+      }
+    ];
+
+    let currentLabIndex = 0;
+    let labTransformed = false;
+    let currentSyntagmKey = `sn`;
+    let syntagmNucleusRemoved = false;
+    let currentAnalyzerIndex = 0;
+    let analyzerRevealedStep = 0;
+    let analyzerUserGuesses = {};
+
+    let deckFilter = `all`;
+    let activeDeckIds = FLASHCARDS.map(function (c) { return c.id; });
+    let currentCardPos = 0;
+    let isCardFlipped = false;
+    let selectedQuickOption = null;
+    let cardStatuses = {}; // id -> 'mastered' | 'review'
+    let streakCount = 0;
+
+    function selectCategory(catKey) {
+      const data = CATEGORY_DATA[catKey];
+      if (!data) return;
+
+      const cards = document.querySelectorAll('.cat-card');
+      cards.forEach(function (card) {
+        if (card.dataset.cat === catKey) {
+          card.classList.add('is-selected');
+        } else {
+          card.classList.remove('is-selected');
+        }
+      });
+
+      const badgeEl = document.getElementById('detail-badge');
+      const codeEl = document.getElementById('detail-code');
+      const titleEl = document.getElementById('detail-title');
+      const summaryEl = document.getElementById('detail-summary');
+      const pointsEl = document.getElementById('detail-points');
+
+      if (badgeEl) {
+        badgeEl.textContent = data.badge;
+        badgeEl.className = data.badge === `Palabra Invariable` ? `stamp stamp--yellow` : `stamp`;
+      }
+      if (codeEl) codeEl.textContent = data.code;
+      if (titleEl) titleEl.textContent = data.title;
+      if (summaryEl) summaryEl.textContent = data.summary;
+      if (pointsEl) {
+        pointsEl.innerHTML = '';
+        data.points.forEach(function (pt) {
+          const li = document.createElement('li');
+          li.textContent = pt;
+          pointsEl.appendChild(li);
+        });
+      }
+    }
+
+    function filterCategories(mode) {
+      const btnAll = document.getElementById('cat-filter-all');
+      const btnVar = document.getElementById('cat-filter-var');
+      const btnInv = document.getElementById('cat-filter-inv');
+      [btnAll, btnVar, btnInv].forEach(function (b) { if (b) b.classList.remove('btn-active'); });
+      if (mode === 'all' && btnAll) btnAll.classList.add('btn-active');
+      if (mode === 'variable' && btnVar) btnVar.classList.add('btn-active');
+      if (mode === 'invariable' && btnInv) btnInv.classList.add('btn-active');
+
+      const cards = document.querySelectorAll('.cat-card');
+      let firstVisibleKey = null;
+      let selectedVisible = false;
+      cards.forEach(function (card) {
+        const show = mode === 'all' || card.dataset.kind === mode;
+        if (show) {
+          card.classList.remove('is-hidden');
+          if (!firstVisibleKey) firstVisibleKey = card.dataset.cat;
+          if (card.classList.contains('is-selected')) selectedVisible = true;
+        } else {
+          card.classList.add('is-hidden');
+        }
+      });
+      if (!selectedVisible && firstVisibleKey) {
+        selectCategory(firstVisibleKey);
+      }
+    }
+
+    function selectLabCase(idx) {
+      if (idx < 0 || idx >= LAB_CASES.length) return;
+      currentLabIndex = idx;
+      labTransformed = false;
+      for (let i = 0; i < LAB_CASES.length; i++) {
+        const btn = document.getElementById('lab-ex-' + i);
+        if (btn) btn.classList.toggle('btn-active', i === idx);
+      }
+      renderLab();
+    }
+
+    function toggleLabTransform() {
+      labTransformed = !labTransformed;
+      renderLab();
+    }
+
+    function renderLab() {
+      const item = LAB_CASES[currentLabIndex];
+      if (!item) return;
+      const tokensEl = document.getElementById('lab-sentence-tokens');
+      const badgeEl = document.getElementById('lab-state-badge');
+      const btnEl = document.getElementById('lab-toggle-btn');
+      const vTitle = document.getElementById('lab-verdict-title');
+      const vText = document.getElementById('lab-verdict-text');
+
+      const words = labTransformed ? item.transformedTokens : item.baseTokens;
+
+      if (tokensEl) {
+        tokensEl.innerHTML = '';
+        words.forEach(function (word, idx) {
+          const span = document.createElement('span');
+          span.className = 'token-word';
+          if (idx === item.targetIdx) {
+            span.classList.add(item.isVariable ? 'token-word--target-var' : 'token-word--target-invar');
+          } else if (labTransformed && item.mutatedIndices.indexOf(idx) !== -1) {
+            span.classList.add('token-word--mutated');
+          }
+          span.textContent = word;
+          tokensEl.appendChild(span);
+        });
+      }
+
+      if (badgeEl) {
+        badgeEl.textContent = labTransformed ? `Transformada (plural/femenino)` : `Oración original`;
+      }
+      if (btnEl) {
+        btnEl.textContent = labTransformed ? `Volver a la oración original` : `Aplicar prueba de plural / femenino`;
+      }
+      if (vTitle && vText) {
+        if (labTransformed) {
+          vTitle.textContent = item.verdictTitle;
+          vText.textContent = item.verdictText;
+        } else {
+          vTitle.textContent = `Observa la palabra destacada: «` + item.baseTokens[item.targetIdx] + `»`;
+          vText.textContent = `Pulsa el botón para cambiar el sustantivo o sujeto a plural/femenino y comprobar si esa palabra cambia o permanece inmóvil.`;
+        }
+      }
+    }
+
+    function selectSyntagm(key) {
+      if (!SYNTAGM_DATA[key]) return;
+      currentSyntagmKey = key;
+      syntagmNucleusRemoved = false;
+      ['sn', 'sadj', 'sadv', 'sv', 'sp'].forEach(function (k) {
+        const btn = document.getElementById('syn-btn-' + k);
+        if (btn) btn.classList.toggle('btn-active', k === key);
+      });
+      renderSyntagm();
+    }
+
+    function toggleRemoveNucleus() {
+      syntagmNucleusRemoved = !syntagmNucleusRemoved;
+      renderSyntagm();
+    }
+
+    function renderSyntagm() {
+      const data = SYNTAGM_DATA[currentSyntagmKey];
+      if (!data) return;
+
+      const titleEl = document.getElementById('syn-title');
+      const catEl = document.getElementById('syn-nucleus-cat');
+      const diagramEl = document.getElementById('syn-diagram');
+      const btnEl = document.getElementById('syn-remove-btn');
+      const feedbackEl = document.getElementById('syn-test-feedback');
+      const ruleTitleEl = document.getElementById('syn-rule-title');
+      const ruleBodyEl = document.getElementById('syn-rule-body');
+      const examplesEl = document.getElementById('syn-more-examples');
+
+      if (titleEl) titleEl.textContent = data.title;
+      if (catEl) catEl.textContent = data.nucleusCat;
+      if (ruleTitleEl) ruleTitleEl.textContent = data.ruleTitle;
+      if (ruleBodyEl) ruleBodyEl.textContent = data.ruleBody;
+      if (examplesEl) examplesEl.textContent = data.examples;
+
+      if (diagramEl) {
+        diagramEl.innerHTML = '';
+        data.parts.forEach(function (part) {
+          const box = document.createElement('div');
+          box.className = 'syn-part';
+          if (part.isNucleus) box.classList.add('syn-part--nucleus');
+          if (part.isLink) box.classList.add('syn-part--link');
+          if (syntagmNucleusRemoved && part.isNucleus) box.classList.add('syn-part--removed');
+
+          const role = document.createElement('span');
+          role.className = 'syn-part-role';
+          role.textContent = part.role;
+
+          const txt = document.createElement('span');
+          txt.className = 'syn-part-text';
+          txt.textContent = part.text;
+
+          box.appendChild(role);
+          box.appendChild(txt);
+          diagramEl.appendChild(box);
+        });
+      }
+
+      if (btnEl) {
+        btnEl.textContent = syntagmNucleusRemoved ? `Restaurar el núcleo` : `Probar a quitar el núcleo`;
+      }
+      if (feedbackEl) {
+        feedbackEl.textContent = syntagmNucleusRemoved ? data.removedMsg : `El bloque amarillo señala el núcleo (o Término en el SP) que sostiene el sentido del sintagma.`;
+      }
+    }
+
+    function selectAnalyzerCase(idx) {
+      if (idx < 0 || idx >= ANALYZER_CASES.length) return;
+      currentAnalyzerIndex = idx;
+      analyzerRevealedStep = 0;
+      analyzerUserGuesses = {};
+      for (let i = 0; i < ANALYZER_CASES.length; i++) {
+        const btn = document.getElementById('ana-ex-' + i);
+        if (btn) btn.classList.toggle('btn-active', i === idx);
+      }
+      renderAnalyzer();
+    }
+
+    function revealAnalyzerStep(step) {
+      analyzerRevealedStep = step;
+      renderAnalyzer();
+    }
+
+    function resetAnalyzerPractice() {
+      analyzerRevealedStep = 0;
+      analyzerUserGuesses = {};
+      const msg = document.getElementById('ana-status-msg');
+      if (msg) msg.textContent = `Modo práctica activado: pulsa Mod, N o C en cada bloque para clasificarlo.`;
+      renderAnalyzer();
+    }
+
+    function guessAnalyzerChunk(chunkIdx, roleGuess) {
+      const item = ANALYZER_CASES[currentAnalyzerIndex];
+      if (!item || !item.chunks[chunkIdx]) return;
+      const chunk = item.chunks[chunkIdx];
+      const isOk = chunk.role === roleGuess;
+      analyzerUserGuesses[chunkIdx] = { guess: roleGuess, correct: isOk };
+      renderAnalyzer();
+
+      const msg = document.getElementById('ana-status-msg');
+      if (msg) {
+        if (isOk) {
+          msg.textContent = `¡Correcto! «` + chunk.text + `»: ` + chunk.explain;
+        } else {
+          msg.textContent = `Inténtalo otra vez en «` + chunk.text + `»: recuerda que el Modificador va delante, el Núcleo es la palabra jefe y el Complemento detalla detrás.`;
+        }
+      }
+    }
+
+    function renderAnalyzer() {
+      const item = ANALYZER_CASES[currentAnalyzerIndex];
+      if (!item) return;
+
+      const badge = document.getElementById('ana-type-badge');
+      const grid = document.getElementById('ana-chunk-grid');
+      const msg = document.getElementById('ana-status-msg');
+      if (badge) badge.textContent = item.type;
+
+      if (grid) {
+        grid.innerHTML = '';
+        item.chunks.forEach(function (chunk, idx) {
+          const card = document.createElement('div');
+          card.className = 'chunk-card';
+
+          const stepRevealed =
+            (analyzerRevealedStep >= 1 && chunk.role === `nuc`) ||
+            (analyzerRevealedStep >= 2 && chunk.role === `mod`) ||
+            (analyzerRevealedStep >= 3 && chunk.role === `comp`);
+
+          const userCorrect = analyzerUserGuesses[idx] && analyzerUserGuesses[idx].correct;
+          if (stepRevealed || userCorrect) {
+            card.dataset.reveal = chunk.role;
+          }
+
+          const phrase = document.createElement('div');
+          phrase.className = 'chunk-phrase';
+          phrase.textContent = chunk.text;
+          card.appendChild(phrase);
+
+          if (stepRevealed || userCorrect) {
+            const tag = document.createElement('span');
+            tag.className = chunk.role === `nuc` ? `stamp stamp--yellow` : `stamp`;
+            tag.textContent = chunk.role === `mod` ? `Modificador (Mod)` : chunk.role === `nuc` ? `Núcleo (N)` : `Complemento (C)`;
+            card.appendChild(tag);
+
+            const exp = document.createElement('p');
+            exp.className = 'cat-example';
+            exp.style.margin = '0';
+            exp.textContent = chunk.explain;
+            card.appendChild(exp);
+          } else {
+            const btnRow = document.createElement('div');
+            btnRow.className = 'chunk-role-buttons';
+
+            [
+              { code: `mod`, label: `Mod` },
+              { code: `nuc`, label: `N` },
+              { code: `comp`, label: `C` }
+            ].forEach(function (opt) {
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'mini-role-btn';
+              btn.textContent = opt.label;
+              if (analyzerUserGuesses[idx] && analyzerUserGuesses[idx].guess === opt.code) {
+                btn.classList.add(analyzerUserGuesses[idx].correct ? 'is-correct' : 'is-wrong');
+              }
+              btn.onclick = function () { guessAnalyzerChunk(idx, opt.code); };
+              btnRow.appendChild(btn);
+            });
+            card.appendChild(btnRow);
+          }
+
+          grid.appendChild(card);
+        });
+      }
+
+      if (msg && analyzerRevealedStep > 0) {
+        if (analyzerRevealedStep === 1) msg.textContent = `Paso 1 completado: hemos localizado el Núcleo (la palabra principal que da nombre al sintagma).`;
+        if (analyzerRevealedStep === 2) msg.textContent = `Paso 2 completado: hemos identificado el Modificador delante del núcleo.`;
+        if (analyzerRevealedStep === 3) msg.textContent = `Paso 3 completado: estructura completa [Mod] + [N] + [C] del ` + item.type + `.`;
+      }
+    }
+
+    function getCardById(id) {
+      for (let i = 0; i < FLASHCARDS.length; i++) {
+        if (FLASHCARDS[i].id === id) return FLASHCARDS[i];
+      }
+      return null;
+    }
+
+    function setDeckFilter(filterKey) {
+      deckFilter = filterKey;
+      const map = {
+        all: 'fc-filter-all',
+        var: 'fc-filter-var',
+        tri: 'fc-filter-tri',
+        syn: 'fc-filter-syn',
+        mod: 'fc-filter-mod'
+      };
+      Object.keys(map).forEach(function (k) {
+        const b = document.getElementById(map[k]);
+        if (b) b.classList.toggle('btn-active', k === filterKey);
+      });
+
+      activeDeckIds = FLASHCARDS.filter(function (c) {
+        return filterKey === 'all' || c.topic === filterKey;
+      }).map(function (c) { return c.id; });
+
+      currentCardPos = 0;
+      isCardFlipped = false;
+      selectedQuickOption = null;
+      renderFlashcards();
+      saveProgress();
+    }
+
+    function shuffleDeck() {
+      const copy = activeDeckIds.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = tmp;
+      }
+      activeDeckIds = copy;
+      currentCardPos = 0;
+      isCardFlipped = false;
+      selectedQuickOption = null;
+      renderFlashcards();
+    }
+
+    function jumpToCard(pos) {
+      if (pos < 0 || pos >= activeDeckIds.length) return;
+      currentCardPos = pos;
+      isCardFlipped = false;
+      selectedQuickOption = null;
+      renderFlashcards();
+      saveProgress();
+    }
+
+    function prevFlashcard() {
+      if (currentCardPos > 0) {
+        jumpToCard(currentCardPos - 1);
+      }
+    }
+
+    function nextFlashcard() {
+      if (currentCardPos < activeDeckIds.length - 1) {
+        jumpToCard(currentCardPos + 1);
+      }
+    }
+
+    function flipFlashcard() {
+      isCardFlipped = !isCardFlipped;
+      renderFlashcards();
+    }
+
+    function selectQuickOption(optIdx) {
+      const card = getCardById(activeDeckIds[currentCardPos]);
+      if (!card) return;
+      selectedQuickOption = optIdx;
+      const isRight = optIdx === card.correctOption;
+      if (isRight) {
+        streakCount += 1;
+      } else {
+        streakCount = 0;
+      }
+      isCardFlipped = true;
+      renderFlashcards();
+      saveProgress();
+    }
+
+    function markCardStatus(status) {
+      const cardId = activeDeckIds[currentCardPos];
+      if (!cardId) return;
+      cardStatuses[cardId] = status;
+      if (currentCardPos < activeDeckIds.length - 1) {
+        currentCardPos += 1;
+        isCardFlipped = false;
+        selectedQuickOption = null;
+      }
+      renderFlashcards();
+      saveProgress();
+    }
+
+    function resetFlashcardProgress(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = '¿Seguro? Pulsa otra vez';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Reiniciar';
+      cardStatuses = {};
+      streakCount = 0;
+      currentCardPos = 0;
+      isCardFlipped = false;
+      selectedQuickOption = null;
+      renderFlashcards();
+      saveProgress();
+    }
+
+    function renderFlashcards() {
+      const cardId = activeDeckIds[currentCardPos];
+      const card = getCardById(cardId);
+      if (!card) return;
+
+      const fcEl = document.getElementById('flashcard-el');
+      const topicEl = document.getElementById('fc-topic-badge');
+      const sideEl = document.getElementById('fc-side-indicator');
+      const promptEl = document.getElementById('fc-prompt');
+      const contextEl = document.getElementById('fc-context');
+      const optionsEl = document.getElementById('fc-quick-options');
+      const feedbackEl = document.getElementById('fc-feedback');
+      const answerBox = document.getElementById('fc-answer-box');
+      const answerTitle = document.getElementById('fc-answer-title');
+      const answerDetail = document.getElementById('fc-answer-detail');
+      const flipBtn = document.getElementById('fc-flip-btn');
+      const prevBtn = document.getElementById('fc-prev-btn');
+      const nextBtn = document.getElementById('fc-next-btn');
+
+      if (fcEl) fcEl.classList.toggle('is-back', isCardFlipped);
+      if (topicEl) topicEl.textContent = card.topicLabel;
+      if (sideEl) sideEl.textContent = isCardFlipped ? `Reverso · Solución` : `Anverso · Pregunta`;
+      if (promptEl) promptEl.textContent = card.prompt;
+      if (contextEl) contextEl.innerHTML = card.contextHtml;
+
+      if (optionsEl) {
+        optionsEl.innerHTML = '';
+        card.options.forEach(function (optText, idx) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-ghost';
+          btn.textContent = optText;
+          if (selectedQuickOption === idx) {
+            btn.classList.add(idx === card.correctOption ? 'btn-active' : 'btn-primary');
+          }
+          btn.onclick = function () { selectQuickOption(idx); };
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      if (feedbackEl) {
+        feedbackEl.className = 'fc-feedback';
+        if (selectedQuickOption !== null) {
+          feedbackEl.classList.add('is-visible');
+          if (selectedQuickOption === card.correctOption) {
+            feedbackEl.classList.add('fc-feedback--ok');
+            feedbackEl.textContent = `¡Acierto! Tu respuesta coincide con la solución.`;
+          } else {
+            feedbackEl.classList.add('fc-feedback--err');
+            feedbackEl.textContent = `Casi. Revisa la explicación paso a paso aquí debajo.`;
+          }
+        }
+      }
+
+      if (answerBox) answerBox.style.display = isCardFlipped ? 'grid' : 'none';
+      if (answerTitle) answerTitle.textContent = card.answerTitle;
+      if (answerDetail) answerDetail.textContent = card.answerDetail;
+      if (flipBtn) flipBtn.textContent = isCardFlipped ? `Ocultar solución` : `Ver solución`;
+      if (prevBtn) prevBtn.disabled = currentCardPos === 0;
+      if (nextBtn) nextBtn.disabled = currentCardPos >= activeDeckIds.length - 1;
+
+      // Stats & deck map
+      let masteredTotal = 0;
+      let reviewTotal = 0;
+      FLASHCARDS.forEach(function (c) {
+        if (cardStatuses[c.id] === 'mastered') masteredTotal += 1;
+        if (cardStatuses[c.id] === 'review') reviewTotal += 1;
+      });
+
+      const posStat = document.getElementById('fc-stat-pos');
+      const masStat = document.getElementById('fc-stat-mastered');
+      const revStat = document.getElementById('fc-stat-review');
+      const strStat = document.getElementById('fc-stat-streak');
+      const progFill = document.getElementById('fc-progress-fill');
+      const summaryText = document.getElementById('fc-summary-text');
+
+      if (posStat) posStat.textContent = (currentCardPos + 1) + ` / ` + activeDeckIds.length;
+      if (masStat) masStat.textContent = masteredTotal + ` / ` + FLASHCARDS.length;
+      if (revStat) revStat.textContent = String(reviewTotal);
+      if (strStat) strStat.textContent = String(streakCount);
+      if (progFill) {
+        const pct = Math.round((masteredTotal / FLASHCARDS.length) * 100);
+        progFill.style.width = pct + `%`;
+      }
+
+      if (summaryText) {
+        if (masteredTotal === FLASHCARDS.length) {
+          summaryText.textContent = `¡Enhorabuena! Has marcado como dominadas las 18 tarjetas de morfología y sintaxis.`;
+        } else if (masteredTotal > 0 || reviewTotal > 0) {
+          summaryText.textContent = `Llevas ` + masteredTotal + ` tarjeta(s) dominada(s) y ` + reviewTotal + ` marcada(s) para repasar.`;
+        } else {
+          summaryText.textContent = `Empieza por la tarjeta 1 y pon a prueba lo aprendido en los 4 bloques.`;
+        }
+      }
+
+      const deckGrid = document.getElementById('fc-deck-grid');
+      if (deckGrid) {
+        deckGrid.innerHTML = '';
+        activeDeckIds.forEach(function (id, idx) {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'fc-dot';
+          dot.textContent = String(idx + 1);
+          dot.setAttribute('aria-label', `Ir a la tarjeta ` + (idx + 1));
+          if (idx === currentCardPos) dot.classList.add('is-current');
+          else if (cardStatuses[id] === 'mastered') dot.classList.add('is-mastered');
+          else if (cardStatuses[id] === 'review') dot.classList.add('is-review');
+          dot.onclick = function () { jumpToCard(idx); };
+          deckGrid.appendChild(dot);
+        });
+      }
+    }
+
+    async function saveProgress() {
+      if (!window.notebookAppApi || typeof window.notebookAppApi.setAppState !== 'function') return;
+      try {
+        await window.notebookAppApi.setAppState({
+          deckFilter: deckFilter,
+          currentCardPos: currentCardPos,
+          cardStatuses: cardStatuses,
+          streakCount: streakCount
+        });
+      } catch (err) {
+        // Ignore persistence errors silently
+      }
+    }
+
+    function setupRevealObserver() {
+      const items = document.querySelectorAll('.reveal-item');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      items.forEach(function (el) { obs.observe(el); });
+    }
+
+    async function initApp() {
+      selectCategory('sustantivo');
+      renderLab();
+      renderSyntagm();
+      renderAnalyzer();
+      setupRevealObserver();
+
+      const fcEl = document.getElementById('flashcard-el');
+      if (fcEl) {
+        fcEl.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowRight') {
+            nextFlashcard();
+          } else if (e.key === 'ArrowLeft') {
+            prevFlashcard();
+          }
+        });
+      }
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (saved.deckFilter && ['all', 'var', 'tri', 'syn', 'mod'].indexOf(saved.deckFilter) !== -1) {
+              deckFilter = saved.deckFilter;
+              activeDeckIds = FLASHCARDS.filter(function (c) {
+                return deckFilter === 'all' || c.topic === deckFilter;
+              }).map(function (c) { return c.id; });
+              const map = { all: 'fc-filter-all', var: 'fc-filter-var', tri: 'fc-filter-tri', syn: 'fc-filter-syn', mod: 'fc-filter-mod' };
+              Object.keys(map).forEach(function (k) {
+                const b = document.getElementById(map[k]);
+                if (b) b.classList.toggle('btn-active', k === deckFilter);
+              });
+            }
+            if (saved.cardStatuses && typeof saved.cardStatuses === 'object') {
+              cardStatuses = saved.cardStatuses;
+            }
+            if (typeof saved.streakCount === 'number') {
+              streakCount = saved.streakCount;
+            }Patronio
+            if (typeof saved.currentCardPos === 'number' && saved.currentCardPos >= 0 && saved.currentCardPos < activeDeckIds.length) {
+              currentCardPos = saved.currentCardPos;
+            }
+          }
+        } catch (err) {
+          // Start clean on error
+        }
+      }
+
+      renderFlashcards();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
