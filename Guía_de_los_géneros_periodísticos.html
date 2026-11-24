@@ -1,0 +1,2808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="haven">
+  <title>Los géneros periodísticos — Guía interactiva de 2.º de ESO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Haven) */
+      --background: #f5f6f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #e3ebe2;
+      --surface-container-high: #dbe2dd;
+
+      /* Ink */
+      --on-surface: #23272a;
+      --on-surface-variant: #5c6468;
+
+      /* Rules */
+      --outline: #c9d0cc;
+      --outline-variant: #dde2df;
+
+      /* Accents */
+      --primary: #3c5a6e;
+      --on-primary: #ffffff;
+      --primary-container: #e2e9ee;
+      --on-primary-container: #2a4152;
+      --secondary: #4f6b53;
+      --tertiary: #5f7c63;
+      --error: #a63d32;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #3c5a6e;
+      --data-2: #5f7c63;
+      --data-3: #a8694a;
+      --data-4: #8a7a68;
+      --data-context: #c3cac6;
+
+      /* Fonts */
+      --font-headline: 'Outfit', sans-serif;
+      --font-body: 'Hanken Grotesk', sans-serif;
+      --font-label: 'Outfit', sans-serif;
+
+      /* Shape */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.5rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-control: 1px solid var(--outline);
+      --elevation: none;
+
+      /* Semantic & workshop tokens */
+      --positive: #3e6b48;
+      --positive-container: #e3ebe2;
+      --warning: #8a5624;
+      --warning-container: #f5ece3;
+      --error-container: #f6e6e4;
+      --clay-text: #7d4930;
+      --clay-container: #f3eae5;
+      --oak-text: #5f5345;
+      --oak-container: #eeebe7;
+      --focus: var(--primary);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.5rem, 1.5rem + 3.8vw, 4.25rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    .headline {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .headline strong, .headline b {
+      font-weight: 600;
+    }
+    .display-title {
+      font-size: var(--display-size);
+      margin-top: var(--space-sm);
+    }
+    .section-title {
+      font-size: var(--headline-size);
+    }
+    .subhead {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.015em;
+      text-transform: none;
+      color: var(--on-surface-variant);
+      display: inline-block;
+    }
+    .caption-sage {
+      font-family: var(--font-body);
+      font-weight: 500;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0;
+      max-width: 65ch;
+    }
+    .lede {
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+      margin: var(--space-sm) 0 0;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 68ch;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Panels & Dividers */
+    .panel {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--elevation);
+      padding: var(--space-lg);
+    }
+    .panel-sage {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .section {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+    .section + .section {
+      border-top: var(--hairline);
+      padding-top: var(--space-2xl);
+      margin-top: var(--space-md);
+    }
+
+    /* Buttons & Controls */
+    button, input, select {
+      font-family: inherit;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      border: var(--hairline-control);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+      text-decoration: none;
+    }
+    .btn:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+    .btn:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-active {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+    }
+    .btn-active:hover:not(:disabled) {
+      background: var(--primary-container);
+    }
+    .btn-sage-active {
+      background: var(--surface-container);
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Tags / Chips */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      background: var(--surface-container);
+      color: var(--secondary);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .tag-slate {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .tag-clay {
+      background: var(--clay-container);
+      color: var(--clay-text);
+    }
+    .tag-oak {
+      background: var(--oak-container);
+      color: var(--oak-text);
+    }
+
+    /* Header & Progress */
+    .hero-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+      padding-bottom: var(--space-xl);
+      border-bottom: var(--hairline);
+    }
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-lg);
+    }
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .stat-tile {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .stat-value {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+    .section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md) var(--space-lg);
+      padding-top: var(--space-sm);
+    }
+    .nav-link {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--primary);
+      text-decoration: none;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid transparent;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      border-bottom-color: var(--primary);
+    }
+
+    /* Section 1: Compass & Table */
+    .compass-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.95fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .compass-svg-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .compass-svg {
+      width: 100%;
+      height: auto;
+      min-height: 220px;
+      display: block;
+    }
+    .compass-node {
+      cursor: pointer;
+      transition: opacity var(--dur-micro) var(--ease-out);
+    }
+    .compass-node:hover rect, .compass-node:hover circle {
+      stroke-width: 2.5px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      background: var(--surface-container-low);
+    }
+    table.comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.96rem;
+    }
+    table.comp-table th,
+    table.comp-table td {
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: var(--hairline);
+      vertical-align: top;
+    }
+    table.comp-table tr:last-child td,
+    table.comp-table tr:last-child th {
+      border-bottom: none;
+    }
+    table.comp-table thead th {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      background: var(--background);
+    }
+    table.comp-table tbody th {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      color: var(--on-surface);
+      width: 16%;
+    }
+    table.comp-table tbody tr:hover {
+      background: var(--surface-container-high);
+    }
+    table.comp-table td.col-highlight,
+    table.comp-table th.col-highlight {
+      background: var(--primary-container);
+    }
+    .quiz-cell-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--hairline-control);
+      background: var(--background);
+      color: var(--primary);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .quiz-cell-btn:hover {
+      background: var(--primary-container);
+    }
+
+    /* Collapsible Exam Summary */
+    details.exam-summary {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    details.exam-summary summary {
+      cursor: pointer;
+      font-family: var(--font-headline);
+      font-weight: 500;
+      color: var(--primary);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 44px;
+    }
+    details.exam-summary summary::-webkit-details-marker {
+      display: none;
+    }
+    .details-body {
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--hairline);
+    }
+
+    /* Section 2: Subgenre Explorer */
+    .subgenre-stack {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+    .subgenre-card {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+    .subgenre-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--hairline);
+    }
+    .subgenre-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .structure-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-md);
+    }
+    .pyramid-svg {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      display: block;
+    }
+    .layer-btn {
+      cursor: pointer;
+    }
+    .layer-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-sm);
+    }
+    .step-btn {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+    }
+    .step-btn.is-selected {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+    }
+    .step-detail {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .w6-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: var(--space-sm);
+    }
+    .traits-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-md);
+    }
+    .trait-group {
+      border-left: 2px solid var(--outline);
+      padding-left: var(--space-md);
+    }
+    .trait-group.trait-sage {
+      border-left-color: var(--secondary);
+    }
+    .trait-list {
+      margin: var(--space-sm) 0 0;
+      padding-left: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .trait-list li {
+      color: var(--on-surface);
+    }
+
+    /* Section 3: Flashcards */
+    .flashcard-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .flashcard-stage {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+      min-height: 320px;
+    }
+    .flashcard-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .flashcard-quote {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      font-style: italic;
+      color: var(--on-surface);
+    }
+    .flashcard-answer-box {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      animation: fadeUp var(--dur-short) var(--ease-out);
+    }
+    .flashcard-answer-box.is-wrong {
+      background: var(--warning-container);
+    }
+
+    /* Section 4: Text Analysis Workshop */
+    .taller-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .filter-panel {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .filter-groups {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: var(--hairline-control);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .filter-chip[aria-pressed="true"] {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+    }
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--rounded-full);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .swatch-estructura { background: var(--primary); }
+    .swatch-persona { background: var(--secondary); }
+    .swatch-tiempo { background: var(--data-3); }
+    .swatch-lexico { background: var(--data-4); }
+
+    .article-sheet {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .article-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+    }
+    .article-headline {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.75rem);
+      line-height: 1.2;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .article-subhead {
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      margin: 0;
+      line-height: 1.45;
+    }
+    .article-byline {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-weight: 500;
+    }
+    .article-body {
+      display: grid;
+      gap: var(--space-md);
+      border-top: var(--hairline);
+      padding-top: var(--space-md);
+    }
+    .anno-token {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      color: inherit;
+      text-align: inherit;
+      line-height: inherit;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .anno-token.is-lit {
+      padding: 1px 4px;
+      border-bottom: 2px solid var(--outline);
+    }
+    .anno-token.is-lit[data-cat="estructura"] {
+      background: var(--primary-container);
+      border-bottom-color: var(--primary);
+    }
+    .anno-token.is-lit[data-cat="persona"] {
+      background: var(--positive-container);
+      border-bottom-color: var(--secondary);
+    }
+    .anno-token.is-lit[data-cat="tiempo"] {
+      background: var(--clay-container);
+      border-bottom-color: var(--data-3);
+    }
+    .anno-token.is-lit[data-cat="lexico"] {
+      background: var(--oak-container);
+      border-bottom-color: var(--data-4);
+    }
+    .anno-token.is-selected {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+    .inspector-card {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .legend-list {
+      display: grid;
+      gap: var(--space-sm);
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: var(--space-xs);
+    }
+    .legend-item {
+      width: 100%;
+      text-align: left;
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      display: grid;
+      gap: var(--space-xs);
+      min-height: 44px;
+    }
+    .legend-item:hover {
+      background: var(--surface-container-high);
+    }
+    .legend-item.is-selected {
+      border-color: var(--primary);
+      background: var(--primary-container);
+    }
+
+    /* Section 5: Interactive Exercises */
+    .exercises-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+    .exercise-panel {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .headline-challenge-card {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .headline-sample {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.6rem);
+      line-height: 1.25;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .feedback-box {
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      border: var(--hairline);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .feedback-box.is-error {
+      background: var(--error-container);
+    }
+    .w6-lead-box {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      line-height: 2.05;
+    }
+    .w6-frag {
+      display: inline;
+      padding: 3px 6px;
+      border-radius: var(--rounded);
+      border: 1px solid var(--outline);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font: inherit;
+      line-height: 1.5;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .w6-frag:hover {
+      background: var(--primary-container);
+      border-color: var(--primary);
+    }
+    .w6-frag.is-solved {
+      background: var(--surface-container);
+      border-color: var(--secondary);
+      color: var(--secondary);
+      font-weight: 500;
+    }
+    .w6-frag-badge {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--primary);
+      margin-left: var(--space-xs);
+    }
+    .w6-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .w6-btn.is-done {
+      background: var(--surface-container);
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    /* Footer */
+    .page-footer {
+      border-top: var(--hairline);
+      padding-top: var(--space-xl);
+      margin-top: var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: var(--label-size);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 860px) {
+      .compass-layout,
+      .subgenre-grid,
+      .taller-workspace {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-lg);
+      }
+      .panel, .subgenre-card, .article-sheet, .exercise-panel, .flashcard-stage {
+        padding: var(--space-md);
+      }
+      table.comp-table th, table.comp-table td {
+        padding: var(--space-sm) var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+    <!-- HEADER -->
+    <header class="hero-header">
+      <div class="hero-top">
+        <div>
+          <span class="label">Lengua Castellana y Literatura · 2.º de ESO</span>
+          <h1 class="headline display-title">Los géneros <strong>periodísticos</strong></h1>
+          <p class="caption-sage">Guía interactiva de estudio: estructura, características, rasgos lingüísticos, análisis de textos y práctica guiada.</p>
+        </div>
+        <div>
+          <button type="button" class="btn" id="reset-progress-btn" data-armed="false">Reiniciar progreso</button>
+        </div>
+      </div>
+
+      <div class="progress-grid" aria-label="Resumen de tu progreso">
+        <div class="stat-tile">
+          <span class="label">Flashcards dominadas</span>
+          <span class="stat-value" id="stat-flashcards">0 / 12</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">Detective de titulares</span>
+          <span class="stat-value" id="stat-headlines">0 / 8</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">Desafío de las 6W</span>
+          <span class="stat-value" id="stat-w6">0 / 12</span>
+        </div>
+      </div>
+
+      <nav class="section-nav" aria-label="Navegación por secciones">
+        <a class="nav-link" href="#seccion-1">1. La brújula</a>
+        <a class="nav-link" href="#seccion-2">2. Explorador de subgéneros</a>
+        <a class="nav-link" href="#seccion-3">3. Flashcards</a>
+        <a class="nav-link" href="#seccion-4">4. Taller de análisis</a>
+        <a class="nav-link" href="#seccion-5">5. Retos de práctica</a>
+      </nav>
+    </header>
+
+    <!-- SECCIÓN 1: LA BRÚJULA DE LOS GÉNEROS PERIODÍSTICOS -->
+    <section class="section" id="seccion-1" aria-labelledby="h-sec-1">
+      <div>
+        <span class="label">Sección 1 · Visión general</span>
+        <h2 class="headline section-title" id="h-sec-1">La <strong>brújula</strong> de los géneros periodísticos</h2>
+        <p class="lede">El periodismo tiene como objetivo principal contar qué ocurre en el mundo, pero no todos los textos tienen la misma intención. La clave está en la actitud del periodista ante los hechos: narrar con objetividad, combinar hechos y mirada personal o expresar su punto de vista.</p>
+      </div>
+
+      <div class="compass-layout">
+        <div class="panel">
+          <span class="label">Espectro de objetividad a subjetividad (pulsa un bloque o subgénero)</span>
+          <div class="compass-svg-wrap" style="margin-top: var(--space-md);">
+            <svg class="compass-svg" viewBox="0 0 640 240" role="img" aria-label="Brújula de los géneros periodísticos entre información, mixtos y opinión">
+              <!-- Eje horizontal -->
+              <line x1="40" y1="115" x2="600" y2="115" stroke="var(--outline)" stroke-width="2" />
+              <polygon points="36,115 48,109 48,121" fill="var(--primary)" />
+              <polygon points="604,115 592,109 592,121" fill="var(--data-3)" />
+
+              <!-- Etiquetas de los polos -->
+              <text x="40" y="92" fill="var(--primary)" font-family="var(--font-label)" font-size="13" font-weight="600">Más objetividad (Hechos)</text>
+              <text x="320" y="92" text-anchor="middle" fill="var(--secondary)" font-family="var(--font-label)" font-size="13" font-weight="600">Hibridación</text>
+              <text x="600" y="92" text-anchor="end" fill="var(--clay-text)" font-family="var(--font-label)" font-size="13" font-weight="600">Más subjetividad (Valoraciones)</text>
+
+              <!-- Bloque 1: Información -->
+              <g class="compass-node" data-compass-block="informacion" tabindex="0" role="button" aria-label="Seleccionar bloque Información">
+                <rect x="28" y="132" width="188" height="86" rx="8" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5" />
+                <text x="42" y="156" fill="var(--on-primary-container)" font-family="var(--font-headline)" font-size="16" font-weight="600">Información</text>
+                <text x="42" y="178" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="13">Noticia · Reportaje</text>
+                <text x="42" y="198" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="13">Entrevista objetiva</text>
+              </g>
+
+              <!-- Bloque 2: Mixtos -->
+              <g class="compass-node" data-compass-block="mixto" tabindex="0" role="button" aria-label="Seleccionar bloque Géneros mixtos">
+                <rect x="230" y="132" width="180" height="86" rx="8" fill="var(--surface-container)" stroke="var(--secondary)" stroke-width="1.5" />
+                <text x="244" y="156" fill="var(--secondary)" font-family="var(--font-headline)" font-size="16" font-weight="600">Géneros mixtos</text>
+                <text x="244" y="178" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="13">Crónica (deportiva,</text>
+                <text x="244" y="198" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="13">cultural, de sucesos…)</text>
+              </g>
+
+              <!-- Bloque 3: Opinión -->
+              <g class="compass-node" data-compass-block="opinion" tabindex="0" role="button" aria-label="Seleccionar bloque Opinión">
+                <rect x="424" y="132" width="188" height="86" rx="8" fill="var(--clay-container)" stroke="var(--clay-text)" stroke-width="1.5" />
+                <text x="438" y="156" fill="var(--clay-text)" font-family="var(--font-headline)" font-size="16" font-weight="600">Opinión</text>
+                <text x="438" y="178" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="13">Artículo / Columna</text>
+                <text x="438" y="198" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="13">Editorial · Carta al director</text>
+              </g>
+
+              <!-- Aguja de la brújula decorativa -->
+              <circle cx="320" cy="42" r="24" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+              <polygon id="compass-needle" points="320,23 326,42 320,61 314,42" fill="var(--primary)" />
+              <circle cx="320" cy="42" r="3.5" fill="var(--on-surface)" />
+            </svg>
+          </div>
+          <div class="btn-row" style="margin-top: var(--space-md);">
+            <button type="button" class="btn btn-active" data-compass-btn="informacion">Información</button>
+            <button type="button" class="btn" data-compass-btn="mixto">Géneros mixtos</button>
+            <button type="button" class="btn" data-compass-btn="opinion">Opinión</button>
+          </div>
+        </div>
+
+        <div class="panel" id="compass-detail-panel" aria-live="polite">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- Tabla comparativa interactiva -->
+      <div style="display: grid; gap: var(--space-md);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+          <div class="btn-row" role="group" aria-label="Filtrar criterio de comparación">
+            <button type="button" class="btn btn-active" data-crit-filter="all">Todos los criterios</button>
+            <button type="button" class="btn" data-crit-filter="intencion">Intención</button>
+            <button type="button" class="btn" data-crit-filter="actitud">Actitud del autor</button>
+            <button type="button" class="btn" data-crit-filter="persona">Persona gramatical</button>
+            <button type="button" class="btn" data-crit-filter="subgeneros">Subgéneros</button>
+          </div>
+          <button type="button" class="btn" id="toggle-table-quiz" aria-pressed="false">Modo repaso: ocultar respuestas</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="comp-table" id="comp-table">
+            <thead>
+              <tr>
+                <th scope="col">Criterio</th>
+                <th scope="col" data-col="informacion">Información (Hechos)</th>
+                <th scope="col" data-col="mixto">Géneros mixtos (Crónica)</th>
+                <th scope="col" data-col="opinion">Opinión (Valoraciones)</th>
+              </tr>
+            </thead>
+            <tbody id="comp-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Esquema resumen para repasar antes del examen -->
+      <details class="exam-summary">
+        <summary>
+          <span>Esquema-resumen para repasar antes del examen</span>
+          <span class="label">Abrir o cerrar tabla</span>
+        </summary>
+        <div class="details-body table-wrap">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th scope="col">Subgénero</th>
+                <th scope="col">Bloque</th>
+                <th scope="col">Estructura clave</th>
+                <th scope="col">Rasgo lingüístico clave</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Noticia</th>
+                <td><span class="tag tag-slate">Informativo</span></td>
+                <td>Pirámide invertida: Titular (+ subtítulo), Entradilla (6W) y Cuerpo.</td>
+                <td>3.ª persona, modo indicativo, adjetivos especificativos.</td>
+              </tr>
+              <tr>
+                <th scope="row">Entrevista</th>
+                <td><span class="tag tag-slate">Informativo</span></td>
+                <td>Titular (cita), Presentación, Cuerpo (Pregunta-Respuesta) y Cierre.</td>
+                <td>Alternancia 1.ª/2.ª persona, estilo directo, interrogaciones.</td>
+              </tr>
+              <tr>
+                <th scope="row">Crónica</th>
+                <td><span class="tag">Mixto</span></td>
+                <td>Titular expresivo, Entradilla, Cuerpo cronológico y Conclusión.</td>
+                <td>3.ª y 1.ª persona, marcadores temporales, adjetivos valorativos.</td>
+              </tr>
+              <tr>
+                <th scope="row">Artículo / Columna</th>
+                <td><span class="tag tag-clay">Opinión</span></td>
+                <td>Libre/Argumentativa: Titular, Tesis, Argumentos y Conclusión.</td>
+                <td>1.ª persona, léxico valorativo, subjuntivo y recursos literarios.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <!-- SECCIÓN 2: EXPLORADOR DE SUBGÉNEROS -->
+    <section class="section" id="seccion-2" aria-labelledby="h-sec-2">
+      <div>
+        <span class="label">Sección 2 · Estructura, características y rasgos</span>
+        <h2 class="headline section-title" id="h-sec-2">Explorador de <strong>subgéneros</strong></h2>
+        <p class="lede">Pulsa cada parte de la estructura en los esquemas interactivos para descubrir cómo se organiza cada texto y qué rasgos lingüísticos lo delatan.</p>
+      </div>
+
+      <div class="subgenre-stack">
+        <!-- A. LA NOTICIA -->
+        <article class="subgenre-card" aria-labelledby="sub-noticia">
+          <div class="subgenre-header">
+            <div>
+              <span class="label">Subgénero A · Género informativo</span>
+              <h3 class="subhead" id="sub-noticia" style="margin-top: var(--space-xs);">La noticia</h3>
+            </div>
+            <span class="tag tag-slate">Relato breve, objetivo y claro de un hecho reciente</span>
+          </div>
+          <div class="subgenre-grid">
+            <div class="structure-box">
+              <span class="label">1. Estructura en pirámide invertida (pulsa cada estrato)</span>
+              <svg class="pyramid-svg" viewBox="0 0 420 230" role="img" aria-label="Pirámide invertida de la noticia">
+                <g class="layer-btn" data-sub="noticia" data-part="0" tabindex="0" role="button" aria-label="Titular y antetítulo">
+                  <polygon points="20,16 400,16 368,60 52,60" fill="var(--primary)" stroke="var(--surface-container-low)" stroke-width="2" />
+                  <text x="210" y="43" text-anchor="middle" fill="var(--on-primary)" font-family="var(--font-headline)" font-size="14" font-weight="600">Titular (+ Antetítulo)</text>
+                </g>
+                <g class="layer-btn" data-sub="noticia" data-part="1" tabindex="0" role="button" aria-label="Subtítulo">
+                  <polygon points="55,64 365,64 336,104 84,104" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5" />
+                  <text x="210" y="89" text-anchor="middle" fill="var(--on-primary-container)" font-family="var(--font-headline)" font-size="14" font-weight="600">Subtítulo</text>
+                </g>
+                <g class="layer-btn" data-sub="noticia" data-part="2" tabindex="0" role="button" aria-label="Entradilla o lead y las 6W">
+                  <polygon points="87,108 333,108 296,158 124,158" fill="var(--surface-container)" stroke="var(--secondary)" stroke-width="1.5" />
+                  <text x="210" y="138" text-anchor="middle" fill="var(--secondary)" font-family="var(--font-headline)" font-size="14" font-weight="600">Entradilla o lead (6W)</text>
+                </g>
+                <g class="layer-btn" data-sub="noticia" data-part="3" tabindex="0" role="button" aria-label="Cuerpo de la noticia">
+                  <polygon points="127,162 293,162 210,218" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="210" y="188" text-anchor="middle" fill="var(--on-surface)" font-family="var(--font-headline)" font-size="14" font-weight="600">Cuerpo</text>
+                </g>
+              </svg>
+              <div class="btn-row" data-part-tabs="noticia">
+                <button type="button" class="btn btn-active" data-sub="noticia" data-part="0">Titular</button>
+                <button type="button" class="btn" data-sub="noticia" data-part="1">Subtítulo</button>
+                <button type="button" class="btn" data-sub="noticia" data-part="2">Entradilla (6W)</button>
+                <button type="button" class="btn" data-sub="noticia" data-part="3">Cuerpo</button>
+              </div>
+              <div class="step-detail" id="detail-noticia" aria-live="polite"></div>
+            </div>
+
+            <div class="traits-col">
+              <div class="trait-group">
+                <span class="label">2. Características principales</span>
+                <ul class="trait-list">
+                  <li><strong>Objetividad y veracidad:</strong> hechos reales y comprobados; el periodista no opina.</li>
+                  <li><strong>Actualidad y novedad:</strong> sucesos recientes que despiertan interés general.</li>
+                  <li><strong>Claridad y brevedad:</strong> directo al grano, sin rodeos ni adornos innecesarios.</li>
+                </ul>
+              </div>
+              <div class="trait-group trait-sage">
+                <span class="label">3. Rasgos lingüísticos</span>
+                <ul class="trait-list">
+                  <li><strong>Tercera persona gramatical:</strong> <em>el equipo halló, los vecinos denunciaron</em> para mantener imparcialidad.</li>
+                  <li><strong>Verbos en modo indicativo:</strong> modo de la realidad y certeza; predomina el pretérito perfecto simple (<em>ocurrió</em>) y compuesto (<em>ha anunciado</em>).</li>
+                  <li><strong>Oraciones enunciativas y léxico preciso:</strong> frases directas sin dobles sentidos.</li>
+                  <li><strong>Adjetivos especificativos:</strong> datos concretos sin valoración (<em>«anfibio acuático», «expedición nocturna», «informe oficial»</em>), evitando valorativos como <em>«maravilloso»</em> o <em>«terrible»</em>.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- B. LA ENTREVISTA -->
+        <article class="subgenre-card" aria-labelledby="sub-entrevista">
+          <div class="subgenre-header">
+            <div>
+              <span class="label">Subgénero B · Género informativo</span>
+              <h3 class="subhead" id="sub-entrevista" style="margin-top: var(--space-xs);">La entrevista</h3>
+            </div>
+            <span class="tag tag-slate">Diálogo entre periodista y persona relevante</span>
+          </div>
+          <div class="subgenre-grid">
+            <div class="structure-box">
+              <span class="label">1. Estructura del diálogo (pulsa cada bloque)</span>
+              <div class="layer-list" data-part-tabs="entrevista">
+                <button type="button" class="btn step-btn is-selected" data-sub="entrevista" data-part="0">1. Titular (frase entre comillas) + subtítulo</button>
+                <button type="button" class="btn step-btn" data-sub="entrevista" data-part="1">2. Presentación o entradilla del personaje</button>
+                <button type="button" class="btn step-btn" data-sub="entrevista" data-part="2">3. Cuerpo: transcripción Pregunta–Respuesta</button>
+                <button type="button" class="btn step-btn" data-sub="entrevista" data-part="3">4. Cierre reflexivo o despedida</button>
+              </div>
+              <div class="step-detail" id="detail-entrevista" aria-live="polite"></div>
+            </div>
+
+            <div class="traits-col">
+              <div class="trait-group">
+                <span class="label">2. Características principales</span>
+                <ul class="trait-list">
+                  <li><strong>Dos enfoques:</strong> <em>informativa</em> (centrada en datos sobre un hecho) o <em>de perfil/psicológica</em> (centrada en personalidad, trayectoria y forma de pensar).</li>
+                  <li><strong>Oralidad planificada:</strong> reproduce una conversación oral por escrito; el periodista limpia repeticiones y muletillas para facilitar la lectura.</li>
+                </ul>
+              </div>
+              <div class="trait-group trait-sage">
+                <span class="label">3. Rasgos lingüísticos</span>
+                <ul class="trait-list">
+                  <li><strong>Alternancia de personas:</strong> 2.ª persona en las preguntas del periodista (<em>¿Cómo viviste…? ¿Qué opina usted…?</em>) y 1.ª persona en las respuestas (<em>sentí, creemos</em>).</li>
+                  <li><strong>Modalidad interrogativa y exclamativa:</strong> abundan preguntas directas e indirectas y exclamaciones emotivas.</li>
+                  <li><strong>Estilo directo y marcas de oralidad:</strong> reproduce literalmente las palabras del entrevistado con tono cercano y llamadas al interlocutor.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- C. LA CRÓNICA -->
+        <article class="subgenre-card" aria-labelledby="sub-cronica">
+          <div class="subgenre-header">
+            <div>
+              <span class="label">Subgénero C · Género mixto (Información + Opinión)</span>
+              <h3 class="subhead" id="sub-cronica" style="margin-top: var(--space-xs);">La crónica</h3>
+            </div>
+            <span class="tag">Narración cronológica de un testigo directo</span>
+          </div>
+          <div class="subgenre-grid">
+            <div class="structure-box">
+              <span class="label">1. Estructura en hilo temporal (pulsa cada fase)</span>
+              <svg class="pyramid-svg" viewBox="0 0 420 96" role="img" aria-label="Línea temporal de la crónica">
+                <line x1="26" y1="44" x2="394" y2="44" stroke="var(--outline)" stroke-width="2" />
+                <g class="layer-btn" data-sub="cronica" data-part="0" tabindex="0" role="button" aria-label="Titular expresivo">
+                  <circle cx="48" cy="44" r="14" fill="var(--secondary)" />
+                  <text x="48" y="49" text-anchor="middle" fill="var(--on-primary)" font-family="var(--font-label)" font-size="12" font-weight="600">1</text>
+                  <text x="48" y="78" text-anchor="middle" fill="var(--on-surface)" font-family="var(--font-label)" font-size="12">Titular</text>
+                </g>
+                <g class="layer-btn" data-sub="cronica" data-part="1" tabindex="0" role="button" aria-label="Entradilla ambiental">
+                  <circle cx="156" cy="44" r="14" fill="var(--surface-container)" stroke="var(--secondary)" stroke-width="1.5" />
+                  <text x="156" y="49" text-anchor="middle" fill="var(--secondary)" font-family="var(--font-label)" font-size="12" font-weight="600">2</text>
+                  <text x="156" y="78" text-anchor="middle" fill="var(--on-surface)" font-family="var(--font-label)" font-size="12">Entradilla</text>
+                </g>
+                <g class="layer-btn" data-sub="cronica" data-part="2" tabindex="0" role="button" aria-label="Cuerpo cronológico">
+                  <circle cx="264" cy="44" r="14" fill="var(--surface-container)" stroke="var(--secondary)" stroke-width="1.5" />
+                  <text x="264" y="49" text-anchor="middle" fill="var(--secondary)" font-family="var(--font-label)" font-size="12" font-weight="600">3</text>
+                  <text x="264" y="78" text-anchor="middle" fill="var(--on-surface)" font-family="var(--font-label)" font-size="12">Cronología</text>
+                </g>
+                <g class="layer-btn" data-sub="cronica" data-part="3" tabindex="0" role="button" aria-label="Conclusión valorativa">
+                  <circle cx="372" cy="44" r="14" fill="var(--surface-container)" stroke="var(--secondary)" stroke-width="1.5" />
+                  <text x="372" y="49" text-anchor="middle" fill="var(--secondary)" font-family="var(--font-label)" font-size="12" font-weight="600">4</text>
+                  <text x="372" y="78" text-anchor="middle" fill="var(--on-surface)" font-family="var(--font-label)" font-size="12">Conclusión</text>
+                </g>
+              </svg>
+              <div class="btn-row" data-part-tabs="cronica">
+                <button type="button" class="btn btn-active" data-sub="cronica" data-part="0">Titular expresivo</button>
+                <button type="button" class="btn" data-sub="cronica" data-part="1">Entradilla</button>
+                <button type="button" class="btn" data-sub="cronica" data-part="2">Cuerpo cronológico</button>
+                <button type="button" class="btn" data-sub="cronica" data-part="3">Conclusión</button>
+              </div>
+              <div class="step-detail" id="detail-cronica" aria-live="polite"></div>
+            </div>
+
+            <div class="traits-col">
+              <div class="trait-group">
+                <span class="label">2. Características principales</span>
+                <ul class="trait-list">
+                  <li><strong>Presencia directa del autor:</strong> el periodista (corresponsal o enviado especial) presencia los hechos.</li>
+                  <li><strong>Hibridación:</strong> informa con rigor sobre lo ocurrido, pero aporta su visión subjetiva y estilo propio.</li>
+                  <li><strong>Importancia del tiempo:</strong> a diferencia de la noticia (pirámide invertida), sigue el orden temporal de principio a fin.</li>
+                </ul>
+              </div>
+              <div class="trait-group trait-sage">
+                <span class="label">3. Rasgos lingüísticos</span>
+                <ul class="trait-list">
+                  <li><strong>Alternancia de 3.ª y 1.ª persona:</strong> 3.ª para narrar los hechos y 1.ª (singular o plural) para expresar lo que ve o siente.</li>
+                  <li><strong>Marcadores temporales:</strong> <em>al inicio, minutos después, tras el descanso, finalmente</em>.</li>
+                  <li><strong>Adjetivos valorativos y léxico expresivo:</strong> transmiten emoción (<em>vibrante, agónico, ensordecedor, magistral</em>).</li>
+                  <li><strong>Recursos literarios:</strong> metáforas, comparaciones e hipérboles que dan viveza y ritmo narrativo.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- D. EL ARTÍCULO O COLUMNA DE OPINIÓN -->
+        <article class="subgenre-card" aria-labelledby="sub-columna">
+          <div class="subgenre-header">
+            <div>
+              <span class="label">Subgénero D · Género de opinión</span>
+              <h3 class="subhead" id="sub-columna" style="margin-top: var(--space-xs);">El artículo o columna de opinión</h3>
+            </div>
+            <span class="tag tag-clay">Texto firmado con total libertad de estilo</span>
+          </div>
+          <div class="subgenre-grid">
+            <div class="structure-box">
+              <span class="label">1. Esquema argumentativo flexible (pulsa cada parte)</span>
+              <div class="layer-list" data-part-tabs="columna">
+                <button type="button" class="btn step-btn is-selected" data-sub="columna" data-part="0">1. Titular breve, sugerente, irónico o literario</button>
+                <button type="button" class="btn step-btn" data-sub="columna" data-part="1">2. Introducción y tesis (idea o postura defendida)</button>
+                <button type="button" class="btn step-btn" data-sub="columna" data-part="2">3. Desarrollo o cuerpo argumentativo</button>
+                <button type="button" class="btn step-btn" data-sub="columna" data-part="3">4. Conclusión reflexiva o ingeniosa</button>
+              </div>
+              <div class="step-detail" id="detail-columna" aria-live="polite"></div>
+            </div>
+
+            <div class="traits-col">
+              <div class="trait-group">
+                <span class="label">2. Características principales</span>
+                <ul class="trait-list">
+                  <li><strong>Subjetividad total y firma:</strong> va firmado por su autor, responsable de sus ideas (si ocupa un espacio fijo periódico se llama <em>columna</em>).</li>
+                  <li><strong>Intención persuasiva:</strong> busca convencer o hacer reflexionar sobre un problema social, cultural o cotidiano.</li>
+                  <li><strong>Libertad creativa:</strong> el autor elige libremente tono (serio, humorístico, irónico, poético) y orden estructural.</li>
+                </ul>
+              </div>
+              <div class="trait-group trait-sage">
+                <span class="label">3. Rasgos lingüísticos</span>
+                <ul class="trait-list">
+                  <li><strong>1.ª persona explícita:</strong> singular (<em>yo opino, me sorprende</em>) y plural inclusivo (<em>hemos perdido, debemos pensar</em>).</li>
+                  <li><strong>Léxico valorativo y connotativo:</strong> palabras con carga afectiva o crítica (<em>hipnotizados, absurdo, imprescindible</em>).</li>
+                  <li><strong>Modalidades oracionales y modo subjuntivo:</strong> enunciativas junto a interrogativas, exclamativas, dubitativas y subjuntivo (<em>ojalá recuperemos, quizá sea</em>).</li>
+                  <li><strong>Recursos estilísticos y conectores argumentativos:</strong> ironía, metáforas, preguntas retóricas y conectores (<em>sin embargo, por lo tanto, en definitiva</em>).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: EJERCICIO INTERACTIVO DE FLASHCARDS -->
+    <section class="section" id="seccion-3" aria-labelledby="h-sec-3">
+      <div>
+        <span class="label">Sección 3 · Entrenamiento de rasgos lingüísticos</span>
+        <h2 class="headline section-title" id="h-sec-3">Flashcards de <strong>rasgos lingüísticos</strong></h2>
+        <p class="lede">Pon a prueba si sabes asociar cada rasgo gramatical o estilístico con su subgénero. Elige primero tu respuesta o gira directamente la tarjeta.</p>
+      </div>
+
+      <div class="flashcard-controls">
+        <div class="btn-row" role="group" aria-label="Filtrar flashcards">
+          <button type="button" class="btn btn-active" data-fc-filter="all">Todas (12)</button>
+          <button type="button" class="btn" data-fc-filter="pending">Por repasar</button>
+          <button type="button" class="btn" data-fc-filter="mastered">Dominadas</button>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn" id="fc-shuffle-btn">Mezclar orden</button>
+          <span class="label" id="fc-counter" aria-live="polite">Tarjeta 1 de 12</span>
+        </div>
+      </div>
+
+      <div class="flashcard-stage" id="flashcard-stage" aria-live="polite">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: TALLER DE ANÁLISIS DE TEXTOS EJEMPLO -->
+    <section class="section" id="seccion-4" aria-labelledby="h-sec-4">
+      <div>
+        <span class="label">Sección 4 · Textos completos anotados</span>
+        <h2 class="headline section-title" id="h-sec-4">Taller de <strong>análisis de textos</strong></h2>
+        <p class="lede">Selecciona uno de los cuatro textos modelo de los apuntes y activa las capas para visibilizar su estructura y sus rasgos lingüísticos. Pulsa cualquier fragmento subrayado para leer su comentario.</p>
+      </div>
+
+      <div class="btn-row" role="group" aria-label="Elegir texto modelo" id="taller-text-tabs">
+        <button type="button" class="btn btn-active" data-text-id="noticia">Noticia · Rana diminuta</button>
+        <button type="button" class="btn" data-text-id="entrevista">Entrevista · Elena Navarro</button>
+        <button type="button" class="btn" data-text-id="cronica">Crónica · Remontada épica</button>
+        <button type="button" class="btn" data-text-id="columna">Columna · Esclavos de la pantalla</button>
+      </div>
+
+      <div class="filter-panel">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+          <span class="label">Capas visibles en el texto (pulsa para activar o desactivar)</span>
+          <div class="btn-row">
+            <button type="button" class="btn" id="taller-all-on">Marcar todo</button>
+            <button type="button" class="btn" id="taller-all-off">Limpiar marcas</button>
+          </div>
+        </div>
+        <div class="filter-groups" id="taller-filter-chips">
+          <button type="button" class="filter-chip" data-cat-toggle="estructura" aria-pressed="true">
+            <span class="swatch swatch-estructura" aria-hidden="true"></span>
+            Partes de la estructura
+          </button>
+          <button type="button" class="filter-chip" data-cat-toggle="persona" aria-pressed="true">
+            <span class="swatch swatch-persona" aria-hidden="true"></span>
+            Persona gramatical y modo verbal
+          </button>
+          <button type="button" class="filter-chip" data-cat-toggle="tiempo" aria-pressed="true">
+            <span class="swatch swatch-tiempo" aria-hidden="true"></span>
+            Marcadores temporales y conectores
+          </button>
+          <button type="button" class="filter-chip" data-cat-toggle="lexico" aria-pressed="true">
+            <span class="swatch swatch-lexico" aria-hidden="true"></span>
+            Adjetivos, estilo y recursos
+          </button>
+        </div>
+      </div>
+
+      <div class="taller-workspace">
+        <article class="article-sheet" id="taller-article-sheet" aria-live="polite">
+          <!-- Populated by JS -->
+        </article>
+
+        <aside class="inspector-card" aria-label="Cuaderno de análisis">
+          <div>
+            <span class="label">Cuaderno de análisis</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs);" id="inspector-title">Pulsa un fragmento del texto</h3>
+          </div>
+          <div class="step-detail" id="inspector-detail" aria-live="polite">
+            <p class="lede" style="margin-top: 0;">Haz clic en cualquier elemento resaltado del texto o en la lista inferior para inspeccionar su función estructural o su rasgo lingüístico.</p>
+          </div>
+          <div>
+            <span class="label" style="margin-bottom: var(--space-sm);">Elementos etiquetados en este texto</span>
+            <div class="legend-list" id="inspector-legend">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: EJERCICIOS INTERACTIVOS ADICIONALES -->
+    <section class="section" id="seccion-5" aria-labelledby="h-sec-5">
+      <div>
+        <span class="label">Sección 5 · Práctica aplicada</span>
+        <h2 class="headline section-title" id="h-sec-5">Retos finales: <strong>detective de titulares</strong> y <strong>desafío 6W</strong></h2>
+        <p class="lede">Demuestra que distingues los cuatro subgéneros desde la primera línea y que sabes localizar las preguntas clave de una entradilla periodística.</p>
+      </div>
+
+      <div class="exercises-grid">
+        <!-- 5A: El Detective de Titulares -->
+        <div class="exercise-panel" id="detective-panel" aria-labelledby="h-detective">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+            <div>
+              <span class="label">Reto 5A · Clasificación rápida</span>
+              <h3 class="subhead" id="h-detective" style="margin-top: var(--space-xs);">El Detective de Titulares</h3>
+            </div>
+            <div class="btn-row">
+              <span class="tag tag-slate" id="detective-progress">Titular 1 de 8</span>
+              <button type="button" class="btn" id="detective-reset">Reiniciar reto</button>
+            </div>
+          </div>
+          <div id="detective-stage" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- 5B: El Desafío de las 6W -->
+        <div class="exercise-panel" id="w6-panel" aria-labelledby="h-w6">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+            <div>
+              <span class="label">Reto 5B · Disección de la entradilla</span>
+              <h3 class="subhead" id="h-w6" style="margin-top: var(--space-xs);">El Desafío de las 6W</h3>
+            </div>
+            <div class="btn-row" role="group" aria-label="Elegir caso de entradilla">
+              <button type="button" class="btn btn-active" data-w6-case="0">Caso 1 · Rana diminuta (Apuntes)</button>
+              <button type="button" class="btn" data-w6-case="1">Caso 2 · Regreso espacial</button>
+            </div>
+          </div>
+          <div id="w6-stage" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <span>Fuente didáctica: «Apuntes sobre los géneros periodísticos» (Lengua Castellana y Literatura, 2.º de ESO).</span>
+      <span>Recurso interactivo de estudio y repaso.</span>
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    (function () {
+      // ------------------------------------------------------------------
+      // 1. DATA GROUNDED IN SOURCE PDF
+      // ------------------------------------------------------------------
+      const COMPASS_DATA = {
+        informacion: {
+          tag: `Polo objetivo · Hechos`,
+          tagClass: `tag-slate`,
+          title: `Géneros informativos`,
+          summary: `Buscan contar hechos reales, actuales y de interés general con la mayor claridad y veracidad posibles.`,
+          intencion: `Narrar lo ocurrido sin juzgar ni tomar partido.`,
+          persona: `Tercera persona (él, ella, ellos) para mantener distancia, aunque en la entrevista alternan 2.ª y 1.ª.`,
+          subgeneros: `Noticia, reportaje, entrevista objetiva.`
+        },
+        mixto: {
+          tag: `Zona híbrida · Hechos + Valoración`,
+          tagClass: `tag`,
+          title: `Géneros mixtos o híbridos`,
+          summary: `Combinan la narración detallada y cronológica de hechos reales con la mirada personal del periodista testigo.`,
+          intencion: `Informar con rigor sobre un suceso presenciado aportando estilo propio y emoción.`,
+          persona: `Alternancia de 3.ª persona (hechos) y 1.ª persona (vivencia del periodista).`,
+          subgeneros: `Crónica (deportiva, cultural, de sucesos, corresponsalía…).`
+        },
+        opinion: {
+          tag: `Polo subjetivo · Valoraciones`,
+          tagClass: `tag-clay`,
+          title: `Géneros de opinión`,
+          summary: `Analizan, valoran o juzgan hechos desde una postura personal para convencer al lector o invitarlo a reflexionar.`,
+          intencion: `Defender una tesis con argumentos, anécdotas y total libertad creativa.`,
+          persona: `Primera persona explícita (singular «yo» y plural inclusivo «nosotros»).`,
+          subgeneros: `Editorial, artículo o columna de opinión, carta al director.`
+        }
+      };
+
+      const TABLE_ROWS = [
+        {
+          id: `intencion`,
+          label: `Intención`,
+          informacion: `Contar unos hechos reales, actuales y de interés general de manera clara.`,
+          mixto: `Combinar el relato cronológico de un hecho real con la valoración personal del periodista.`,
+          opinion: `Analizar, valorar o juzgar unos hechos desde un punto de vista personal.`
+        },
+        {
+          id: `actitud`,
+          label: `Actitud del autor`,
+          informacion: `Objetiva: el periodista se limita a narrar lo ocurrido sin juzgar ni tomar partido.`,
+          mixto: `Híbrida: testigo directo que informa con rigor pero aporta su visión y emoción.`,
+          opinion: `Subjetiva: el autor muestra su postura personal e intenta convencer al lector.`
+        },
+        {
+          id: `persona`,
+          label: `Persona gramatical`,
+          informacion: `Tercera persona (él, ella, ellos) para mantener distancia con los hechos.`,
+          mixto: `Alternancia de 3.ª persona (los hechos) y 1.ª persona (lo que el periodista ve o siente).`,
+          opinion: `Primera persona (yo, nosotros) para implicarse directamente en el texto.`
+        },
+        {
+          id: `subgeneros`,
+          label: `Subgéneros`,
+          informacion: `Noticia, reportaje, entrevista objetiva.`,
+          mixto: `Crónica.`,
+          opinion: `Editorial, artículo o columna de opinión, carta al director.`
+        }
+      ];
+
+      const SUBGENRE_PARTS = {
+        noticia: [
+          {
+            title: `Titular (y antetítulo opcional)`,
+            desc: `Resume el tema principal de forma breve y atractiva. Puede llevar encima un antetítulo que sitúa el tema o la sección (por ejemplo: «CIENCIA Y BIODIVERSIDAD»).`
+          },
+          {
+            title: `Subtítulo`,
+            desc: `Oración situada justo debajo del titular que amplía la información principal y añade datos relevantes que no caben en el titular.`
+          },
+          {
+            title: `Entradilla (o lead)`,
+            desc: `Primer párrafo del texto, a menudo destacado en negrita. Resume lo más importante y responde a las cuestiones esenciales (las 6W), aunque no siempre a todas:`,
+            w6: [`¿Qué ha ocurrido?`, `¿Quién?`, `¿Cuándo?`, `¿Dónde?`, `¿Por qué?`, `¿Cómo?`]
+          },
+          {
+            title: `Cuerpo`,
+            desc: `Desarrolla los datos secundarios, los antecedentes y los detalles en orden decreciente de interés (de lo más relevante a lo accesorio).`
+          }
+        ],
+        entrevista: [
+          {
+            title: `Titular (cita reveladora)`,
+            desc: `Suele ser una frase llamativa o reveladora pronunciada por el propio entrevistado (entre comillas), acompañada a veces de un subtítulo explicativo.`
+          },
+          {
+            title: `Presentación o entradilla`,
+            desc: `Breve párrafo inicial en el que el periodista presenta al personaje (quién es, a qué se dedica) y explica el motivo de la entrevista.`
+          },
+          {
+            title: `Cuerpo (Pregunta–Respuesta)`,
+            desc: `Transcripción del diálogo. Las intervenciones del periodista y del entrevistado se distinguen claramente mediante negritas, guiones o iniciales (P. / E. N.).`
+          },
+          {
+            title: `Cierre`,
+            desc: `Termina con una pregunta final reflexiva o con un breve comentario de despedida del periodista.`
+          }
+        ],
+        cronica: [
+          {
+            title: `Titular expresivo (+ subtítulo informativo)`,
+            desc: `Es informativo, pero incluye un toque expresivo o literario que anticipa la emoción del suceso (por ejemplo: «Una remontada épica bajo el diluvio»).`
+          },
+          {
+            title: `Entradilla`,
+            desc: `Presenta el acontecimiento principal y sitúa al lector en el ambiente y el escenario de los hechos.`
+          },
+          {
+            title: `Cuerpo cronológico`,
+            desc: `Relata lo sucedido siguiendo un orden temporal (de principio a fin) e intercalando descripciones del ambiente y comentarios valorativos del periodista.`
+          },
+          {
+            title: `Conclusión`,
+            desc: `Cierre valorativo que resume el impacto, el resultado o las consecuencias del evento.`
+          }
+        ],
+        columna: [
+          {
+            title: `Titular`,
+            desc: `Breve, sugerente, irónico o literario. No resume una noticia, sino que busca despertar la curiosidad del lector (por ejemplo: «Esclavos de la pantalla»).`
+          },
+          {
+            title: `Introducción (Tesis)`,
+            desc: `Presenta el tema de actualidad y expone la tesis (la idea o postura principal que el autor va a defender). A veces parte de una anécdota personal y desemboca en la tesis al final.`
+          },
+          {
+            title: `Desarrollo (Cuerpo argumentativo)`,
+            desc: `Expone las razones, ejemplos, anécdotas o reflexiones con las que el autor apoya su punto de vista.`
+          },
+          {
+            title: `Conclusión`,
+            desc: `Resume la idea principal o cierra el texto con una frase ingeniosa, una advertencia o una invitación a reflexionar.`
+          }
+        ]
+      };
+
+      const FLASHCARDS = [
+        {
+          id: `fc1`,
+          trait: `Adjetivos especificativos`,
+          quote: `«un anfibio acuático», «una expedición nocturna», «el informe oficial»`,
+          answer: `noticia`,
+          answerLabel: `Noticia (Informativo)`,
+          explanation: `Aportan datos objetivos y concretos sin expresar valoración personal del periodista, frente a adjetivos valorativos como «maravilloso» o «terrible», que se evitan.`
+        },
+        {
+          id: `fc2`,
+          trait: `Adjetivos valorativos y léxico expresivo`,
+          quote: `«victoria agónica», «disparo lejano», «vibrante», «ensordecedor», «magistral»`,
+          answer: `cronica`,
+          answerLabel: `Crónica (Mixto)`,
+          explanation: `En la crónica se emplean adjetivos que califican y transmiten la emoción vivida por el periodista testigo junto a la narración de los hechos.`
+        },
+        {
+          id: `fc3`,
+          trait: `Tercera persona gramatical constante`,
+          quote: `«Un equipo internacional de biólogos ha hallado…», «los científicos analizaron»`,
+          answer: `noticia`,
+          answerLabel: `Noticia (Informativo)`,
+          explanation: `Se emplea la 3.ª persona (él, ella, ellos) para mantener distancia con los hechos y garantizar la imparcialidad.`
+        },
+        {
+          id: `fc4`,
+          trait: `Alternancia de 2.ª persona y 1.ª persona en diálogo`,
+          quote: `«¿Cómo se adapta el cuerpo humano…?» / «Los primeros días son extraños…»`,
+          answer: `entrevista`,
+          answerLabel: `Entrevista (Informativo)`,
+          explanation: `El periodista usa la 2.ª persona al preguntar (¿Cómo viviste…?, ¿Qué opina usted…?) y el entrevistado responde en 1.ª persona (sentí, creemos).`
+        },
+        {
+          id: `fc5`,
+          trait: `Alternancia de 3.ª y 1.ª persona del testigo`,
+          quote: `«el conjunto local pareció paralizado… uno de los partidos más emocionantes que recordamos»`,
+          answer: `cronica`,
+          answerLabel: `Crónica (Mixto)`,
+          explanation: `La crónica usa la 3.ª persona para narrar los hechos y la 1.ª persona (singular o plural) para expresar lo que el periodista ve o siente.`
+        },
+        {
+          id: `fc6`,
+          trait: `Uso explícito de 1.ª persona y plural inclusivo`,
+          quote: `«hemos perdido la sana costumbre de mirar por la ventana», «nos venden la idea»`,
+          answer: `columna`,
+          answerLabel: `Artículo o columna (Opinión)`,
+          explanation: `Emplea tanto el singular (yo opino) como el plural inclusivo (hemos olvidado, debemos pensar) para implicar directamente al lector.`
+        },
+        {
+          id: `fc7`,
+          trait: `Verbos en modo indicativo (pretérito perfecto simple y compuesto)`,
+          quote: `«ha hallado esta semana», «se produjo el pasado martes», «confirmaron»`,
+          answer: `noticia`,
+          answerLabel: `Noticia (Informativo)`,
+          explanation: `El indicativo es el modo de la realidad y la certeza; en la noticia predominan el pretérito perfecto simple (ocurrió) y compuesto (ha anunciado).`
+        },
+        {
+          id: `fc8`,
+          trait: `Modo subjuntivo para expresar deseos o hipótesis`,
+          quote: `«Quizá va siendo hora…», «ojalá recuperemos el control sobre nuestro tiempo»`,
+          answer: `columna`,
+          answerLabel: `Artículo o columna (Opinión)`,
+          explanation: `Junto a modalidades interrogativas, exclamativas y dubitativas, usa el subjuntivo (ojalá recuperemos, quizá sea) para proyectar deseos e hipótesis.`
+        },
+        {
+          id: `fc9`,
+          trait: `Marcadores temporales en secuencia lineal`,
+          quote: `«Durante la primera mitad», «tras el descanso», «en el minuto 62», «diez minutos después»`,
+          answer: `cronica`,
+          answerLabel: `Crónica (Mixto)`,
+          explanation: `A diferencia de la pirámide invertida, la crónica sigue el hilo temporal de principio a fin mediante marcadores que ordenan el paso del tiempo.`
+        },
+        {
+          id: `fc10`,
+          trait: `Estilo directo y oralidad planificada`,
+          quote: `«¡se te caen los objetos de las manos porque crees que se van a quedar en el aire!»`,
+          answer: `entrevista`,
+          answerLabel: `Entrevista (Informativo)`,
+          explanation: `Reproduce literalmente las palabras del entrevistado con cercanía y exclamaciones, limpiando repeticiones o muletillas propias del habla oral.`
+        },
+        {
+          id: `fc11`,
+          trait: `Preguntas retóricas y conectores argumentativos`,
+          quote: `«Sin embargo, hemos olvidado… ¿De qué sirve tener cientos de seguidores virtuales…?»`,
+          answer: `columna`,
+          answerLabel: `Artículo o columna (Opinión)`,
+          explanation: `Utiliza conectores lógicos (sin embargo, por lo tanto, en definitiva) y recursos como ironía, metáforas y preguntas retóricas para persuadir.`
+        },
+        {
+          id: `fc12`,
+          trait: `Titular en forma de cita textual entre comillas`,
+          quote: `«Desde el espacio te das cuenta de lo frágil que es la Tierra y de que no existen fronteras»`,
+          answer: `entrevista`,
+          answerLabel: `Entrevista (Informativo)`,
+          explanation: `El titular de la entrevista suele recoger literalmente una frase llamativa o reveladora pronunciada por el entrevistado.`
+        }
+      ];
+
+      const TALLER_TEXTS = {
+        noticia: {
+          kicker: `Texto modelo 1 · Noticia (Género informativo)`,
+          title: `Descubren una nueva especie de rana diminuta en los bosques de Costa Rica`,
+          subtitle: `El anfibio, de apenas dos centímetros de longitud, fue localizado durante una expedición nocturna en la cordillera de Talamanca`,
+          byline: `Ejemplo completo · Estructura de pirámide invertida`,
+          headerTokens: [
+            { id: `n-ant`, field: `kicker`, text: `CIENCIA Y BIODIVERSIDAD`, cat: `estructura`, title: `Antetítulo`, note: `Sitúa el tema o la sección encima del titular para orientar al lector.` },
+            { id: `n-tit`, field: `title`, text: `Descubren una nueva especie de rana diminuta en los bosques de Costa Rica`, cat: `estructura`, title: `Titular informativo`, note: `Resume el tema principal de forma breve, clara y en modo indicativo («Descubren»).` },
+            { id: `n-sub`, field: `subtitle`, text: `El anfibio, de apenas dos centímetros de longitud, fue localizado durante una expedición nocturna en la cordillera de Talamanca`, cat: `estructura`, title: `Subtítulo`, note: `Oración justo debajo del titular que amplía la información principal con datos concretos.` }
+          ],
+          paragraphs: [
+            [
+              { type: `token`, id: `n-lead`, cat: `estructura`, title: `Entradilla (o lead)`, note: `Primer párrafo de la noticia. Resume lo esencial respondiendo a las 6W: Quién (equipo de biólogos), Qué (una especie de rana), Cuándo (esta semana), Dónde (cordillera de Talamanca) y Cómo (tras tres meses de investigación).`, text: `SAN JOSÉ. — ` },
+              { type: `token`, id: `n-3p1`, cat: `persona`, title: `3.ª persona y pretérito perfecto compuesto`, note: `Uso de la 3.ª persona («Un equipo… ha hallado») y modo indicativo para mantener distancia, certeza e imparcialidad.`, text: `Un equipo internacional de biólogos ha hallado` },
+              { type: `text`, text: ` esta semana en la cordillera de Talamanca (Costa Rica) una especie de rana terrestre desconocida hasta ahora para la ciencia, tras tres meses de investigación en la ` },
+              { type: `token`, id: `n-adj1`, cat: `lexico`, title: `Adjetivo especificativo`, note: `«selva húmeda» (como «rana terrestre») aporta un dato objetivo y concreto, sin valoración personal.`, text: `selva húmeda.` }
+            ],
+            [
+              { type: `token`, id: `n-cuerpo1`, cat: `estructura`, title: `Cuerpo: datos secundarios`, note: `Desarrolla detalles de cuándo y cómo ocurrió el hallazgo en orden decreciente de importancia.`, text: `El descubrimiento ` },
+              { type: `token`, id: `n-ind1`, cat: `persona`, title: `Pretérito perfecto simple (indicativo)`, note: `«se produjo» expresa un hecho real y acabado del pasado reciente.`, text: `se produjo` },
+              { type: `text`, text: ` el pasado martes durante una ` },
+              { type: `token`, id: `n-adj2`, cat: `lexico`, title: `Adjetivo especificativo`, note: `«expedición nocturna» diferencia objetivamente el tipo de expedición sin opinar.`, text: `expedición nocturna` },
+              { type: `text`, text: ` realizada a más de 1.800 metros de altitud. Según explicaron los investigadores en un ` },
+              { type: `token`, id: `n-adj3`, cat: `lexico`, title: `Léxico preciso y adjetivo especificativo`, note: `«comunicado oficial» refuerza la veracidad y objetividad de las fuentes.`, text: `comunicado oficial` },
+              { type: `text`, text: `, el ejemplar adulto mide apenas dos centímetros de longitud y presenta una piel de color marrón rojizo que le permite camuflarse entre la hojarasca húmeda del suelo forestal.` }
+            ],
+            [
+              { type: `text`, text: `Para confirmar que se trataba de una especie nueva, los científicos analizaron su canto y realizaron pruebas genéticas en el laboratorio de la Universidad de Costa Rica. ` },
+              { type: `token`, id: `n-cita`, cat: `lexico`, title: `Cita textual en estilo directo`, note: `La opinión sobre proteger la biodiversidad aparece entre comillas y atribuida a una fuente («señaló la doctora Laura Méndez»), así el periodista no opina.`, text: `«Este hallazgo demuestra que los bosques nubosos aún esconden una biodiversidad enorme que debemos proteger frente al cambio climático», señaló la doctora Laura Méndez, directora del proyecto.` }
+            ],
+            [
+              { type: `token`, id: `n-cierre`, cat: `estructura`, title: `Cierre del cuerpo (datos finales)`, note: `Concluye con el nombre científico y la petición posterior, siguiendo la pirámide invertida de mayor a menor relevancia.`, text: `Los expertos han bautizado al animal como Pristimantis talamancae y han solicitado ampliar la zona de protección ambiental en el parque nacional donde habita.` }
+            ]
+          ]
+        },
+        entrevista: {
+          kicker: `Texto modelo 2 · Entrevista (Género informativo)`,
+          title: `«Desde el espacio te das cuenta de lo frágil que es la Tierra y de que no existen fronteras»`,
+          subtitle: `Entrevista a Elena Navarro, ingeniera aeroespacial, tras pasar seis meses en la Estación Espacial Internacional`,
+          byline: `Ejemplo completo · Estructura de diálogo planificado`,
+          headerTokens: [
+            { id: `e-tit`, field: `title`, text: `«Desde el espacio te das cuenta de lo frágil que es la Tierra y de que no existen fronteras»`, cat: `estructura`, title: `Titular con cita entre comillas`, note: `Recoge literalmente una frase llamativa y reveladora pronunciada por la entrevistada.` },
+            { id: `e-sub`, field: `subtitle`, text: `Entrevista a Elena Navarro, ingeniera aeroespacial, tras pasar seis meses en la Estación Espacial Internacional`, cat: `estructura`, title: `Subtítulo explicativo`, note: `Identifica al personaje y el contexto reciente que motiva el diálogo.` }
+          ],
+          paragraphs: [
+            [
+              { type: `token`, id: `e-pres`, cat: `estructura`, title: `Presentación o entradilla`, note: `Breve párrafo inicial que presenta quién es la entrevistada (Madrid, 1989), su trayectoria y el motivo de la entrevista.`, text: `Elena Navarro (Madrid, 1989) acaba de regresar a tierra firme después de completar una misión científica de 180 días a 400 kilómetros de altura. En este encuentro nos cuenta cómo es el día a día en gravedad cero y qué lecciones trae de vuelta a nuestro planeta.` }
+            ],
+            [
+              { type: `token`, id: `e-p1`, cat: `estructura`, title: `Cuerpo: turno del periodista (Pregunta)`, note: `El nombre en negrita distingue claramente la intervención del entrevistador.`, text: `Periodista: ` },
+              { type: `token`, id: `e-int1`, cat: `lexico`, title: `Modalidad interrogativa`, note: `Pregunta directa abierta para invitar a la entrevistada a relatar su vivencia.`, text: `¿Qué es lo primero que se siente al asomarse a la escotilla y ver el planeta desde allí arriba?` }
+            ],
+            [
+              { type: `token`, id: `e-r1`, cat: `estructura`, title: `Cuerpo: respuesta en estilo directo`, note: `Reproduce literalmente las palabras de la protagonista, limpiando muletillas (oralidad planificada).`, text: `Elena Navarro: ` },
+              { type: `text`, text: `Una emoción que ` },
+              { type: `token`, id: `e-2p1`, cat: `persona`, title: `Tono cercano (2.ª persona genérica)`, note: `«te deja sin palabras» acerca la experiencia al lector mediante la oralidad.`, text: `te deja sin palabras.` },
+              { type: `text`, text: ` La Tierra brilla con un azul intenso en medio de la oscuridad absoluta del universo. Lo más impactante es ver lo fina que es la atmósfera: parece una pequeña capa de cristal protegiendo toda la vida.` }
+            ],
+            [
+              { type: `text`, text: `P.: ¿Cómo se adapta el cuerpo humano a vivir seis meses flotando sin gravedad?` }
+            ],
+            [
+              { type: `text`, text: `E. N.: Los primeros días son extraños porque el cerebro no sabe qué es arriba y qué es abajo. Además, ` },
+              { type: `token`, id: `e-1p1`, cat: `persona`, title: `1.ª persona del plural en la respuesta`, note: `«debemos hacer» implica a la entrevistada y al equipo de astronautas.`, text: `debemos hacer` },
+              { type: `text`, text: ` dos horas diarias de ejercicio físico obligatorio para no perder masa muscular ni densidad en los huesos. Al final, flotar se vuelve tan natural que, al volver a la Tierra, ` },
+              { type: `token`, id: `e-exc`, cat: `lexico`, title: `Modalidad exclamativa y oralidad`, note: `La exclamación transmite sorpresa y naturalidad oral dentro de un texto escrito planificado.`, text: `¡se te caen los objetos de las manos porque crees que se van a quedar en el aire!` }
+            ],
+            [
+              { type: `token`, id: `e-cierre`, cat: `estructura`, title: `Cierre (pregunta reflexiva final)`, note: `La última pregunta busca un consejo o reflexión final dirigida a jóvenes lectores.`, text: `P.: ¿Qué consejo daría a los jóvenes de secundaria que sueñan con dedicarse a la ciencia o al espacio?` },
+              { type: `text`, text: ` E. N.: Que nunca pierdan la curiosidad. La ciencia no es solo memorizar fórmulas; es hacerse preguntas constantemente y trabajar en equipo para resolver problemas reales.` }
+            ]
+          ]
+        },
+        cronica: {
+          kicker: `Texto modelo 3 · Crónica deportiva (Género mixto)`,
+          title: `Una remontada épica bajo el diluvio`,
+          subtitle: `El Atlético Juvenil vence 3-2 al líder con un gol en el tiempo añadido tras levantar dos tantos en contra`,
+          byline: `Ejemplo completo · Orden cronológico + mirada del testigo`,
+          headerTokens: [
+            { id: `c-tit`, field: `title`, text: `Una remontada épica bajo el diluvio`, cat: `estructura`, title: `Titular expresivo`, note: `Combina la referencia al suceso con un toque literario y valorativo («épica», «diluvio») para anticipar emoción.` },
+            { id: `c-sub`, field: `subtitle`, text: `El Atlético Juvenil vence 3-2 al líder con un gol en el tiempo añadido tras levantar dos tantos en contra`, cat: `estructura`, title: `Subtítulo informativo`, note: `Aporta los datos concretos del resultado que equilibran la expresividad del titular.` }
+          ],
+          paragraphs: [
+            [
+              { type: `token`, id: `c-ent`, cat: `estructura`, title: `Entradilla ambiental`, note: `Sitúa al lector en el escenario y transmite el ambiente desde el principio.`, text: `El estadio municipal ` },
+              { type: `token`, id: `c-met`, cat: `lexico`, title: `Metáfora e hipérbole`, note: `«era una auténtica piscina» describe de forma expresiva y literaria la cantidad de agua en el campo.`, text: `era una auténtica piscina` },
+              { type: `text`, text: ` cuando el árbitro pitó el inicio del encuentro a las siete de la tarde. Bajo una lluvia torrencial y ante tres mil aficionados empapados que no dejaron de animar, ambos equipos protagonizaron uno de los partidos más emocionantes que ` },
+              { type: `token`, id: `c-1p`, cat: `persona`, title: `1.ª persona del plural (testigo)`, note: `«recordamos» muestra la presencia directa del cronista entre el público o en la grada.`, text: `recordamos` },
+              { type: `text`, text: ` esta temporada.` }
+            ],
+            [
+              { type: `token`, id: `c-t1`, cat: `tiempo`, title: `Marcador temporal de inicio`, note: `«Durante la primera mitad» inaugura el relato en estricto orden cronológico.`, text: `Durante la primera mitad` },
+              { type: `text`, text: `, el conjunto local pareció paralizado por el frío y el estado del césped. El equipo visitante aprovechó cada charco para frenar el juego y, ` },
+              { type: `token`, id: `c-t2`, cat: `tiempo`, title: `Marcador de duración`, note: `«en apenas quince minutos» precisa el ritmo temporal del partido.`, text: `en apenas quince minutos` },
+              { type: `text`, text: `, golpeó por partida doble con dos rápidos contragolpes que silenciaron la grada.` }
+            ],
+            [
+              { type: `token`, id: `c-t3`, cat: `tiempo`, title: `Conector y marcador temporal`, note: `«Sin embargo, tras el descanso» marca el giro en la línea de tiempo del encuentro.`, text: `Sin embargo, tras el descanso` },
+              { type: `text`, text: `, el guion cambió por completo. El entrenador movió el banquillo y el equipo salió transformado, empujando al rival contra su propia portería con más corazón que técnica. ` },
+              { type: `token`, id: `c-t4`, cat: `tiempo`, title: `Marcador temporal exacto`, note: `«En el minuto 62» y «Diez minutos después» guían al lector paso a paso hasta el clímax.`, text: `En el minuto 62` },
+              { type: `text`, text: `, un cabezazo imparable recortó distancias y encendió de nuevo la esperanza. ` },
+              { type: `token`, id: `c-t5`, cat: `tiempo`, title: `Marcador de sucesión`, note: `Mantiene la tensión cronológica del relato.`, text: `Diez minutos después` },
+              { type: `text`, text: `, llegaba el empate tras una ` },
+              { type: `token`, id: `c-adj1`, cat: `lexico`, title: `Adjetivo valorativo`, note: `«brillante» califica la jugada desde el juicio apreciativo del periodista.`, text: `jugada colectiva brillante.` }
+            ],
+            [
+              { type: `token`, id: `c-t6`, cat: `tiempo`, title: `Marcador de cierre temporal`, note: `«Cuando el reloj ya marcaba el minuto 93» sitúa el momento decisivo al final de la narración.`, text: `Cuando el reloj ya marcaba el minuto 93` },
+              { type: `text`, text: ` y el empate parecía definitivo, un disparo lejano se coló por la escuadra desatando la locura en el estadio. ` },
+              { type: `token`, id: `c-con`, cat: `estructura`, title: `Conclusión valorativa`, note: `Resume el resultado añadiendo la reflexión subjetiva del autor sobre el esfuerzo.`, text: `Fue una victoria ` },
+              { type: `token`, id: `c-adj2`, cat: `lexico`, title: `Adjetivos valorativos`, note: `«agónica y merecida» condensan la emoción y la opinión del cronista.`, text: `agónica y merecida` },
+              { type: `text`, text: ` que demuestra que, en el fútbol, nunca hay que rendirse antes del pitido final.` }
+            ]
+          ]
+        },
+        columna: {
+          kicker: `Texto modelo 4 · Columna de opinión (Género de opinión)`,
+          title: `Esclavos de la pantalla`,
+          subtitle: `Reflexión personal sobre la atención y el uso cotidiano del teléfono móvil`,
+          byline: `Por Javier Morales · Firma obligatoria del autor`,
+          headerTokens: [
+            { id: `o-tit`, field: `title`, text: `Esclavos de la pantalla`, cat: `estructura`, title: `Titular sugerente y metafórico`, note: `No resume un suceso: llama la atención con una metáfora («esclavos») que anticipa una postura crítica.` },
+            { id: `o-fir`, field: `byline`, text: `Por Javier Morales`, cat: `estructura`, title: `Firma explícita del autor`, note: `Los textos de opinión siempre van firmados porque el autor asume personalmente sus ideas.` }
+          ],
+          paragraphs: [
+            [
+              { type: `token`, id: `o-tes`, cat: `estructura`, title: `Introducción y tesis`, note: `Parte de una escena cotidiana en el metro para presentar su postura: la dependencia de las pantallas nos desconecta del entorno.`, text: `Bastan cinco minutos en cualquier vagón de metro a primera hora de la mañana para comprobar que ` },
+              { type: `token`, id: `o-1p1`, cat: `persona`, title: `1.ª persona plural inclusiva`, note: `«hemos perdido» incluye al propio autor y a los lectores en el problema.`, text: `hemos perdido` },
+              { type: `text`, text: ` la sana costumbre de mirar por la ventana. Todos vamos ` },
+              { type: `token`, id: `o-lex1`, cat: `lexico`, title: `Léxico valorativo y connotativo`, note: `«hipnotizados» carga el texto de sentido crítico y emocional.`, text: `hipnotizados` },
+              { type: `text`, text: `, con el cuello inclinado hacia abajo, iluminados por el brillo frío de ese pequeño rectángulo que llevamos en el bolsillo.` }
+            ],
+            [
+              { type: `text`, text: `Nos venden la idea de que estamos más conectados que nunca porque podemos enviar un mensaje instantáneo a alguien que vive a diez mil kilómetros. ` },
+              { type: `token`, id: `o-con1`, cat: `tiempo`, title: `Conector argumentativo de contraste`, note: `«Sin embargo» introduce el contraargumento central para rebatir la idea anterior.`, text: `Sin embargo` },
+              { type: `text`, text: `, hemos olvidado cómo saludar con una sonrisa al vecino que se sienta justo a nuestro lado. En las cafeterías ya no se escuchan conversaciones animadas, sino el silencio incómodo de cuatro amigos mirando cada uno su propia red social mientras se les enfría el café.` }
+            ],
+            [
+              { type: `token`, id: `o-arg`, cat: `estructura`, title: `Cuerpo argumentativo`, note: `Matiza su postura (no demonizar la tecnología) y refuerza el argumento con una pregunta directa al lector.`, text: `No se trata de demonizar la tecnología, que nos facilita enormemente la vida y el estudio, sino de recuperar el control sobre nuestro tiempo. ` },
+              { type: `token`, id: `o-ret`, cat: `lexico`, title: `Pregunta retórica`, note: `«¿De qué sirve…?» no busca una respuesta, sino hacer reflexionar y persuadir al lector.`, text: `¿De qué sirve tener cientos de seguidores virtuales si somos incapaces de prestar atención plena a quienes tenemos delante?` }
+            ],
+            [
+              { type: `token`, id: `o-conc`, cat: `estructura`, title: `Conclusión reflexiva`, note: `Cierra con una propuesta práctica y un juego metafórico («volver a encender la vida real»).`, text: `Quizá va siendo hora de guardar el teléfono en la mochila durante un rato cada día y volver a encender, sin filtros ni notificaciones, la vida real.` }
+            ]
+          ]
+        }
+      };
+
+      const DETECTIVE_HEADLINES = [
+        {
+          id: `dh1`,
+          headline: `El Ayuntamiento aprueba un nuevo carril bici de cuatro kilómetros en el centro`,
+          clue: `Enunciado directo en 3.ª persona y modo indicativo con datos concretos.`,
+          answer: `noticia`,
+          explanation: `Es una noticia: resume un hecho actual y concreto con claridad, objetividad y sin valoraciones personales.`
+        },
+        {
+          id: `dh2`,
+          headline: `«La lectura me salvó en los momentos más difíciles de mi adolescencia»`,
+          clue: `Frase textual entre comillas en 1.ª persona.`,
+          answer: `entrevista`,
+          explanation: `Es una entrevista: el titular reproduce entre comillas una declaración llamativa o reveladora del entrevistado.`
+        },
+        {
+          id: `dh3`,
+          headline: `Noche mágica e inolvidable bajo las estrellas del festival de verano`,
+          clue: `Adjetivos valorativos («mágica», «inolvidable») que anticipan la emoción de un espectáculo.`,
+          answer: `cronica`,
+          explanation: `Es una crónica: anticipa un acontecimiento concreto (un festival) con un toque expresivo propio del testigo directo.`
+        },
+        {
+          id: `dh4`,
+          headline: `El arte de perder el tiempo sin culpa`,
+          clue: `Breve, sugerente y reflexivo; no resume ningún suceso puntual.`,
+          answer: `columna`,
+          explanation: `Es un artículo o columna de opinión: el titular es breve y sugerente para despertar curiosidad sobre una reflexión personal.`
+        },
+        {
+          id: `dh5`,
+          headline: `Hallan restos arqueológicos romanos durante las obras de ampliación del instituto`,
+          clue: `Verbo en presente/indicativo con valor informativo («Hallan») y datos específicos.`,
+          answer: `noticia`,
+          explanation: `Es una noticia: informa de un suceso reciente de interés general mediante léxico preciso y tono objetivo.`
+        },
+        {
+          id: `dh6`,
+          headline: `«No basta con reciclar: debemos cambiar nuestra forma de consumir»`,
+          clue: `Cita literal entre comillas que recoge el pensamiento de una persona.`,
+          answer: `entrevista`,
+          explanation: `Es una entrevista: utiliza las comillas para destacar la postura o frase más impactante de la persona entrevistada.`
+        },
+        {
+          id: `dh7`,
+          headline: `Un final de infarto decide el campeonato escolar en el último suspiro`,
+          clue: `Lenguaje expresivo e hipérbole («de infarto», «último suspiro») sobre un evento deportivo.`,
+          answer: `cronica`,
+          explanation: `Es una crónica deportiva: combina la referencia al campeonato con recursos expresivos que transmiten la tensión vivida.`
+        },
+        {
+          id: `dh8`,
+          headline: `¿Por qué corremos tanto si no sabemos adónde vamos?`,
+          clue: `Pregunta retórica e irónica que invita al lector a reflexionar sobre un hábito social.`,
+          answer: `columna`,
+          explanation: `Es una columna de opinión: emplea la interrogación retórica y un tono cercano en 1.ª persona plural para persuadir y hacer pensar.`
+        }
+      ];
+
+      const W6_CASES = [
+        {
+          id: `case-rana`,
+          title: `Caso 1 · La rana diminuta de Costa Rica (Apuntes)`,
+          instruction: `Selecciona una pregunta (6W) y pulsa el fragmento de la entradilla que la responde. Ojo: recuerda que una entradilla no siempre responde a las seis preguntas.`,
+          segments: [
+            { id: `s-lead-city`, text: `SAN JOSÉ. — `, w: null },
+            { id: `s-who`, text: `Un equipo internacional de biólogos`, w: `quien` },
+            { id: `s-what`, text: ` ha hallado `, w: `que` },
+            { id: `s-when`, text: `esta semana`, w: `cuando` },
+            { id: `s-where`, text: ` en la cordillera de Talamanca (Costa Rica) `, w: `donde` },
+            { id: `s-what2`, text: `una especie de rana terrestre desconocida hasta ahora para la ciencia, `, w: `que` },
+            { id: `s-how`, text: `tras tres meses de investigación en la selva húmeda.`, w: `como` }
+          ],
+          questions: [
+            { key: `quien`, label: `¿Quién?`, expectedIds: [`s-who`], explanation: `«Un equipo internacional de biólogos» indica los protagonistas que realizan el descubrimiento.` },
+            { key: `que`, label: `¿Qué?`, expectedIds: [`s-what`, `s-what2`], explanation: `«ha hallado… una especie de rana terrestre desconocida hasta ahora para la ciencia» resume el hecho principal.` },
+            { key: `cuando`, label: `¿Cuándo?`, expectedIds: [`s-when`], explanation: `«esta semana» sitúa temporalmente el suceso reciente.` },
+            { key: `donde`, label: `¿Dónde?`, expectedIds: [`s-where`], explanation: `«en la cordillera de Talamanca (Costa Rica)» indica el lugar exacto.` },
+            { key: `como`, label: `¿Cómo?`, expectedIds: [`s-how`], explanation: `«tras tres meses de investigación en la selva húmeda» explica de qué manera llegaron al hallazgo.` },
+            { key: `porque`, label: `¿Por qué?`, expectedIds: [], absentOk: true, explanation: `¡Exacto! Tal como señalan los apuntes, esta entradilla responde a quién, qué, cuándo, dónde y cómo, pero no incluye explícitamente el porqué.` }
+          ]
+        },
+        {
+          id: `case-espacio`,
+          title: `Caso 2 · Regreso de la misión orbital`,
+          instruction: `Practica con una entradilla completa que sí responde a las 6W: selecciona cada pregunta y pulsa su fragmento correspondiente.`,
+          segments: [
+            { id: `e-who`, text: `La ingeniera aeroespacial Elena Navarro`, w: `quien` },
+            { id: `e-what`, text: ` ha aterrizado con éxito`, w: `que` },
+            { id: `e-when`, text: ` este viernes por la mañana`, w: `cuando` },
+            { id: `e-where`, text: ` en la base espacial de Kazajistán`, w: `donde` },
+            { id: `e-how`, text: ` a bordo de la cápsula de retorno`, w: `como` },
+            { id: `e-why`, text: ` tras concluir una misión de 180 días para estudiar el comportamiento del cuerpo humano sin gravedad.`, w: `porque` }
+          ],
+          questions: [
+            { key: `quien`, label: `¿Quién?`, expectedIds: [`e-who`], explanation: `«La ingeniera aeroespacial Elena Navarro» identifica a la protagonista.` },
+            { key: `que`, label: `¿Qué?`, expectedIds: [`e-what`], explanation: `«ha aterrizado con éxito» expresa la acción principal ocurrida.` },
+            { key: `cuando`, label: `¿Cuándo?`, expectedIds: [`e-when`], explanation: `«este viernes por la mañana» precisa el momento del acontecimiento.` },
+            { key: `donde`, label: `¿Dónde?`, expectedIds: [`e-where`], explanation: `«en la base espacial de Kazajistán» ubica geográficamente el suceso.` },
+            { key: `como`, label: `¿Cómo?`, expectedIds: [`e-how`], explanation: `«a bordo de la cápsula de retorno» detalla el medio o modo del regreso.` },
+            { key: `porque`, label: `¿Por qué?`, expectedIds: [`e-why`], explanation: `«tras concluir una misión de 180 días para estudiar…» aporta la causa y finalidad de la misión.` }
+          ]
+        }
+      ];
+
+      // ------------------------------------------------------------------
+      // 2. APPLICATION STATE (persisted via notebookAppApi)
+      // ------------------------------------------------------------------
+      let appState = {
+        compassBlock: `informacion`,
+        tableCriterion: `all`,
+        tableQuizMode: false,
+        tableRevealed: {},
+        subParts: { noticia: 0, entrevista: 0, cronica: 0, columna: 0 },
+        fcFilter: `all`,
+        fcOrder: FLASHCARDS.map(function (c) { return c.id; }),
+        fcIndex: 0,
+        fcMastered: [],
+        fcFlipped: false,
+        fcLastGuess: null,
+        tallerTextId: `noticia`,
+        tallerCats: { estructura: true, persona: true, tiempo: true, lexico: true },
+        tallerSelectedAnno: null,
+        detectiveIdx: 0,
+        detectiveAnswers: {},
+        w6CaseIdx: 0,
+        w6ActiveKey: `quien`,
+        w6Solved: { 0: [], 1: [] },
+        w6Feedback: ``
+      };
+
+      async function saveState() {
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+            await window.notebookAppApi.setAppState(appState);
+          }
+        } catch (err) {
+          // Safe fallback if host shim is absent
+        }
+      }
+
+      // ------------------------------------------------------------------
+      // 3. RENDER FUNCTIONS
+      // ------------------------------------------------------------------
+      function updateHeaderStats() {
+        const fcEl = document.getElementById(`stat-flashcards`);
+        if (fcEl) fcEl.textContent = appState.fcMastered.length + ` / ` + FLASHCARDS.length;
+
+        const detCorrect = DETECTIVE_HEADLINES.filter(function (h) {
+          return appState.detectiveAnswers[h.id] === h.answer;
+        }).length;
+        const detEl = document.getElementById(`stat-headlines`);
+        if (detEl) detEl.textContent = detCorrect + ` / ` + DETECTIVE_HEADLINES.length;
+
+        const w6Count = (appState.w6Solved[0] ? appState.w6Solved[0].length : 0) +
+                        (appState.w6Solved[1] ? appState.w6Solved[1].length : 0);
+        const w6El = document.getElementById(`stat-w6`);
+        if (w6El) w6El.textContent = w6Count + ` / 12`;
+      }
+
+      function renderCompass() {
+        const blockKey = appState.compassBlock || `informacion`;
+        const data = COMPASS_DATA[blockKey];
+        const panel = document.getElementById(`compass-detail-panel`);
+        if (panel && data) {
+          panel.innerHTML = `
+            <span class="tag ${data.tagClass}">${data.tag}</span>
+            <h3 class="subhead" style="margin-top: var(--space-sm);">${data.title}</h3>
+            <p style="margin-top: var(--space-sm);">${data.summary}</p>
+            <div style="display: grid; gap: var(--space-sm); margin-top: var(--space-md); border-top: var(--hairline); padding-top: var(--space-md);">
+              <div><span class="label">Intención:</span> <span>${data.intencion}</span></div>
+              <div><span class="label">Persona gramatical:</span> <span>${data.persona}</span></div>
+              <div><span class="label">Subgéneros:</span> <span>${data.subgeneros}</span></div>
+            </div>
+          `;
+        }
+
+        const needle = document.getElementById(`compass-needle`);
+        if (needle) {
+          const angle = blockKey === `informacion` ? -45 : (blockKey === `opinion` ? 45 : 0);
+          needle.setAttribute(`transform`, `rotate(` + angle + ` 320 42)`);
+        }
+
+        document.querySelectorAll(`[data-compass-btn]`).forEach(function (btn) {
+          const active = btn.getAttribute(`data-compass-btn`) === blockKey;
+          btn.classList.toggle(`btn-active`, active);
+          btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+        });
+      }
+
+      function renderTable() {
+        const tbody = document.getElementById(`comp-table-body`);
+        const table = document.getElementById(`comp-table`);
+        if (!tbody || !table) return;
+
+        const activeCol = appState.compassBlock;
+        table.querySelectorAll(`thead th[data-col]`).forEach(function (th) {
+          th.classList.toggle(`col-highlight`, th.getAttribute(`data-col`) === activeCol);
+        });
+
+        const rows = appState.tableCriterion === `all`
+          ? TABLE_ROWS
+          : TABLE_ROWS.filter(function (r) { return r.id === appState.tableCriterion; });
+
+        const cols = [`informacion`, `mixto`, `opinion`];
+        tbody.innerHTML = rows.map(function (row) {
+          const cellsHtml = cols.map(function (colKey) {
+            const cellId = row.id + `-` + colKey;
+            const isHighlighted = colKey === activeCol ? `col-highlight` : ``;
+            const isRevealed = !appState.tableQuizMode || Boolean(appState.tableRevealed[cellId]);
+            if (isRevealed) {
+              return `<td class="${isHighlighted}">${row[colKey]}</td>`;
+            }
+            return `<td class="${isHighlighted}"><button type="button" class="quiz-cell-btn" data-reveal-cell="${cellId}">Comprobar respuesta</button></td>`;
+          }).join(``);
+
+          return `<tr><th scope="row">${row.label}</th>${cellsHtml}</tr>`;
+        }).join(``);
+
+        document.querySelectorAll(`[data-crit-filter]`).forEach(function (btn) {
+          const active = btn.getAttribute(`data-crit-filter`) === appState.tableCriterion;
+          btn.classList.toggle(`btn-active`, active);
+        });
+
+        const quizBtn = document.getElementById(`toggle-table-quiz`);
+        if (quizBtn) {
+          quizBtn.classList.toggle(`btn-sage-active`, appState.tableQuizMode);
+          quizBtn.setAttribute(`aria-pressed`, appState.tableQuizMode ? `true` : `false`);
+          quizBtn.textContent = appState.tableQuizMode ? `Mostrar todas las respuestas` : `Modo repaso: ocultar respuestas`;
+        }
+      }
+
+      function renderSubgenrePart(subKey) {
+        const idx = appState.subParts[subKey] || 0;
+        const part = SUBGENRE_PARTS[subKey][idx];
+        const detailEl = document.getElementById(`detail-` + subKey);
+        if (detailEl && part) {
+          const w6Html = part.w6
+            ? `<div class="w6-grid">${part.w6.map(function (q) { return `<span class="tag">${q}</span>`; }).join(``)}</div>`
+            : ``;
+          detailEl.innerHTML = `
+            <strong style="font-family: var(--font-headline); font-weight: 600;">${part.title}</strong>
+            <p style="margin-top: var(--space-xs); margin-bottom: 0;">${part.desc}</p>
+            ${w6Html}
+          `;
+        }
+
+        const tabWrap = document.querySelector(`[data-part-tabs="` + subKey + `"]`);
+        if (tabWrap) {
+          tabWrap.querySelectorAll(`[data-part]`).forEach(function (btn) {
+            const pIdx = Number(btn.getAttribute(`data-part`));
+            const active = pIdx === idx;
+            btn.classList.toggle(`btn-active`, active);
+            btn.classList.toggle(`is-selected`, active);
+            btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+          });
+        }
+      }
+
+      function getFilteredFlashcards() {
+        const ordered = appState.fcOrder
+          .map(function (id) { return FLASHCARDS.find(function (c) { return c.id === id; }); })
+          .filter(Boolean);
+        if (appState.fcFilter === `mastered`) {
+          return ordered.filter(function (c) { return appState.fcMastered.indexOf(c.id) !== -1; });
+        }
+        if (appState.fcFilter === `pending`) {
+          return ordered.filter(function (c) { return appState.fcMastered.indexOf(c.id) === -1; });
+        }
+        return ordered;
+      }
+
+      function renderFlashcards() {
+        const list = getFilteredFlashcards();
+        const stage = document.getElementById(`flashcard-stage`);
+        const counter = document.getElementById(`fc-counter`);
+
+        document.querySelectorAll(`[data-fc-filter]`).forEach(function (btn) {
+          const active = btn.getAttribute(`data-fc-filter`) === appState.fcFilter;
+          btn.classList.toggle(`btn-active`, active);
+        });
+
+        if (!stage) return;
+
+        if (list.length === 0) {
+          if (counter) counter.textContent = `0 de 0`;
+          stage.innerHTML = `
+            <div style="display: grid; gap: var(--space-md); place-items: start;">
+              <h3 class="subhead">No hay tarjetas en este filtro</h3>
+              <p class="lede" style="margin: 0;">Cambia el filtro para volver a ver las tarjetas disponibles.</p>
+              <button type="button" class="btn btn-primary" id="fc-reset-filter">Ver todas las tarjetas</button>
+            </div>
+          `;
+          return;
+        }
+
+        if (appState.fcIndex >= list.length) appState.fcIndex = 0;
+        const card = list[appState.fcIndex];
+        const isMastered = appState.fcMastered.indexOf(card.id) !== -1;
+
+        if (counter) counter.textContent = `Tarjeta ` + (appState.fcIndex + 1) + ` de ` + list.length;
+
+        const guessBtns = [
+          { key: `noticia`, label: `Noticia` },
+          { key: `entrevista`, label: `Entrevista` },
+          { key: `cronica`, label: `Crónica` },
+          { key: `columna`, label: `Artículo / Columna` }
+        ];
+
+        let backHtml = ``;
+        if (appState.fcFlipped) {
+          const guessed = appState.fcLastGuess;
+          const isCorrect = guessed === card.answer;
+          const verdictText = guessed
+            ? (isCorrect ? `Acierto: corresponde a ` + card.answerLabel : `No exactamente: corresponde a ` + card.answerLabel)
+            : `Respuesta: ` + card.answerLabel;
+          const boxClass = (guessed && !isCorrect) ? `flashcard-answer-box is-wrong` : `flashcard-answer-box`;
+
+          backHtml = `
+            <div class="${boxClass}">
+              <span class="label" style="color: var(--on-surface); font-weight: 600;">${verdictText}</span>
+              <p style="margin: 0;">${card.explanation}</p>
+              <div class="btn-row" style="margin-top: var(--space-sm);">
+                <button type="button" class="btn ${isMastered ? `btn-sage-active` : `btn-primary`}" data-fc-mark="mastered">
+                  ${isMastered ? `Marcada como dominada` : `La domino`}
+                </button>
+                <button type="button" class="btn" data-fc-mark="pending">Seguir repasando</button>
+              </div>
+            </div>
+          `;
+        }
+
+        stage.innerHTML = `
+          <div class="flashcard-meta">
+            <span class="tag ${isMastered ? `` : `tag-slate`}">${isMastered ? `Dominada` : `Pendiente de repaso`}</span>
+            <button type="button" class="btn" id="fc-flip-btn">${appState.fcFlipped ? `Ocultar respuesta` : `Girar tarjeta`}</button>
+          </div>
+          <div>
+            <span class="label">¿A qué subgénero corresponde este rasgo?</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs);">${card.trait}</h3>
+          </div>
+          <div class="flashcard-quote">${card.quote}</div>
+          <div class="btn-row" role="group" aria-label="Elegir subgénero">
+            ${guessBtns.map(function (b) {
+              const selected = appState.fcLastGuess === b.key;
+              return `<button type="button" class="btn ${selected ? `btn-active` : ``}" data-fc-guess="${b.key}">${b.label}</button>`;
+            }).join(``)}
+          </div>
+          ${backHtml}
+          <div style="display: flex; justify-content: space-between; gap: var(--space-md); border-top: var(--hairline); padding-top: var(--space-md);">
+            <button type="button" class="btn" id="fc-prev-btn">Anterior</button>
+            <button type="button" class="btn btn-primary" id="fc-next-btn">Siguiente</button>
+          </div>
+        `;
+      }
+
+      function renderTaller() {
+        const textData = TALLER_TEXTS[appState.tallerTextId] || TALLER_TEXTS.noticia;
+        const sheet = document.getElementById(`taller-article-sheet`);
+        const legend = document.getElementById(`inspector-legend`);
+
+        document.querySelectorAll(`[data-text-id]`).forEach(function (btn) {
+          btn.classList.toggle(`btn-active`, btn.getAttribute(`data-text-id`) === appState.tallerTextId);
+        });
+
+        document.querySelectorAll(`[data-cat-toggle]`).forEach(function (btn) {
+          const cat = btn.getAttribute(`data-cat-toggle`);
+          btn.setAttribute(`aria-pressed`, appState.tallerCats[cat] ? `true` : `false`);
+        });
+
+        const allAnnotations = [];
+        textData.headerTokens.forEach(function (ht) { allAnnotations.push(ht); });
+        textData.paragraphs.forEach(function (para) {
+          para.forEach(function (seg) {
+            if (seg.type === `token`) allAnnotations.push(seg);
+          });
+        });
+
+        function renderToken(tok) {
+          const isLit = Boolean(appState.tallerCats[tok.cat]);
+          const isSelected = appState.tallerSelectedAnno === tok.id;
+          const classes = `anno-token` + (isLit ? ` is-lit` : ``) + (isSelected ? ` is-selected` : ``);
+          return `<button type="button" class="${classes}" data-anno-id="${tok.id}" data-cat="${tok.cat}">${tok.text}</button>`;
+        }
+
+        const headerByField = {};
+        textData.headerTokens.forEach(function (ht) { headerByField[ht.field] = ht; });
+
+        const kickerHtml = headerByField.kicker ? renderToken(headerByField.kicker) : textData.kicker;
+        const titleHtml = headerByField.title ? renderToken(headerByField.title) : textData.title;
+        const subtitleHtml = headerByField.subtitle ? renderToken(headerByField.subtitle) : textData.subtitle;
+        const bylineHtml = headerByField.byline ? renderToken(headerByField.byline) : textData.byline;
+
+        const bodyHtml = textData.paragraphs.map(function (para) {
+          const inner = para.map(function (seg) {
+            return seg.type === `token` ? renderToken(seg) : seg.text;
+          }).join(``);
+          return `<p>${inner}</p>`;
+        }).join(``);
+
+        if (sheet) {
+          sheet.innerHTML = `
+            <span class="article-kicker">${kickerHtml}</span>
+            <h3 class="article-headline">${titleHtml}</h3>
+            <p class="article-subhead">${subtitleHtml}</p>
+            <div class="article-byline">${bylineHtml}</div>
+            <div class="article-body">${bodyHtml}</div>
+          `;
+        }
+
+        if (legend) {
+          legend.innerHTML = allAnnotations.map(function (a) {
+            const isSel = appState.tallerSelectedAnno === a.id;
+            return `
+              <button type="button" class="legend-item ${isSel ? `is-selected` : ``}" data-anno-id="${a.id}">
+                <span style="display: flex; align-items: center; gap: var(--space-sm);">
+                  <span class="swatch swatch-${a.cat}" aria-hidden="true"></span>
+                  <span class="label" style="color: var(--on-surface); font-weight: 600;">${a.title}</span>
+                </span>
+                <span style="font-size: 0.9rem; color: var(--on-surface-variant);">${a.text.slice(0, 72)}${a.text.length > 72 ? `…` : ``}</span>
+              </button>
+            `;
+          }).join(``);
+        }
+
+        const inspectorTitle = document.getElementById(`inspector-title`);
+        const inspectorDetail = document.getElementById(`inspector-detail`);
+        const activeAnno = allAnnotations.find(function (a) { return a.id === appState.tallerSelectedAnno; });
+        if (inspectorTitle && inspectorDetail) {
+          if (activeAnno) {
+            inspectorTitle.textContent = activeAnno.title;
+            inspectorDetail.innerHTML = `
+              <div style="font-style: italic; color: var(--on-surface-variant); margin-bottom: var(--space-sm);">«${activeAnno.text}»</div>
+              <p style="margin: 0;">${activeAnno.note}</p>
+            `;
+          } else {
+            inspectorTitle.textContent = `Pulsa un fragmento del texto`;
+            inspectorDetail.innerHTML = `<p style="margin: 0; color: var(--on-surface-variant);">Haz clic en cualquier parte resaltada o en un elemento del índice para leer su explicación didáctica.</p>`;
+          }
+        }
+      }
+
+      function renderDetective() {
+        const stage = document.getElementById(`detective-stage`);
+        const prog = document.getElementById(`detective-progress`);
+        if (!stage) return;
+
+        const idx = appState.detectiveIdx;
+        const total = DETECTIVE_HEADLINES.length;
+        const correctCount = DETECTIVE_HEADLINES.filter(function (h) {
+          return appState.detectiveAnswers[h.id] === h.answer;
+        }).length;
+
+        if (prog) prog.textContent = `Titular ` + Math.min(idx + 1, total) + ` de ` + total + ` · Aciertos: ` + correctCount;
+
+        if (idx >= total) {
+          const rows = DETECTIVE_HEADLINES.map(function (h) {
+            const userAns = appState.detectiveAnswers[h.id];
+            const ok = userAns === h.answer;
+            return `
+              <div style="border-bottom: var(--hairline); padding: var(--space-sm) 0; display: grid; gap: var(--space-xs);">
+                <div style="display: flex; justify-content: space-between; gap: var(--space-sm); align-items: baseline;">
+                  <strong>${h.headline}</strong>
+                  <span class="tag ${ok ? `` : `tag-clay`}">${ok ? `Acierto` : `Revisar`}</span>
+                </div>
+                <span class="label">${h.explanation}</span>
+              </div>
+            `;
+          }).join(``);
+          stage.innerHTML = `
+            <div style="display: grid; gap: var(--space-md);">
+              <h4 class="subhead">Resultado final: ${correctCount} de ${total} titulares clasificados correctamente</h4>
+              <div>${rows}</div>
+              <div><button type="button" class="btn btn-primary" id="detective-retry-btn">Practicar otra vez</button></div>
+            </div>
+          `;
+          return;
+        }
+
+        const item = DETECTIVE_HEADLINES[idx];
+        const chosen = appState.detectiveAnswers[item.id];
+        const options = [
+          { key: `noticia`, label: `Noticia` },
+          { key: `entrevista`, label: `Entrevista` },
+          { key: `cronica`, label: `Crónica` },
+          { key: `columna`, label: `Artículo / Columna` }
+        ];
+
+        let feedbackHtml = ``;
+        if (chosen) {
+          const ok = chosen === item.answer;
+          feedbackHtml = `
+            <div class="feedback-box ${ok ? `` : `is-error`}">
+              <strong>${ok ? `¡Correcto!` : `No exactamente.`}</strong>
+              <span>${item.explanation}</span>
+            </div>
+          `;
+        }
+
+        stage.innerHTML = `
+          <div style="display: grid; gap: var(--space-md);">
+            <div class="headline-challenge-card">
+              <span class="label">¿A qué subgénero pertenece este titular?</span>
+              <p class="headline-sample">${item.headline}</p>
+              <span class="label">Pista: ${item.clue}</span>
+            </div>
+            <div class="btn-row" role="group" aria-label="Clasificar titular">
+              ${options.map(function (o) {
+                return `<button type="button" class="btn ${chosen === o.key ? `btn-active` : ``}" data-det-choice="${o.key}">${o.label}</button>`;
+              }).join(``)}
+            </div>
+            ${feedbackHtml}
+            <div style="display: flex; justify-content: space-between; gap: var(--space-md);">
+              <button type="button" class="btn" id="detective-prev-btn" ${idx === 0 ? `disabled` : ``}>Anterior</button>
+              <button type="button" class="btn btn-primary" id="detective-next-btn" ${!chosen ? `disabled` : ``}>
+                ${idx === total - 1 ? `Ver resumen` : `Siguiente titular`}
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderW6() {
+        const stage = document.getElementById(`w6-stage`);
+        if (!stage) return;
+
+        const caseIdx = appState.w6CaseIdx;
+        const cData = W6_CASES[caseIdx];
+        const solvedList = appState.w6Solved[caseIdx] || [];
+        const activeKey = appState.w6ActiveKey;
+
+        document.querySelectorAll(`[data-w6-case]`).forEach(function (btn) {
+          btn.classList.toggle(`btn-active`, Number(btn.getAttribute(`data-w6-case`)) === caseIdx);
+        });
+
+        const wBtnsHtml = cData.questions.map(function (q) {
+          const done = solvedList.indexOf(q.key) !== -1;
+          const active = activeKey === q.key;
+          const cls = `btn w6-btn` + (active ? ` btn-active` : ``) + (done ? ` is-done` : ``);
+          return `<button type="button" class="${cls}" data-w6-key="${q.key}">${q.label}${done ? ` (Resuelta)` : ``}</button>`;
+        }).join(``);
+
+        const activeQ = cData.questions.find(function (q) { return q.key === activeKey; });
+        const showAbsentBtn = activeQ && activeQ.absentOk && solvedList.indexOf(activeQ.key) === -1;
+
+        const leadHtml = cData.segments.map(function (seg) {
+          if (!seg.w) {
+            return `<strong>${seg.text}</strong>`;
+          }
+          const isSolved = solvedList.indexOf(seg.w) !== -1;
+          const qObj = cData.questions.find(function (q) { return q.key === seg.w; });
+          const badge = isSolved && qObj ? `<span class="w6-frag-badge">[${qObj.label}]</span>` : ``;
+          return `<button type="button" class="w6-frag ${isSolved ? `is-solved` : ``}" data-w6-seg="${seg.id}">${seg.text}${badge}</button>`;
+        }).join(``);
+
+        const feedbackHtml = appState.w6Feedback
+          ? `<div class="feedback-box ${appState.w6Feedback.indexOf(`Prueba`) === 0 ? `is-error` : ``}">${appState.w6Feedback}</div>`
+          : ``;
+
+        stage.innerHTML = `
+          <div style="display: grid; gap: var(--space-md);">
+            <p class="lede" style="margin: 0;">${cData.instruction}</p>
+            <div>
+              <span class="label" style="margin-bottom: var(--space-xs);">Paso 1 · Elige una pregunta (resueltas: ${solvedList.length} / 6)</span>
+              <div class="w6-selector-grid" style="margin-top: var(--space-xs);">${wBtnsHtml}</div>
+            </div>
+            <div>
+              <span class="label">Paso 2 · Pulsa el fragmento de la entradilla que responde a <strong>${activeQ ? activeQ.label : ``}</strong></span>
+              <div class="w6-lead-box" style="margin-top: var(--space-xs);">${leadHtml}</div>
+            </div>
+            ${showAbsentBtn ? `<div><button type="button" class="btn" id="w6-absent-btn">Esta pregunta no aparece en esta entradilla</button></div>` : ``}
+            ${feedbackHtml}
+            <div style="display: flex; justify-content: flex-end;">
+              <button type="button" class="btn" id="w6-reset-case">Reiniciar este caso</button>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderAll() {
+        updateHeaderStats();
+        renderCompass();
+        renderTable();
+        renderSubgenrePart(`noticia`);
+        renderSubgenrePart(`entrevista`);
+        renderSubgenrePart(`cronica`);
+        renderSubgenrePart(`columna`);
+        renderFlashcards();
+        renderTaller();
+        renderDetective();
+        renderW6();
+      }
+
+      // ------------------------------------------------------------------
+      // 4. EVENT DELEGATION & INTERACTION LOGIC
+      // ------------------------------------------------------------------
+      function selectCompass(key) {
+        appState.compassBlock = key;
+        renderCompass();
+        renderTable();
+        saveState();
+      }
+
+      document.addEventListener(`click`, function (e) {
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+
+        // Reset progress (two-step inline confirmation)
+        const resetBtn = target.closest(`#reset-progress-btn`);
+        if (resetBtn) {
+          if (resetBtn.dataset.armed !== `true`) {
+            resetBtn.dataset.armed = `true`;
+            resetBtn.textContent = `Pulsa otra vez para reiniciar`;
+            setTimeout(function () {
+              if (resetBtn.dataset.armed === `true`) {
+                resetBtn.dataset.armed = `false`;
+                resetBtn.textContent = `Reiniciar progreso`;
+              }
+            }, 4000);
+            return;
+          }
+          resetBtn.dataset.armed = `false`;
+          resetBtn.textContent = `Reiniciar progreso`;
+          appState.fcMastered = [];
+          appState.fcIndex = 0;
+          appState.fcFlipped = false;
+          appState.fcLastGuess = null;
+          appState.detectiveIdx = 0;
+          appState.detectiveAnswers = {};
+          appState.w6Solved = { 0: [], 1: [] };
+          appState.w6Feedback = ``;
+          appState.tableRevealed = {};
+          renderAll();
+          saveState();
+          return;
+        }
+
+        // Compass selection
+        const compassBtn = target.closest(`[data-compass-btn]`);
+        if (compassBtn) {
+          selectCompass(compassBtn.getAttribute(`data-compass-btn`));
+          return;
+        }
+        const compassNode = target.closest(`[data-compass-block]`);
+        if (compassNode) {
+          selectCompass(compassNode.getAttribute(`data-compass-block`));
+          return;
+        }
+
+        // Table criteria filter
+        const critBtn = target.closest(`[data-crit-filter]`);
+        if (critBtn) {
+          appState.tableCriterion = critBtn.getAttribute(`data-crit-filter`);
+          renderTable();
+          saveState();
+          return;
+        }
+
+        // Table quiz mode toggle
+        if (target.closest(`#toggle-table-quiz`)) {
+          appState.tableQuizMode = !appState.tableQuizMode;
+          if (appState.tableQuizMode) appState.tableRevealed = {};
+          renderTable();
+          saveState();
+          return;
+        }
+
+        // Table reveal cell
+        const revealBtn = target.closest(`[data-reveal-cell]`);
+        if (revealBtn) {
+          const cid = revealBtn.getAttribute(`data-reveal-cell`);
+          appState.tableRevealed[cid] = true;
+          renderTable();
+          saveState();
+          return;
+        }
+
+        // Subgenre structure part
+        const partBtn = target.closest(`[data-sub][data-part]`);
+        if (partBtn) {
+          const sub = partBtn.getAttribute(`data-sub`);
+          const part = Number(partBtn.getAttribute(`data-part`));
+          appState.subParts[sub] = part;
+          renderSubgenrePart(sub);
+          saveState();
+          return;
+        }
+
+        // Flashcards filters & actions
+        const fcFilterBtn = target.closest(`[data-fc-filter]`);
+        if (fcFilterBtn) {
+          appState.fcFilter = fcFilterBtn.getAttribute(`data-fc-filter`);
+          appState.fcIndex = 0;
+          appState.fcFlipped = false;
+          appState.fcLastGuess = null;
+          renderFlashcards();
+          saveState();
+          return;
+        }
+        if (target.closest(`#fc-reset-filter`)) {
+          appState.fcFilter = `all`;
+          appState.fcIndex = 0;
+          renderFlashcards();
+          saveState();
+          return;
+        }
+        if (target.closest(`#fc-shuffle-btn`)) {
+          const arr = appState.fcOrder.slice();
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+          }
+          appState.fcOrder = arr;
+          appState.fcIndex = 0;
+          appState.fcFlipped = false;
+          appState.fcLastGuess = null;
+          renderFlashcards();
+          saveState();
+          return;
+        }
+        if (target.closest(`#fc-flip-btn`)) {
+          appState.fcFlipped = !appState.fcFlipped;
+          renderFlashcards();
+          return;
+        }
+        const fcGuessBtn = target.closest(`[data-fc-guess]`);
+        if (fcGuessBtn) {
+          appState.fcLastGuess = fcGuessBtn.getAttribute(`data-fc-guess`);
+          appState.fcFlipped = true;
+          renderFlashcards();
+          return;
+        }
+        const fcMarkBtn = target.closest(`[data-fc-mark]`);
+        if (fcMarkBtn) {
+          const list = getFilteredFlashcards();
+          const card = list[appState.fcIndex];
+          if (!card) return;
+          const action = fcMarkBtn.getAttribute(`data-fc-mark`);
+          const pos = appState.fcMastered.indexOf(card.id);
+          if (action === `mastered` && pos === -1) {
+            appState.fcMastered.push(card.id);
+          } else if (action === `pending` && pos !== -1) {
+            appState.fcMastered.splice(pos, 1);
+          }
+          updateHeaderStats();
+          renderFlashcards();
+          saveState();
+          return;
+        }
+        if (target.closest(`#fc-prev-btn`)) {
+          const list = getFilteredFlashcards();
+          if (list.length > 0) {
+            appState.fcIndex = (appState.fcIndex - 1 + list.length) % list.length;
+            appState.fcFlipped = false;
+            appState.fcLastGuess = null;
+            renderFlashcards();
+          }
+          return;
+        }
+        if (target.closest(`#fc-next-btn`)) {
+          const list = getFilteredFlashcards();
+          if (list.length > 0) {
+            appState.fcIndex = (appState.fcIndex + 1) % list.length;
+            appState.fcFlipped = false;
+            appState.fcLastGuess = null;
+            renderFlashcards();
+          }
+          return;
+        }
+
+        // Taller text switch & layers
+        const textBtn = target.closest(`[data-text-id]`);
+        if (textBtn) {
+          appState.tallerTextId = textBtn.getAttribute(`data-text-id`);
+          appState.tallerSelectedAnno = null;
+          renderTaller();
+          saveState();
+          return;
+        }
+        const catBtn = target.closest(`[data-cat-toggle]`);
+        if (catBtn) {
+          const cat = catBtn.getAttribute(`data-cat-toggle`);
+          appState.tallerCats[cat] = !appState.tallerCats[cat];
+          renderTaller();
+          saveState();
+          return;
+        }
+        if (target.closest(`#taller-all-on`)) {
+          appState.tallerCats = { estructura: true, persona: true, tiempo: true, lexico: true };
+          renderTaller();
+          saveState();
+          return;
+        }
+        if (target.closest(`#taller-all-off`)) {
+          appState.tallerCats = { estructura: false, persona: false, tiempo: false, lexico: false };
+          renderTaller();
+          saveState();
+          return;
+        }
+        const annoBtn = target.closest(`[data-anno-id]`);
+        if (annoBtn) {
+          appState.tallerSelectedAnno = annoBtn.getAttribute(`data-anno-id`);
+          renderTaller();
+          return;
+        }
+
+        // Detective de Titulares
+        const detChoice = target.closest(`[data-det-choice]`);
+        if (detChoice) {
+          const item = DETECTIVE_HEADLINES[appState.detectiveIdx];
+          if (item) {
+            appState.detectiveAnswers[item.id] = detChoice.getAttribute(`data-det-choice`);
+            updateHeaderStats();
+            renderDetective();
+            saveState();
+          }
+          return;
+        }
+        if (target.closest(`#detective-prev-btn`)) {
+          if (appState.detectiveIdx > 0) {
+            appState.detectiveIdx -= 1;
+            renderDetective();
+          }
+          return;
+        }
+        if (target.closest(`#detective-next-btn`)) {
+          if (appState.detectiveIdx < DETECTIVE_HEADLINES.length) {
+            appState.detectiveIdx += 1;
+            renderDetective();
+            saveState();
+          }
+          return;
+        }
+        if (target.closest(`#detective-reset`) || target.closest(`#detective-retry-btn`)) {
+          appState.detectiveIdx = 0;
+          appState.detectiveAnswers = {};
+          updateHeaderStats();
+          renderDetective();
+          saveState();
+          return;
+        }
+
+        // 6W Challenge
+        const w6CaseBtn = target.closest(`[data-w6-case]`);
+        if (w6CaseBtn) {
+          appState.w6CaseIdx = Number(w6CaseBtn.getAttribute(`data-w6-case`));
+          appState.w6ActiveKey = `quien`;
+          appState.w6Feedback = ``;
+          renderW6();
+          saveState();
+          return;
+        }
+        const w6KeyBtn = target.closest(`[data-w6-key]`);
+        if (w6KeyBtn) {
+          appState.w6ActiveKey = w6KeyBtn.getAttribute(`data-w6-key`);
+          appState.w6Feedback = ``;
+          renderW6();
+          return;
+        }
+        const w6SegBtn = target.closest(`[data-w6-seg]`);
+        if (w6SegBtn) {
+          const segId = w6SegBtn.getAttribute(`data-w6-seg`);
+          const cIdx = appState.w6CaseIdx;
+          const cData = W6_CASES[cIdx];
+          const activeQ = cData.questions.find(function (q) { return q.key === appState.w6ActiveKey; });
+          if (!activeQ) return;
+
+          if (activeQ.expectedIds.indexOf(segId) !== -1) {
+            if (appState.w6Solved[cIdx].indexOf(activeQ.key) === -1) {
+              appState.w6Solved[cIdx].push(activeQ.key);
+            }
+            appState.w6Feedback = `<strong>¡Bien localizado!</strong> ` + activeQ.explanation;
+            const nextUnsolved = cData.questions.find(function (q) {
+              return appState.w6Solved[cIdx].indexOf(q.key) === -1;
+            });
+            if (nextUnsolved) appState.w6ActiveKey = nextUnsolved.key;
+            updateHeaderStats();
+            renderW6();
+            saveState();
+          } else {
+            appState.w6Feedback = `Prueba de nuevo: ese fragmento no responde a <strong>${activeQ.label}</strong>.`;
+            renderW6();
+          }
+          return;
+        }
+        if (target.closest(`#w6-absent-btn`)) {
+          const cIdx = appState.w6CaseIdx;
+          const cData = W6_CASES[cIdx];
+          const activeQ = cData.questions.find(function (q) { return q.key === appState.w6ActiveKey; });
+          if (activeQ && activeQ.absentOk) {
+            if (appState.w6Solved[cIdx].indexOf(activeQ.key) === -1) {
+              appState.w6Solved[cIdx].push(activeQ.key);
+            }
+            appState.w6Feedback = `<strong>¡Muy bien observado!</strong> ` + activeQ.explanation;
+            updateHeaderStats();
+            renderW6();
+            saveState();
+          }
+          return;
+        }
+        if (target.closest(`#w6-reset-case`)) {
+          appState.w6Solved[appState.w6CaseIdx] = [];
+          appState.w6ActiveKey = `quien`;
+          appState.w6Feedback = ``;
+          updateHeaderStats();
+          renderW6();
+          saveState();
+          return;
+        }
+      });
+
+      // Keyboard accessibility for SVG role="button" elements
+      document.addEventListener(`keydown`, function (e) {
+        if (e.key !== `Enter` && e.key !== ` `) return;
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+        if (target.matches(`.compass-node, .layer-btn`)) {
+          e.preventDefault();
+          target.dispatchEvent(new MouseEvent(`click`, { bubbles: true }));
+        }
+      });
+
+      // ------------------------------------------------------------------
+      // 5. INITIALIZATION WITH SHIM STATE RESTORATION
+      // ------------------------------------------------------------------
+      async function initApp() {
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+            const saved = await window.notebookAppApi.getAppState();
+            if (saved && typeof saved === `object`) {
+              appState = Object.assign(appState, saved);
+            }
+          }
+        } catch (err) {
+          // Proceed with defaults
+        }
+
+        renderAll();
+
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+            window.notebookAppApi.notifyAppReady();
+          }
+        } catch (err) {
+          // Ignore if shim is unavailable
+        }
+      }
+
+      if (document.readyState === `loading`) {
+        document.addEventListener(`DOMContentLoaded`, initApp);
+      } else {
+        initApp();
+      }
+    })();
+  </script>
+</body>
+</html>
